@@ -27,6 +27,8 @@ FrameHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
 
 	var that = this;
 	
+    // Amanda - problem here: checking that dropped item has frames (3D won't)
+    // dummy frames? -- empty
 	if (droppable.frames) {
 		
 

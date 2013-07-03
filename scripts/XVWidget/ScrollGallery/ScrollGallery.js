@@ -176,7 +176,7 @@ ScrollGallery.prototype.moveContents = function (Slider, that) {
 
 
 
-
+/*
 //******************************************************
 //  Sets contents.
 //******************************************************
@@ -193,7 +193,7 @@ ScrollGallery.prototype.addContentToZippy = function (header, contents) {
 
 	this.updateCSS();
 }
-
+*/
 
 
 //******************************************************

@@ -81,6 +81,7 @@ var Modal = function (args) {
 	// FOR PROTOTYPING PURPOSES
 	//----------------------------------	
 	this.scanDataPaths = TESTSCANDATA;
+    this.slicerDataPaths = TESTSLICERDATA;
 
 
 

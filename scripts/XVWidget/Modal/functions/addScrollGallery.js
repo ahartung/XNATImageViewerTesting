@@ -59,28 +59,20 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	var thumbContentsWidth = utils.css.dims(thumbContents, 'width');
 	
 	
-	utils.array.forEach(that.scanDataPaths, function(dataPath) { 	
+	utils.array.forEach(that.slicerDataPaths, function(dataPath) { 	
 		//--------------------------------
 		// ********AMANDA CODE HERE*******
 		//  
 		//  ScanThumbnail should now be slicer thumbnail
 		//--------------------------------
-		
-
-		
-		// REPLACE THE BELOW LINE....
-		that.dragDropThumbnails.push(new ScanThumbnail(dataPath, {	
-			  	
-		// WITH THIS BELOW LINE...
-		// that.dragDropThumbnails.push(new SlicerThumbnail(dataPath, {		
+		that.dragDropThumbnails.push(new SlicerThumbnail(dataPath, {		
 		  	parent: thumbContents,  	
 		  	widgetCSS: {
 		  		position: "relative",
 		  		left: 0,
 		  		width: thumbContentsWidth
 		  	},
-		  	'onloadCallbacks' : [function() { 
-				// KEEP THUS
+		  	'onloadCallbacks' : [function() {
 		  		that.ScrollGallery.moveContents(that.ScrollGallery.ContentSlider, that.ScrollGallery);
 		  	}]			  	
 		}));	

@@ -1,6 +1,5 @@
 //******************************************************
 //  Init
-//	
 //******************************************************
 goog.require('goog.fx.DragDrop');
 goog.require('goog.fx.DragDropGroup');
@@ -20,6 +19,7 @@ Viewer = function (args) {
 	
 	
 	/**
+     * object currently in view
 	 * @type {string}
 	 * @private
 	 */
@@ -38,13 +38,10 @@ Viewer = function (args) {
 	this.getDroppable = function() {
 		return this.currDroppableId_;
 	}
-
-
-
-
 	
     this.setHoverEvents();
 }
+
 goog.inherits(Viewer, XVWidget);
 goog.inherits(Viewer, goog.fx.DragDrop);
 

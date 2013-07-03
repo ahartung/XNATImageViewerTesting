@@ -119,7 +119,22 @@ ScanViewer.prototype.addViewPlaneMenu = function () {
 					
 				} 
 			});		
-		}	
+		
+        // Amanda
+        } else { // handle 3D viewing
+            
+            goog.events.listen(icon, goog.events.EventType.CLICK, function(event) { 
+				
+				utils.dom.stopPropagation(event); 
+				
+				if (that.FrameHolder.frames.length > 0) {
+					
+					console.log('handle 3D viewing');
+					that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
+					
+				} 
+			});		
+        }
 	})
 
 

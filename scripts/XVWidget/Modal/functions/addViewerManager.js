@@ -385,6 +385,15 @@ Modal.prototype.addViewerManager = function () {
 						parent: oldViewer.widget.parentNode,
 					})
 					newViewer.updateCSS(utils.css.dims(oldViewer.widget));
+                    break;
+                
+                // Amanda
+                case GLOBALS.classNames.SlicerThumbnail:
+                    newViewer = new SlicerViewer({
+						parent: oldViewer.widget.parentNode,
+					})
+					newViewer.updateCSS(utils.css.dims(oldViewer.widget));
+                    break;
 
 			}
 			
