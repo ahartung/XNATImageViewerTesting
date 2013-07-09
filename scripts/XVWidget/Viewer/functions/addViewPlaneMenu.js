@@ -3,7 +3,7 @@
 //
 //******************************************************
 
-goog.require('goog.async.Delay');
+//goog.provide('goog.async.Delay');
 
 Viewer.prototype.addViewPlaneMenu = function () {
 
@@ -60,7 +60,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 		left: iconDimSmall * 1.5,
 		height: iconDimSmall, 
 		width: spacer * iconVals.length,
-		cursor: "pointer",
+		cursor: "pointer"
 		//backgroundColor: 'rgba(200,100,100,.5)'
 	});	
 	// For onclick purposes

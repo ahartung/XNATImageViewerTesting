@@ -1,14 +1,15 @@
-goog.provide('FrameSlider');
+
 goog.require('utils.gui.GenericSlider'); 
 
+goog.provide('FrameSlider');
 
 /**
  * @constructor
  * @extends {utils.gui.GenericSlider}
  */
-FrameSlider = function (arguments) {	
+FrameSlider = function (args) {	
 
-	goog.base(this, arguments);	
+	goog.base(this, args);	
 
 	var that = this;
 	

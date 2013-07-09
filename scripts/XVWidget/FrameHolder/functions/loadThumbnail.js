@@ -27,12 +27,12 @@ FrameHolder.prototype.loadCurrViewPlane = function () {
 
 FrameHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
 	var that = this;
-	
+	console.log("load thumbnail")
     // Amanda - problem here: checking that dropped item has frames (3D won't)
     // dummy frames? -- empty
 	if (droppable.frames) { // 2D
 		
-
+		console.log("ere")
 		var that = this;		
 		this.currDroppable = droppable;		
 		this.currViewPlane = (viewPlane) ? viewPlane : "sagittal";

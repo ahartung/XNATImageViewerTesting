@@ -2,17 +2,18 @@
 //  Init
 //	
 //******************************************************
-goog.require(GLOBALS.classNames.Viewer);
+goog.require('Viewer');
 
-goog.provide(GLOBALS.classNames.ScanViewer);
+goog.provide('ScanViewer');
 /**
  * @constructor
  * @extends {Viewer}
  */
 ScanViewer = function (args) {
 						
-	//Viewer.call(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
-	goog.base(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
+	Viewer.call(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
+	//goog.base(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
+	
 
 	var that = this;
 	
@@ -23,7 +24,7 @@ ScanViewer = function (args) {
 	 /**
 	  * @type {FrameHolder}
 	  */
-	 this.FrameHolder = new FrameHolder({
+	this.FrameHolder = new FrameHolder({
 	 	parent: this.widget,
 	 	"border-width": 0
 	 });
@@ -159,7 +160,7 @@ goog.inherits(ScanViewer, Viewer);
 
 
 
-/*
+/**
  * @type {object}
  * @protected
  */

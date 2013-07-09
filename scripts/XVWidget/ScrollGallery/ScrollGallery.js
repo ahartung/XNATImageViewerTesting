@@ -3,13 +3,9 @@
 //
 //******************************************************
 
-goog.require('goog.ui.AnimatedZippy'); 
-goog.require('goog.events'); 
-goog.require('goog.dom'); 
 
-
-goog.require(GLOBALS.classNames.XVWidget);
-goog.provide(GLOBALS.classNames.ScrollGallery);
+goog.require('XVWidget');
+goog.provide('ScrollGallery');
 /**
  * @constructor
  * @extends {XVWidget}
@@ -39,6 +35,9 @@ ScrollGallery = function (args) {
 		width: ScrollAreaWidth,
 		left: utils.css.dims(this.widget, 'width') - ScrollAreaWidth
 	});
+	/**
+	 * @return Element
+	 */
 	this.getScrollArea = function () {
 		return this.ScrollArea;
 	}
@@ -47,12 +46,13 @@ ScrollGallery = function (args) {
 	//-------------------------------
 	// WIDGET
 	//-------------------------------	 
-	 utils.css.setCSS(this.widget, utils.dom.mergeArgs(this.args.widgetCSS, args.widgetCSS));
-
+	 utils.css.setCSS(this.widget, utils.dom.mergeArgs(this.args.widgetCSS, 
+	 														args.widgetCSS));
 
 	//-------------------------------
 	// THE SLIDER
 	//-------------------------------	
+							 
 	this.ContentSlider = new utils.gui.GenericSlider({
 		parent: this.widget,
 		className: "ContentSlider",
@@ -308,7 +308,7 @@ ScrollGallery.prototype.addZippy = function(zKey) {
 	content = utils.dom.makeElement("div", this.ScrollArea, "Content_" + zKey, {
 		width: utils.css.dims(this.ScrollArea, 'width'),
 		top: headerHeight,
-		left: headerLeft,
+		left: headerLeft
 		//backgroundColor: "rgba(0,0,0,1)",
 	})		
 	this.Scrollables[zKey]['content'] = content;
@@ -365,10 +365,10 @@ ScrollGallery.prototype.addZippy = function(zKey) {
 	
 	// set defaults
 	utils.css.setCSS(header, {
-		backgroundColor: bgDefault,
+		backgroundColor: bgDefault
 	})
 	utils.css.setCSS(expandIcon, {
-		color: iconDefault,
+		color: iconDefault
 	})
 	
 	
@@ -389,7 +389,7 @@ ScrollGallery.prototype.addZippy = function(zKey) {
 	goog.events.listen(header, goog.events.EventType.MOUSEOVER, goog.partial(applyHover, {
    		backgroundColor: bgHighlight,
    		'iconColor' : {
-   			color: iconHighlight,
+   			color: iconHighlight
    		}
    }));
 	                   
@@ -397,7 +397,7 @@ ScrollGallery.prototype.addZippy = function(zKey) {
 	goog.events.listen(header, goog.events.EventType.MOUSEOUT, goog.partial(applyHover, {
    		backgroundColor: bgDefault,
    		'iconColor' : {
-   			color: iconDefault,
+   			color: iconDefault
    		}
    }));	
 

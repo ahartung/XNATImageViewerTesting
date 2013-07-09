@@ -1,9 +1,8 @@
-goog.require('goog.ui.Component');
-goog.require('goog.dom');
-
-ModalOnload = function () {
 
 
+var ModalOnload = function () {
+
+	
 	// Prevents Webkit-based browsers
 	// from responding to page scrolling, two finger gestures
 	// on Mac trackpads
@@ -12,10 +11,10 @@ ModalOnload = function () {
 	})
 	
 	GLOBALS.ModalID = "thuravingal";
-
+	
 	var _ooo = new Modal({
 		parent : document.body
 	});	
 	
-	
+		
 }

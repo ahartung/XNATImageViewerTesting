@@ -1,7 +1,7 @@
 //******************************************************
 //  Manage Active Thumbs
 //******************************************************
-/*
+/**
  * @type {function(XVViewer, XVThumbnail)}
  * @ protected
  */
@@ -23,7 +23,6 @@ Modal.prototype.manageActiveThumbs = function () {
 		var found = false;
 		utils.array.forEach(droppableIds, function(id) {
 			if (thumb.widget.id === id) {
-				console.log("Setting active", id)
 				thumb.setActive(true);
 				found = true;
 			}	

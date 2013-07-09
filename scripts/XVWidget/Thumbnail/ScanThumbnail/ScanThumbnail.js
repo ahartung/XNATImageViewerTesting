@@ -4,12 +4,12 @@
 //
 //*******************************************************
 
-goog.require('goog.array');
-goog.require(GLOBALS.classNames.Thumbnail);
+//goog.require('goog.array');
+goog.require('Thumbnail');
 
 
 
-goog.provide(GLOBALS.classNames.ScanThumbnail);
+goog.provide('ScanThumbnail');
 
 
 
@@ -39,6 +39,7 @@ ScanThumbnail = function (scanData, args) {
 	* @type {Image}
 	* @protected
 	*/	
+
 	this.ThumbnailImage.src = this.scanData.sagittalPaths[Math.round(this.scanData.sagittalPaths.length/2)]; 
 	
 	
@@ -64,6 +65,8 @@ ScanThumbnail = function (scanData, args) {
 				'src' : pathName
 			}
 		}); 
+		
+		console.log(that.frames)
 
 	}
 

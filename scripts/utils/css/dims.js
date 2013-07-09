@@ -1,7 +1,7 @@
 //******************************************************
 //  
 //******************************************************
-goog.require('goog.style');
+goog.provide('utils.css.dims')
 
 utils.css.dims = function (elt, arg1) {
 	
@@ -45,7 +45,7 @@ utils.css.dims = function (elt, arg1) {
 
 		var posObj = {
 			left: utils.convert.toInt(elt.style.left) || p.left,
-			top: utils.convert.toInt(elt.style.top) || p.top,
+			top: utils.convert.toInt(elt.style.top) || p.top
 		};
 		retObj = utils.dom.mergeArgs(retObj, posObj);		
 		
@@ -62,3 +62,5 @@ utils.css.dims = function (elt, arg1) {
 	
 	}
 }
+
+goog.exportSymbol('utils.css.dims', utils.css.dims);
