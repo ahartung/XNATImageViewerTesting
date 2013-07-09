@@ -5,7 +5,7 @@
 
 goog.require('goog.async.Delay');
 
-ScanViewer.prototype.addViewPlaneMenu = function () {
+Viewer.prototype.addViewPlaneMenu = function () {
 
 	var that = this;	
 	var iconStartLeft = 7;
@@ -110,14 +110,19 @@ ScanViewer.prototype.addViewPlaneMenu = function () {
 			
 			goog.events.listen(icon, goog.events.EventType.CLICK, function(event) { 
 				
-				utils.dom.stopPropagation(event); 
+				utils.dom.stopPropagation(event);
+				
+                console.log('handle 2D viewing'); 
 				
 				if (that.FrameHolder.frames.length > 0) {
 					
+					console.log('2D -> 2D');
 					that.FrameHolder.loadDroppable(that.FrameHolder.currDroppable, event.currentTarget.axis.toLowerCase());
 					that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
 					
-				} 
+				}
+                
+                // Amanda - handle 3D -> 2D
 			});		
 		
         // Amanda
@@ -125,14 +130,20 @@ ScanViewer.prototype.addViewPlaneMenu = function () {
             
             goog.events.listen(icon, goog.events.EventType.CLICK, function(event) { 
 				
-				utils.dom.stopPropagation(event); 
+				utils.dom.stopPropagation(event);
 				
+                console.log('handle 3D viewing');
+                
+                // if current object is a 2D object... do nothing?
+                // can we use the dicom way to render the volume?
 				if (that.FrameHolder.frames.length > 0) {
 					
-					console.log('handle 3D viewing');
+					console.log('2D -> 3D');
 					that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
 					
 				} 
+                
+                // Amanda - handle 3D -> 3D
 			});		
         }
 	})

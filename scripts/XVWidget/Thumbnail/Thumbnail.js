@@ -68,7 +68,10 @@ Thumbnail = function (args) {
 		top: GLOBALS.ThumbnailImageMarginX*1,
 		left: this.args.ThumbnailImageCSS.width + GLOBALS.ThumbnailImageMarginX*2,
 		fontSize: 11,		
-	    fontFamily: 'Helvetica,"Helvetica neue", Arial, sans-serif'
+	    fontFamily: 'Helvetica,"Helvetica neue", Arial, sans-serif',
+        overflow: 'hidden',         // these make the
+        textOverflow: 'ellipsis',   // displayed name
+        whiteSpace: 'nowrap',       // have ... if too long
 	});
 	utils.dom.addClass(this.ThumbnailCanvas, GLOBALS.classNames.ThumbnailCanvas);
 

@@ -1,4 +1,4 @@
-FrameHolder.prototype.loadCurrViewPlane = function () {
+ThreeDHolder.prototype.loadCurrViewPlane = function () {
 	
 	var that = this;
 	var cCount = that.currDroppable[that.currViewPlane + "FrameCount"];
@@ -25,7 +25,7 @@ FrameHolder.prototype.loadCurrViewPlane = function () {
 
 
 
-FrameHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
+ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
 	var that = this;
 	
     // Amanda - problem here: checking that dropped item has frames (3D won't)
@@ -108,9 +108,9 @@ FrameHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
         
         // set menu option to be 3d
         
-        //loadFileOnDrop(droppable.scanData.filePath, this.Viewer.widget.id);
+        loadFileOnDrop(droppable.scanData.filePath, this.widget.id);
         
-//		throw "FrameHolder.js: Invalid Droppable for FrameHolder."
+//		throw "ThreeDHolder.js: Invalid Droppable for ThreeDHolder."
 	}
 
 }

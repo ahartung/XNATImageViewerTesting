@@ -50,7 +50,7 @@ FrameHolder = function(args) {
 
 	
 	//----------------------------------
-	//	CAVAS STYLING
+	//	CANVAS STYLING
 	//----------------------------------
 	this.context.font = utils.convert.px(10) + " " + this.args.CSS["font-family"];
 	this.context.fillStyle = "white"
@@ -61,12 +61,6 @@ FrameHolder = function(args) {
 	// Droppable
 	//----------------------------------
 	this.frames = [];
-	var that = this;
-	var loadDropable = function (droppable) {
-		if (droppable.frames) {
-			that.loadFrames(dropable.frames);
-		}
-	}
 	
 
 	this.updateCSS();
@@ -108,7 +102,12 @@ FrameHolder.prototype.defaultArgs = {
 
 
 
-
+FrameHolder.prototype.loadDroppable = function (droppable) {
+    var that = this;
+    if (droppable.frames) {
+        that.loadFrames(droppable.frames);
+    }
+}
 
 
 //******************************************************

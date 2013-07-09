@@ -14,25 +14,25 @@ SlicerViewer = function (args) {
 	var that = this;
 
 	//----------------------------------
-	// FRAME VIEWER
+	// 3D VIEWER
 	//----------------------------------
 	/**
-	  * @type {FrameHolder}
+	  * @type {ThreeDHolder}
 	  */
-	this.FrameHolder = new FrameHolder({
+	this.ThreeDHolder = new ThreeDHolder({
 		parent: this.widget,
 		"border-width": 0
 	});
-	this.FrameHolder.Viewer = this;
+	this.ThreeDHolder.Viewer = this;
 
  	
 	/*
-	 *	Modify the FrameHolder such that it lets "this"
+	 *	Modify the ThreeDHolder such that it lets "this"
 	 *  know of the currentScan when it's dropped in.
 	 */
-	this.FrameHolder.addOnloadCallback(function () {
-		if(that.FrameHolder.currDroppable.scanData) {
-			that.populateData(that.FrameHolder.currDroppable.scanData)
+	this.ThreeDHolder.addOnloadCallback(function () {
+		if(that.ThreeDHolder.currDroppable.scanData) {
+			that.populateData(that.ThreeDHolder.currDroppable.scanData)
 		}
 	})
 
@@ -41,25 +41,28 @@ SlicerViewer = function (args) {
 	//----------------------------------	
  	this.addViewPlaneMenu();
 
+    
+    
 	//----------------------------------
 	// CONTENT DIVIDER
 	//----------------------------------
 	/**
 	 * @type {ContentDivider}
-	 */	
+	 * /	
 	this.ContentDivider = new ContentDivider( {	
 		parent: this.widget,
 		widgetCSS: {
 			backgroundColor: "rgb(35,35,35)" 
 		}
 	});
-	
+	*/
+    
 	//----------------------------------
 	// SCAN TABS
 	//----------------------------------		
 	/**
 	 * @type {ScanTabs}
-	 */	
+	 * /	
 	this.ScanTabs = new ScanTabs({
 
 		parent: this.widget,
@@ -71,7 +74,8 @@ SlicerViewer = function (args) {
 		
 	});
 	this.linkContentDividerToScanTabs();
-	
+	*/
+    
 	//----------------------------------
 	// ADJUST / IMAGE PROCESSING SLIDERS
 	//----------------------------------		
@@ -110,9 +114,9 @@ SlicerViewer = function (args) {
 	//
 	// Synchronize current frame number with display
 	//
-	this.FrameHolder.addOnloadCallback(function () {
-		that.displayableData.frameNumber.innerHTML = "Frame: "+ (that.FrameHolder.currFrame) + 
-													 " / " + that.FrameHolder.frames.length;	
+	this.ThreeDHolder.addOnloadCallback(function () {
+		that.displayableData.frameNumber.innerHTML = "Frame: "+ (that.ThreeDHolder.currFrame) + 
+													 " / " + that.ThreeDHolder.frames.length;	
 	});
 
     this.setHoverEvents();
@@ -153,7 +157,7 @@ SlicerViewer.prototype.defaultArgs = {
 SlicerViewer.prototype.loadThumbnail = function (thumb) {
 	
 	SlicerViewer.superClass_.loadThumbnail.call(this, thumb);
-	this.FrameHolder.loadThumbnail(thumb); 
+	this.ThreeDHolder.loadThumbnail(thumb); 
 	
 }
 
@@ -166,7 +170,7 @@ SlicerViewer.prototype.setHoverEvents = function () {
 	
 	var that = this;
 	var keeperClasses = [
-		GLOBALS.classNames.FrameHolder
+		GLOBALS.classNames.ThreeDHolder
 	]
 	
 	this.hoverOut = function() {
@@ -208,7 +212,7 @@ SlicerViewer.prototype.createDragElement = function(srcElt) {
 	if (returner.id !== 'DUMMY') {
 	
 		var parent, srcCanv, clonedCanv, context;
-		var keepClasses = [ GLOBALS.classNames.FrameHolder ];
+		var keepClasses = [ GLOBALS.classNames.ThreeDHolder ];
 		var keepElts = [];
 				
 		parent = goog.dom.getAncestorByClass(srcElt, GLOBALS.classNames.SlicerViewer);
@@ -227,9 +231,7 @@ SlicerViewer.prototype.createDragElement = function(srcElt) {
 	
 		//
 		// Draw text on draggable ghost
-		//
-		context = clonedCanv.getContext("2d");
-		context.drawImage(srcCanv, 0, 0);		  
+		//  
 	  	returner.style.opacity = .7;	
 		returner.className = "VIEWERCLONE";
 		returner.id = "CLONE";
