@@ -97,7 +97,7 @@ FrameHolder.prototype.defaultArgs = {
 	    "border" : "solid",
 		"borderColor": "rgba(50,50,50,1)",
 		"color": "rgba(255,255,255,1)",
-	  	"border-width" : 0,
+	  	"borderWidth" : 0,
 	  	"border-radius": 0,	 
 	  	 overflow: "visible"
   	}

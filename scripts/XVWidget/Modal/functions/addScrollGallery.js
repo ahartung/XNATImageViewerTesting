@@ -6,6 +6,7 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	//----------------------------------
 	//	SCROLL GALLERY
 	//----------------------------------
+	
 	this.ScrollGallery = new ScrollGallery({
 		parent: this.modal,
 		orientation: "vertical",
@@ -15,7 +16,7 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 			height: 700
 		}
 	});	
-	
+
 
 	
 	//----------------------------------

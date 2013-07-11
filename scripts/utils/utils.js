@@ -1,10 +1,30 @@
-
 goog.provide('utils');
+
+
+goog.require('goog.ui.Slider');
+goog.require('goog.ui.ProgressBar');
+
+goog.require('goog.array');
+//goog.require('goog.dom'); 
+goog.require('goog.style'); 
+
+goog.require('goog.events.MouseWheelHandler');
+goog.require('goog.fx');
+goog.require('goog.fx.DragDrop');
+goog.require('goog.fx.DragDropGroup');
+
+goog.require('goog.ui.Component');
+
+//goog.require('utils');
+
+
+
+
 /**
  * @constructor
  */
 utils = function() {};
-//goog.exportSymbol('utils', utils);
+goog.exportSymbol('utils', utils);
 
 
 goog.provide('utils.ajax');
@@ -38,13 +58,6 @@ goog.provide('utils.dom');
 utils.dom = function () {};
 goog.exportSymbol('utils.dom', utils.dom);
 
-
-goog.provide('utils.globals');
-/**
- * @constructor
- */
-utils.globals = function () {};
-goog.exportSymbol('utils.globals', utils.globals);
 
 
 goog.provide('utils.gui');

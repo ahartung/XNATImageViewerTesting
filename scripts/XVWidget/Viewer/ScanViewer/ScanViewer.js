@@ -26,7 +26,7 @@ ScanViewer = function (args) {
 	  */
 	this.FrameHolder = new FrameHolder({
 	 	parent: this.widget,
-	 	"border-width": 0
+	 	"borderWidth": 0
 	 });
 	this.FrameHolder.Viewer = this;
 
@@ -36,9 +36,9 @@ ScanViewer = function (args) {
 	 *  know of the currentScan when it's dropped in.
 	 */
 	this.FrameHolder.addOnloadCallback(function () {
-        console.log('this IS a callback - scan');
-		if(that.FrameHolder.currDroppable.scanData) {
-			that.populateData(that.FrameHolder.currDroppable.scanData)
+		var t = that.getThumbnail();
+		if(t && t.scanData) {
+			that.populateData(t.scanData);
 		}
 	})
 
@@ -50,7 +50,6 @@ ScanViewer = function (args) {
 	//----------------------------------	
  	this.addViewPlaneMenu();
 	//this.addLinkMenu(); 	
-
 
 
 

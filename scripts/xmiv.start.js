@@ -1,4 +1,5 @@
 goog.require('goog.fx')
+goog.require('utils.css.setCSS');
 
 goog.provide('xmiv');
 xmiv = {};
@@ -11,10 +12,8 @@ xmiv.start = function () {
 	// from responding to page scrolling, two finger gestures
 	// on Mac trackpads
 
-	utils.css.setCSS( "body", {
-		'overflow' : 'hidden'
-	})
-	
+	document.body.style.overflow = 'hidden';
+
 	GLOBALS.ModalID = "thuravingal";
 	
 	var _ooo = new Modal({

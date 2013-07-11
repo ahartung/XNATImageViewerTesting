@@ -1,15 +1,22 @@
+goog.provide("utils.globals");
+
+utils.globals = function(){
+
+}
 
 
-utils.globals.fontSizeS = 10;
-utils.globals.fontSizeM = 13;
-utils.globals.fontSizeL = 16;
-utils.globals.fontFamily = 'Helvetica, Helvetica neue, Arial, sans-serif';
+goog.exportSymbol("utils.globals", utils.globals);
+
+utils.globals.fontSizeS = /** @const */ 10;
+utils.globals.fontSizeM = /** @const */ 13;
+utils.globals.fontSizeL = /** @const */ 16;
+utils.globals.fontFamily = /** @const */ 'Helvetica, Helvetica neue, Arial, sans-serif';
 
 
 //---------------------------
 //  ANIMATION LENGTHS
 //---------------------------
 
-utils.globals.animFast = 200;
-utils.globals.animMedium = 500;
-utils.globals.animSlow = 100;
+utils.globals.animFast = /** @const */ 200;
+utils.globals.animMedium = /** @const */ 500;
+utils.globals.animSlow = /** @const */ 100;	

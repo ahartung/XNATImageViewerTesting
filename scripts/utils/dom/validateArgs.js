@@ -3,6 +3,7 @@
 //  with template being the priority
 //******************************************************
 goog.provide('utils.dom.validateArgs');
+
 utils.dom.validateArgs = function (originString, templateArgs, args, callback) {
 	
 	var errorStr = "A " + originString + " has invalid arguments:";

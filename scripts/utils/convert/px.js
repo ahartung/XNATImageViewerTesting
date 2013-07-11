@@ -1,4 +1,4 @@
-goog.provide('utils.convert.px', utils.convert.px);
+goog.provide('utils.convert.px');
 
 utils.convert.px = function (args) {
 	if (args instanceof Array) {

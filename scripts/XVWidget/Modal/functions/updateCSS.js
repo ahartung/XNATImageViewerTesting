@@ -12,7 +12,9 @@ Modal.prototype.updateCSS = function (args) {
     //----------------------------------
 	//	RESIZE THE MODAL
 	//----------------------------------
+
 	modalDims = this.modalDims();
+
 	utils.css.setCSS( this.modal, modalDims);	
 	if (args) {  utils.css.setCSS( this.modal, args);}	
 	
@@ -21,9 +23,11 @@ Modal.prototype.updateCSS = function (args) {
 	//----------------------------------
 	//	SCROLL GALLERY
 	//----------------------------------
+	
 	if (this.ScrollGallery) { 
 		this.ScrollGallery.updateCSS(modalDims.ScrollGallery);
 	}
+	
 
 
  
@@ -31,7 +35,7 @@ Modal.prototype.updateCSS = function (args) {
 	//	VIEWERS
 	//----------------------------------	
 	if (XV) {
-		XV.Viewers( function (Viewer, i, j) { 
+		XV.ViewerManager( function (Viewer, i, j) { 
 
 			Viewer.updateCSS({
 				

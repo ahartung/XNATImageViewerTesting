@@ -1,6 +1,7 @@
 //******************************************************
 //  
 //******************************************************
+goog.provide('utils.oo.init');
 
 utils.oo.init = function (obj, defaultArgs, args, initRoutine) {
 	obj.defaultArgs = defaultArgs;
@@ -15,3 +16,5 @@ utils.oo.init = function (obj, defaultArgs, args, initRoutine) {
 	if (initRoutine)
 		initRoutine();
 }
+
+goog.exportSymbol('utils.oo.init', utils.oo.init);

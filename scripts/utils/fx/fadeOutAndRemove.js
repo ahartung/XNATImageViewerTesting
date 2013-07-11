@@ -1,6 +1,8 @@
 //******************************************************
 //  
 //******************************************************
+goog.provide('utils.fx.fadeOutAndRemove');
+
 utils.fx.fadeOutAndRemove = function (element, time, callback) {
 
 	utils.fx.fadeTo(element, time, 0, function() { 
@@ -9,3 +11,4 @@ utils.fx.fadeOutAndRemove = function (element, time, callback) {
 	});
 	
 }
+goog.exportSymbol('utils.fx.fadeOutAndRemove' , utils.fx.fadeOutAndRemove);

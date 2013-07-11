@@ -306,7 +306,7 @@ Thumbnail.prototype.defaultArgs = {
 		"border-color": "rgb(120,120,120)",
 		//"color": "rgba(0,0,0,1)",
 	  	//"background-color" : "rgba(120,31,60,1)",
-	  	"border-width" : 1,
+	  	"borderWidth" : 1,
 	  	"border-radius": 0,	 
 	  	"cursor": "pointer"
 	}	
