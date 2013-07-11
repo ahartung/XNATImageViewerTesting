@@ -35,7 +35,7 @@ SlicerThumbnail = function (scanData, args) {
     // Amanda - set up thumbnail image for 3D data
     // use a placeholder in the meantime
     // use Master Scene View (from mrb) ultimately
-	this.ThumbnailImage.src = "./testscans/3D/placeholder.jpg";
+	this.ThumbnailImage.src = "./demoscans/3D/placeholder.jpg";
 	
 	
 	

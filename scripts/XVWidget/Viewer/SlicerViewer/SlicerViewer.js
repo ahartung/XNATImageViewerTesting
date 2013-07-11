@@ -1,15 +1,15 @@
 //******************************************************
 //  Init
 //******************************************************
-goog.require(GLOBALS.classNames.Viewer);
-goog.provide(GLOBALS.classNames.SlicerViewer);
+goog.require('Viewer');
+goog.provide('SlicerViewer');
 
 /**
  * @constructor
  * @extends {Viewer}
  */
 SlicerViewer = function (args) {
-	goog.base(this, utils.dom.mergeArgs(SlicerViewer.prototype.defaultArgs, args));
+	Viewer.call(this, utils.dom.mergeArgs(SlicerViewer.prototype.defaultArgs, args));
 
 	var that = this;
 
@@ -24,14 +24,15 @@ SlicerViewer = function (args) {
 		"border-width": 0
 	});
 	this.ThreeDHolder.Viewer = this;
-
- 	
+    
 	/*
 	 *	Modify the ThreeDHolder such that it lets "this"
 	 *  know of the currentScan when it's dropped in.
 	 */
 	this.ThreeDHolder.addOnloadCallback(function () {
+        console.log('this IS a callback - slicer');
 		if(that.ThreeDHolder.currDroppable.scanData) {
+            console.log('there is scan data');
 			that.populateData(that.ThreeDHolder.currDroppable.scanData)
 		}
 	})
@@ -48,25 +49,25 @@ SlicerViewer = function (args) {
 	//----------------------------------
 	/**
 	 * @type {ContentDivider}
-	 * /	
+	 */	
 	this.ContentDivider = new ContentDivider( {	
 		parent: this.widget,
 		widgetCSS: {
 			backgroundColor: "rgb(35,35,35)" 
 		}
 	});
-	*/
+	
     
 	//----------------------------------
 	// SCAN TABS
 	//----------------------------------		
 	/**
 	 * @type {ScanTabs}
-	 * /	
+	 */	
 	this.ScanTabs = new ScanTabs({
 
 		parent: this.widget,
-		tabTitles: ["Info", "Adjust"],
+		tabTitles: ["Info"],
 		widgetCSS: {
 			height: GLOBALS.minScanTabHeight,
 			width: '100%'
@@ -74,13 +75,8 @@ SlicerViewer = function (args) {
 		
 	});
 	this.linkContentDividerToScanTabs();
-	*/
+	
     
-	//----------------------------------
-	// ADJUST / IMAGE PROCESSING SLIDERS
-	//----------------------------------		
-    // Amanda - don't need this for 3D, built into xtk
-//    this.addAdjustSliders();
 	
 	//----------------------------------
 	// METADATA, A.K.A. DISPLAYABLE DATA
@@ -103,21 +99,7 @@ SlicerViewer = function (args) {
 		//border: "solid 1px rgb(255,255,255)",
 		width: 140
 	};
-
-
-	/**
-	 * @protected
-	 */
-//	this.displayableData.frameNumber = utils.dom.makeElement("div", this.widget, "ScanViewerDisplayableData");
-//	utils.css.setCSS( this.displayableData.frameNumber, this.textCSS_small);		
-		
-	//
-	// Synchronize current frame number with display
-	//
-	this.ThreeDHolder.addOnloadCallback(function () {
-		that.displayableData.frameNumber.innerHTML = "Frame: "+ (that.ThreeDHolder.currFrame) + 
-													 " / " + that.ThreeDHolder.frames.length;	
-	});
+    
 
     this.setHoverEvents();
     this.updateCSS();
@@ -129,35 +111,14 @@ goog.inherits(SlicerViewer, Viewer);
  * @protected
  */
 SlicerViewer.prototype.defaultArgs = {
-	className: GLOBALS.classNames.SlicerViewer,
-	sliderCSS:	
-	{ 
-		parent: document.body,
-		className: 'FrameSlider',
-		widgetCSS:{
-			'height' : 8,
-			'width' : '96%',
-			'left' : '2%'
-		},
-		thumbCSS:{
-			height: 7,
-			width: 7,
-			borderRadius: 2,
-			backgroundColor: "rgba(195,195,195,1)"
-		},
-		trackCSS:{
-			height: 3,
-			backgroundColor: "rgba(55, 55, 55, 1)",
-			borderRadius: 2
-		}
-	}
+	className: GLOBALS.classNames.SlicerViewer
 }
 
 
 SlicerViewer.prototype.loadThumbnail = function (thumb) {
 	
 	SlicerViewer.superClass_.loadThumbnail.call(this, thumb);
-	this.ThreeDHolder.loadThumbnail(thumb); 
+	this.ThreeDHolder.loadThumbnail(thumb, '3D'); 
 	
 }
 
@@ -226,8 +187,6 @@ SlicerViewer.prototype.createDragElement = function(srcElt) {
 		//	
 		returner = parent.cloneNode(true);
 		returner.style.fontFamily = GLOBALS.fontFamily;
-		srcCanv = goog.dom.getElementByClass(GLOBALS.classNames.FrameHolderCanvas, parent);
-		clonedCanv = goog.dom.getElementByClass(GLOBALS.classNames.FrameHolderCanvas, returner);
 	
 		//
 		// Draw text on draggable ghost

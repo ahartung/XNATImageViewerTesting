@@ -60,7 +60,7 @@ Modal.prototype.initThumbnailDragDrop = function() {
 
 				XV.Viewers.adaptAndLoad(dropViewer, dragThumb);
 				that.updateCSS();
-									
+			
 			}
 			
 			if (event.dropTargetItem.element.prevBorder) {

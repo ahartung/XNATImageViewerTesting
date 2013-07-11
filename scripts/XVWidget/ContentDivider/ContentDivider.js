@@ -58,6 +58,7 @@ ContentDivider = function (args) {
 	 */
 	this.updateCSS = function (args) {		
 		if (args) { 
+            console.log('updating content divider css');
 			this.setArgs(args) 
 			utils.css.setCSS(that.widget, this.currArgs().widgetCSS);
 		};
@@ -99,7 +100,6 @@ ContentDivider = function (args) {
 		
 		
 		d.addEventListener(goog.fx.Dragger.EventType.DRAG, function(e) {
-			
 			utils.dom.stopPropagation(e);
 
 			utils.array.forEach(that.dragCallbacks, function(callback) {
@@ -196,7 +196,6 @@ ContentDivider.prototype.slideTo = function(newTop, animate) {
  * @return {number}
  */
 ContentDivider.prototype.getUpperLimit = function() {
-
 	return utils.css.dims(this.containmentDiv, 'top');
 } 
 
@@ -205,9 +204,6 @@ ContentDivider.prototype.getUpperLimit = function() {
  * @return {number}
  */
 ContentDivider.prototype.getLowerLimit = function() {
-
-	
-	
 	return utils.css.dims(this.containmentDiv, 'top') + 
 		   utils.css.dims(this.containmentDiv, 'height') - 
 		   utils.css.dims(this.widget, 'height') - 2;

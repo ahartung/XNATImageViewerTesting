@@ -36,6 +36,7 @@ ScanViewer = function (args) {
 	 *  know of the currentScan when it's dropped in.
 	 */
 	this.FrameHolder.addOnloadCallback(function () {
+        console.log('this IS a callback - scan');
 		if(that.FrameHolder.currDroppable.scanData) {
 			that.populateData(that.FrameHolder.currDroppable.scanData)
 		}

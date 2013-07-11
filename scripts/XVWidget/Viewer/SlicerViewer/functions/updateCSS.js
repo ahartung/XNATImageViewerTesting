@@ -1,9 +1,11 @@
+goog.require('goog.dom');
+
 //******************************************************
 //  UpdateCSS
 //
 //******************************************************
-ScanViewer.prototype.updateCSS = function (args) {
-	ScanViewer.superClass_.updateCSS.call(this, args);
+SlicerViewer.prototype.updateCSS = function (args) {
+	SlicerViewer.superClass_.updateCSS.call(this, args);
 
 	var that = this;
 	
@@ -12,7 +14,7 @@ ScanViewer.prototype.updateCSS = function (args) {
 	//  CONTENT DIVIDER
 	//
 	// The ContentDivider dictates the position of all of the
-	// other widgets in the ScanViewer
+	// other widgets in the SlicerViewer
 	
 	
 	//
@@ -53,15 +55,13 @@ ScanViewer.prototype.updateCSS = function (args) {
 	var contentDividerHeight = cDivDims['height'];
 	var scanTabTop = cDivDims.top + contentDividerHeight;
 	var scanTabHeight = this.widgetDims.height - scanTabTop;
-	var sliderTop = cDivDims.top - utils.css.dims(this.FrameSlider.getWidget(), 'height') - 5;
 
-
-	var frameHolderDims = {};
-	frameHolderDims.width = ((sliderTop - 10) > this.widgetDims.width) ? 
-							this.widgetDims.width : (sliderTop - 10);
-	frameHolderDims.height = frameHolderDims.width;
-	frameHolderDims.top = 0;
-	frameHolderDims.left = this.widgetDims.width/2 - frameHolderDims.width/2;
+	var threeDHolderDims = {};
+	threeDHolderDims.width = ((cDivDims.top - 15) > this.widgetDims.width) ? 
+							this.widgetDims.width : (cDivDims.top - 15);
+	threeDHolderDims.height = this.widgetDims.height - scanTabHeight;
+	threeDHolderDims.top = 0;
+	threeDHolderDims.left = this.widgetDims.width/2 - threeDHolderDims.width/2;
 
 
 	
@@ -74,55 +74,19 @@ ScanViewer.prototype.updateCSS = function (args) {
 		width: '100%'
 	});
 	
-
-
-
+    
+    //----------------------------------
+	// FRAME VIEWER
 	//----------------------------------
-	// FRAME SLIDER
-	//----------------------------------	
-   this.FrameSlider.updateCSS({ 
- 		top : sliderTop
-    })
-	
-	
-	
-	 
-	 //----------------------------------
-	 // FRAME VIEWER
-	 //----------------------------------
-	 this.FrameHolder.updateCSS({
-	 	
- 	    left: frameHolderDims.left,
- 		top: frameHolderDims.top,
- 	  	width: frameHolderDims.width,
- 	  	height: frameHolderDims.height
+	this.ThreeDHolder.updateCSS({
+		
+ 	    left: threeDHolderDims.left,
+        top: threeDHolderDims.top,
+ 	 	width: threeDHolderDims.width,
+ 	  	height: threeDHolderDims.height
  	  	
-	 });
+	});
 	 
-
-
-
-	 //----------------------------------
-	 // FRAME NUMBER DISPLAY
-	 //----------------------------------	 
-	 utils.css.setCSS(this.displayableData.frameNumber, {
-	 	top: sliderTop - 15,// -2,
-	 	left: 10,
-	 	width: this.widgetDims.width - 10,
-	 	fontSize: GLOBALS.fontSizeSmall
-	 });
-	 
-	 
-
-	//----------------------------------
-	// DRAW FRAME ON FRAMEVIEWER
-	//----------------------------------	
-	/*
-	 * For redraw purposes incase the size of the 
-	 * frame viewer changes, programatically triggers a slide.
-	 */
-	this.FrameSlider.dispatchEvent(goog.ui.Component.EventType.CHANGE);
-
 
 
 	//----------------------------------
@@ -131,7 +95,22 @@ ScanViewer.prototype.updateCSS = function (args) {
 	utils.css.setCSS(this.LinkMenu, {
 		left: this.widgetDims.width - 30
 	});	 
-	
+    
+    
+    
+    //----------------------------------
+    // CANVASES WITHIN RENDERERS
+    //----------------------------------
+//	this.ThreeDHolder.Renderers.updateCSS();
+    var canvases = goog.dom.getElementsByTagNameAndClass('canvas', 'twoD');
+    utils.array.forEach(canvases, function(canvas) {
+        console.log(canvas);
+        console.log('update canvas size');
+//        canvas.width = '100%';
+//        canvas.height = '100%';
+    });
+    
+    
 	
 	if (this.selectorBox) {
 		

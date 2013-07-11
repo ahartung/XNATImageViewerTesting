@@ -93,12 +93,13 @@ function createRenderers(object, container, vID, xID, yID, zID) {
     goog.dom.append(goog.dom.getElement(container), [v, x, y, z]);
     
     // add in the elements for the sliders and index boxes
+    
     goog.dom.append(x, [goog.dom.createDom('div', { 'id': 'xSlider', 'class': 'slice' }),
-                        goog.dom.createDom('input', { 'id': 'xIndexBox', 'class': 'indexBox' })]);
+                        goog.dom.createDom('div', { 'id': 'xBox', 'class': 'box' })]);
     goog.dom.append(y, [goog.dom.createDom('div', { 'id': 'ySlider', 'class': 'slice' }),
-                        goog.dom.createDom('input', { 'id': 'yIndexBox', 'class': 'indexBox' })]);
+                        goog.dom.createDom('div', { 'id': 'yBox', 'class': 'box' })]);
     goog.dom.append(z, [goog.dom.createDom('div', { 'id': 'zSlider', 'class': 'slice' }),
-                        goog.dom.createDom('input', { 'id': 'zIndexBox', 'class': 'indexBox' })]);
+                        goog.dom.createDom('div', { 'id': 'zBox', 'class': 'box' })]);
     
     create3D(vID);
     create2D(xID, yID, zID);

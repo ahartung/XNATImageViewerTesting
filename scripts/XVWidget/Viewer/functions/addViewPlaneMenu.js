@@ -100,6 +100,9 @@ Viewer.prototype.addViewPlaneMenu = function () {
 		}					
 	})	
 	
+    
+    
+    
 	
 	//
 	// SET onclick
@@ -107,45 +110,55 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	utils.array.forEach(allIcons, function(icon, i) { 
 		
 		if (icon.axis !== "3D") {
-			
 			goog.events.listen(icon, goog.events.EventType.CLICK, function(event) { 
 				
 				utils.dom.stopPropagation(event);
+                that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
 				
-                console.log('handle 2D viewing'); 
-				
-				if (that.FrameHolder.frames.length > 0) {
+				if (that.FrameHolder) {
 					
-					console.log('2D -> 2D');
+					console.log('2D -> 2D(' + that.ViewPlaneMenu.mainIcon.title + ')');
 					that.FrameHolder.loadDroppable(that.FrameHolder.currDroppable, event.currentTarget.axis.toLowerCase());
-					that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
 					
-				}
+				} else {
                 
-                // Amanda - handle 3D -> 2D
+                    // Amanda - handle 3D -> 2D
+                    console.log('3D -> 2D(' + that.ViewPlaneMenu.mainIcon.title + ')');
+                    
+                    // 3D holder gets another menu opton? 2x2, x, y, z, 3d
+                    // want to expand selected element to full size of holder
+                }
 			});		
 		
         // Amanda
-        } else { // handle 3D viewing
-            
+        }
+        else { // handle 3D viewing
             goog.events.listen(icon, goog.events.EventType.CLICK, function(event) { 
 				
 				utils.dom.stopPropagation(event);
-				
-                console.log('handle 3D viewing');
+                that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
                 
                 // if current object is a 2D object... do nothing?
                 // can we use the dicom way to render the volume?
-				if (that.FrameHolder.frames.length > 0) {
+				if (that.FrameHolder) {
 					
-					console.log('2D -> 3D');
-					that.ViewPlaneMenu.activateIcon(event.currentTarget.title);
+					console.log('2D -> 3D(' + that.ViewPlaneMenu.mainIcon.title + ')');
 					
-				} 
+				}
+                else { // that.ThreeDHolder
+                    
+                    // Amanda - handle 3D -> 3D
+                    console.log('3D -> 3D(' + that.ViewPlaneMenu.mainIcon.title + ')');
+                    
+                    // 3D holder gets another menu opton? 2x2, x, y, z, 3d
+                    // want to expand selected element to full size of holder
+                    
+                }             
                 
-                // Amanda - handle 3D -> 3D
 			});		
         }
+        
+        
 	})
 
 

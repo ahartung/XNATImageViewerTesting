@@ -50,8 +50,8 @@ function toggle2DVisibility(wantToSee) {
  * ratio of doc. From slicedrop (http://slicedrop.com/js/jquery.frontpage.js)
  * /
 function detect_viewingmode() {
-    var d = goog.dom.getDocument();
-    if (goog.dom.getDocumentWidth()*0.6 < goog.dom.getDocumentHeight()*0.8) {
+    var v = goog.dom.getElement('');
+    if (threedholder.width < threedholder.height {
         goog.dom.classes.remove(d, 'landscape');
         goog.dom.classes.add(d, 'portrait');
     } else {

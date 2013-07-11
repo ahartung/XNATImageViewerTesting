@@ -15,7 +15,7 @@ var fibrContent;
  */
 function initMenu() {
     // create menu
-    var m = goog.dom.createDom('div', { 'id': 'menuDiv', 'style': 'z-index: 999' });
+    var m = goog.dom.createDom('div', { 'id': 'menuDiv' });
     goog.dom.appendChild(goog.dom.getElement('vDiv'), m);
     
     // create primary header and content
@@ -32,12 +32,13 @@ function initMenu() {
     meshContent = addFolderToMenu('meshes');
     fibrContent = addFolderToMenu('fibers');
     
-    /*/ be able to move menu around viewer
-    $('#menuDiv').draggable({
-        containment: 'parent'
-    })/*/
+    // be able to move menu around viewer
     // TODO: set limits
     var mDrag = new goog.fx.Dragger(goog.dom.getElement('menuDiv'));
+    goog.events.listen(mDrag, goog.fx.Dragger.EventType.DRAG, function(event) {
+//			utils.dom.stopPropagation(event);
+            console.log('dragging menu');
+    });
     mDrag.setHysteresis(5);
 }
 

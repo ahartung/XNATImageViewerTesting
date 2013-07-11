@@ -2,7 +2,7 @@
 //  Fill in metadata -- this will likely change as it gets 
 //  deployed to the web...
 //******************************************************
-ViewerBox.prototype.populateData = function (data) {	
+Viewer.prototype.populateData = function (data) {	
 	var that = this;
 
 	//----------------------------------
@@ -12,7 +12,7 @@ ViewerBox.prototype.populateData = function (data) {
 		//----------------------------------
 		//	SCROLL GALLERY
 		//----------------------------------
-
+        
 
 		var counter = 0;
 		var className = "SessionData_ScrollGallery";
@@ -23,7 +23,7 @@ ViewerBox.prototype.populateData = function (data) {
 			orientation: "vertical",
 			widgetCSS: {
 				left: 0,
-				height: that.ScanTabs.CSS.height * .80,
+				height: '80%',
 				width: 440,
 				top: GLOBALS.scanTabLabelHeight + 10
 			}

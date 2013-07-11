@@ -133,7 +133,7 @@ ScanTabs.prototype.setClickUI = function() {
 			
 			if (!tab.isActive) {
 				that.setActive(i);
-				that.callbacks['activate']();	
+				that.callbacks['activate']();
 			}
 			else {
 				that.callbacks['deactivate']();
@@ -246,7 +246,7 @@ ScanTabs.prototype.setActive = function (activeTabNum) {
  * @param {number}
  */
 ScanTabs.prototype.expandVertically = function (newTop) {
-	
+	console.log('expanding vertically');
 	var that = this;
 	var parentHeight = utils.css.dims(that.widget.parentNode, 'height');
 	var parentWidth = utils.css.dims(that.widget.parentNode, 'width');
@@ -272,7 +272,6 @@ ScanTabs.prototype.expandVertically = function (newTop) {
 
 
 ScanTabs.prototype.updateCSS = function (args) {
-
 	utils.css.setCSS(this.widget, args);
 
 	var that = this;

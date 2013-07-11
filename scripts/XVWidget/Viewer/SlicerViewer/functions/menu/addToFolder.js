@@ -15,16 +15,30 @@ function addFileToFolder(parent, file, type) {
     // create button and label
     addVisibilityButton(outerFileDiv, file, type);
     
-    
+//    console.log('adding to the ' + type + ' folder');
     // add to folder's contents
     if (type == 'volume')
         goog.dom.insertSiblingBefore(outerFileDiv, goog.dom.getElement('marker'));
     else {
+        console.log('making a nonvol opacity slider');
         // if not a volume, each file get its own opacity slider
-        goog.dom.appendChild(outerFileDiv,
-            goog.dom.createDom('div', { 'id': file, 'class': 'opacityNonvol' }));
+        var s = goog.dom.createDom('div', { 'id': file, 'class': 'opacityNonvol' })
+        goog.dom.appendChild(outerFileDiv, s);
+        
+        console.log(s);
+        console.log(document.getElementById(file));
+        
         goog.dom.insertChildAt(parent, outerFileDiv, -1);
-        initNonvolOpacitySlider(file);
+        var updateNonvolOpacity = new goog.ui.Slider;
+        updateNonvolOpacity.decorate(s);
+        updateNonvolOpacity.setMaximum(1);
+        updateNonvolOpacity.setStep(0.01);
+        updateNonvolOpacity.setValue(1);
+        
+        goog.events.listen(updateNonvolOpacity, goog.ui.Component.EventType.CHANGE, function(event) {
+            var obj = getObjFromList(file);
+            obj.opacity = updateNonvolOpacity.getValue();
+        });
     }
     
     // listen for changes
@@ -62,8 +76,9 @@ function addVisibilityButton(parent, file, type) {
  * @return {undefined}
  */
 function addVisibilityButtonListener(type, file) {
-    // need to use $( doc.gebi() ) because of period in filename
-    $(goog.dom.getElement(type + 'ButtonFor' + file)).change( function() {
+    goog.events.listen(goog.dom.getElement(type + 'ButtonFor' + file),
+                       goog.events.EventType.CHANGE,
+                       function(event) {
         var selectedObject = getObjFromList(file);
         if (type == 'volume') { toggleVolumeVisibility(selectedObject); }
         if (this.checked) { selectedObject.visible = true; } // add to viewer
@@ -84,24 +99,7 @@ function addVisibilityButtonListener(type, file) {
  * @return {undefined}
  */
 function initNonvolOpacitySlider(file) {
-    $(goog.dom.getElement(file)).slider({
-        orientation: "horizontal",
-		min: 0,
-        max: 1,
-        step: 0.01,
-        value: 1,
-        slide: updateNonvolOpacity,
-		change: updateNonvolOpacity
-    });
+
+    
 }
 
-/**
- * Set opacity of X object on slider changing.
- * @param {Event} event
- * @param {Object} ui
- * @return {undefined}
- */
-function updateNonvolOpacity(event, ui) {
-    var obj = getObjFromList(goog.dom.getParentElement(ui.handle).id);
-    obj.opacity = ui.value;
-}

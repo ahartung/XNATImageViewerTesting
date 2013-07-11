@@ -29,7 +29,7 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	
 	
 	utils.array.forEach(that.scanDataPaths, function(dataPath) { 
-		console.log('data path ', dataPath)	
+//		console.log('data path ', dataPath)	
 		that.dragDropThumbnails.push(new ScanThumbnail(dataPath, {		  	
 		  	parent: thumbContents,  	
 		  	widgetCSS: {

@@ -1,3 +1,6 @@
+
+goog.require('goog.ui.TwoThumbSlider');
+
 /**
  * Set up single threshold slider for volume folder.
  * @param {undefined}
@@ -5,29 +8,26 @@
  */
 function initThreshSlider() {
     // set attributes
-    $('#threshSlider').slider({
-		orientation: 'horizontal',
-        range: true,
-        min: currentVolObject.min,
-        max: currentVolObject.max,
-        step: 1,
-        values: [currentVolObject.max * 0.05, currentVolObject.upperThreshold],
-		slide: updateThreshold,
-		change: updateThreshold
+    var volThreshSlider = new goog.ui.TwoThumbSlider;
+    volThreshSlider.decorate(goog.dom.getElement('threshSlider'));
+    volThreshSlider.setMinimum(currentVolObject.min);
+    volThreshSlider.setMaximum(currentVolObject.max);
+    volThreshSlider.setStep(1);
+    volThreshSlider.setValueAndExtent(currentVolObject.max * 0.05, currentVolObject.max * 0.95 - 1);
+    
+    goog.events.listen(volThreshSlider, goog.ui.Component.EventType.CHANGE, function(event) {
+//        event.stopPropagation();
+//        utils.dom.stopPropagation(event);
+        currentVolObject.lowerThreshold = volThreshSlider.getValue();
+        currentVolObject.upperThreshold = volThreshSlider.getValue() + volThreshSlider.getExtent();
+    });
+    
+    goog.events.listen(volThreshSlider, 'drag', function(event) {
+        event.stopPropagation();
+        utils.dom.stopPropagation(event);
+        console.log('am i here?');
     });
     
     currentVolObject.lowerThreshold = currentVolObject.max * 0.05;
-}
-
-/**
- * Sets the threshold values of the currently displayed volume object when the
- * slider changes.
- * @param {Event} event
- * @param {Object} ui
- * @return {undefined}
- */
-function updateThreshold(event, ui) {
-    currentVolObject.lowerThreshold = ui.values[0];   // lower handle value
-    currentVolObject.upperThreshold = ui.values[1];   // upper handle value
 }
 

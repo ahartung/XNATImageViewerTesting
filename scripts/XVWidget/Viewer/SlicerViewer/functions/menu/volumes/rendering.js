@@ -15,7 +15,7 @@ function setupVolumeOptions() {
     
     // create opacity slider
     var oWrapper = goog.dom.createDom('div', { 'id': 'opacityWrapper', 'class': 'wrapper' });
-    goog.dom.append(oWrapper, [goog.dom.createDom('div', { 'class': 'label', 'innerHTML': 'opacity' }),,
+    goog.dom.append(oWrapper, [goog.dom.createDom('div', { 'class': 'label', 'innerHTML': 'opacity' }),
                                goog.dom.createDom('div', { 'id': 'opacitySliderVol' })]);
     goog.dom.appendChild(voluContent, oWrapper);
 
@@ -61,7 +61,9 @@ function addButtonAndLabel(parent, name, label) {
  * @return {undefined}
  */
 function addRenderingButtonListener() {
-    $(document.getElementById('renderButtonForVolumes')).change( function() {
+    goog.events.listen(document.getElementById('renderButtonForVolumes'),
+                       goog.events.EventType.CHANGE,
+                       function() {
         if (this.checked) { currentVolObject.volumeRendering = true; } // add rendering
         else { currentVolObject.volumeRendering = false; } // remove rendering
     });
@@ -74,7 +76,9 @@ function addRenderingButtonListener() {
  * @return {undefined}
  */
 function addVisButtonListener() {
-    $(document.getElementById('visButtonForVolumes')).change( function() {
+    goog.events.listen(document.getElementById('visButtonForVolumes'),
+                       goog.events.EventType.CHANGE,
+                       function() {
         if (this.checked) { currentVolObject.visible = true; }
         else { currentVolObject.visible = false; }
     });

@@ -5,19 +5,20 @@
  */
 
 
-
 //******************************************************
 //  Init
 //
 //******************************************************
-goog.require(GLOBALS.classNames.XVWidget);
+goog.provide('ThreeDHolder');
+
+goog.require('XVWidget');
 /**
  * @constructor
  * @extends {XVWidget}
  */
 ThreeDHolder = function(args) {
 	
-	XVWidget.call(this, args);
+	goog.base(this, utils.dom.mergeArgs(ThreeDHolder.prototype.defaultArgs, args));
 	
 	
 	
@@ -53,7 +54,8 @@ ThreeDHolder = function(args) {
 	//----------------------------------
 	this.onloadCallbacks = [];
 	this.adjustMethods = {};
-
+    
+    
 	
     
 //	this.updateCSS();
@@ -69,7 +71,7 @@ goog.inherits(ThreeDHolder, XVWidget);
  * @protected
  */
 ThreeDHolder.prototype.defaultArgs = {
-	className: GLOBALS.classNames.ThreeDHolder,
+	className: GLOBALS.classNames.ThreeDHolder + ' portrait',
 	parent: document.body,
 	blankMsg : "drag and drop Thumbnail here",
 	contrastThreshold: .01,
@@ -77,7 +79,7 @@ ThreeDHolder.prototype.defaultArgs = {
 		position: 'absolute',
 		top: 0,
 		left: 0,
-		height: '100%',
+		height: '95%',
 		width: '100%',	
 		"fontSize": 16,		
 		"overflow-y": "hidden",
@@ -94,19 +96,12 @@ ThreeDHolder.prototype.defaultArgs = {
 
 
 
-ThreeDHolder.prototype.loadDroppable = function (droppable) {
-    var that = this;
-    if (droppable.frames) {
-        that.loadFrames(droppable.frames);
-    }
-}
-
-
 //******************************************************
 //  Adds Callback methods once all the images (frames)
 //  are loaded.
 //******************************************************
 ThreeDHolder.prototype.addOnloadCallback = function (callback) {
+    console.log('adding to the callbacks - threed');
 	this.onloadCallbacks.push(callback)
 }
 
@@ -183,4 +178,3 @@ ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 		this.context.putImageData(imageData, 0, 0);	
 	}
 }
-

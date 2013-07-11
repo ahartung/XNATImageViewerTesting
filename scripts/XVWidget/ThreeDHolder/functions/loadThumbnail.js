@@ -1,38 +1,15 @@
-FrameViewer.prototype.loadCurrViewPlane = function () {
-	
-	var that = this;
-	var cCount = that.currDroppable[that.currViewPlane + "FrameCount"];
-	var preload = that.currDroppable.getFrames({
-		'viewPlane' : that.currViewPlane,
-		'filter' : 'img'
-	});
-	
-	//utils.dom.debug(cCount, preload.length, that.loaded)
-	
-	if ((preload.length >= cCount ) && !that.loaded) {
 
-		that.loaded = true;
-		// Show canvas
-		that.progBar.hide();	
-		utils.fx.fadeIn(that.canvas, GLOBALS.animFast);
-		
-		// Load Frames By ViewPlane
-		that.loadFramesByViewPlane(that.currViewPlane);				
-	}		
-}
-
-
-
-FrameViewer.prototype.loadDroppable = function (droppable, viewPlane) {
-
+ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
 	var that = this;
 	
-	if (droppable.frames) {
+    // Amanda - problem here: checking that dropped item has frames (3D won't)
+    // dummy frames? -- empty
+	if (droppable.frames) { // 2D
 		
-
+        /*
 		var that = this;		
 		this.currDroppable = droppable;		
-		this.currViewPlane = (viewPlane) ? viewPlane : "sagittal";
+		this.currViewPlane = "3D";
 
 	 	
 		//---------------------------------
@@ -96,10 +73,21 @@ FrameViewer.prototype.loadDroppable = function (droppable, viewPlane) {
 			"complete" : function () {
 				that.loadCurrViewPlane();
 			}
-		})
+		})*/
 	}
-	else{
-		throw "FrameViewer.js: Invalid Droppable for FrameViewer."
+	else { // 3D
+        
+        // set menu option to be 3d
+        var that = this;		
+		this.currDroppable = droppable;
+		this.currViewPlane = "3D";
+        
+        that.Viewer.ViewPlaneMenu.activateIcon('3D');
+        
+//        console.log(droppable.scanData);
+        loadFileOnDrop(droppable.scanData.filePath, this.widget.id);
+        
+//		throw "ThreeDHolder.js: Invalid Droppable for ThreeDHolder."
 	}
 
 }

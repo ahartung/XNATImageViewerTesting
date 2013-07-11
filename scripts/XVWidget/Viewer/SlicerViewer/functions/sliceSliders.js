@@ -38,6 +38,7 @@ function createSliders() {
 }
 
 function createIndexBoxes() {
+    /*
     xBox = new goog.ui.LabelInput;
     yBox = new goog.ui.LabelInput;
     zBox = new goog.ui.LabelInput;
@@ -45,6 +46,15 @@ function createIndexBoxes() {
     xBox.decorate(goog.dom.getElement('xIndexBox'));
     yBox.decorate(goog.dom.getElement('yIndexBox'));
     zBox.decorate(goog.dom.getElement('zIndexBox'));
+    */
+    /*
+    xBox = goog.dom.getElement('xIndexBox');
+    yBox = goog.dom.getElement('yIndexBox');
+    zBox = goog.dom.getElement('zIndexBox');
+    */
+    xBox = goog.dom.getElement('xBox');
+    yBox = goog.dom.getElement('yBox');
+    zBox = goog.dom.getElement('zBox');
 }
 
 /**
@@ -52,21 +62,24 @@ function createIndexBoxes() {
  * slider's position. Called when slider slides or changes.
  */
 function addSliderListeners() {
-    xSlider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    goog.events.listen(xSlider, goog.ui.Component.EventType.CHANGE, function() {
         currentVolObject.indexX = xSlider.getValue();
-        xBox.setValue(currentVolObject.indexX);
+        xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
+//        xBox.innerHTML = (currentVolObject.indexX);
         currentVolObject.modified();
     });
     
-    ySlider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    goog.events.listen(ySlider, goog.ui.Component.EventType.CHANGE, function() {
         currentVolObject.indexY = ySlider.getValue();
-        yBox.setValue(currentVolObject.indexY);
+        yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
+//        yBox.innerHTML = (currentVolObject.indexY);
         currentVolObject.modified();
     });
     
-    zSlider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    goog.events.listen(zSlider, goog.ui.Component.EventType.CHANGE, function() {
         currentVolObject.indexZ = zSlider.getValue();
-        zBox.setValue(currentVolObject.indexZ);
+        zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
+//        zBox.innerHTML = (currentVolObject.indexZ);
         currentVolObject.modified();
     });
 }
@@ -77,10 +90,12 @@ function addSliderListeners() {
  * is a renderer visible, and when that renderer is displaying a volume.
  */
 function addIndexBoxListeners() {
-    xBox.getElement().addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    
+    goog.events.listen(xBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(xBox.getValue());
         if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[2] || isNaN(sliceNum)) {
-            xBox.setValue(xSlider.getValue());
+            xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
+//            xBox.innerHTML = (xSlider.getValue());
         } else {
             currentVolObject.indexX = sliceNum;
             currentVolObject.modified();
@@ -88,10 +103,11 @@ function addIndexBoxListeners() {
         }
     });
     
-    yBox.getElement().addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    goog.events.listen(yBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(yBox.getValue());
         if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[1] || isNaN(sliceNum)) {
-            yBox.setValue(ySlider.getValue());
+            yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
+//            yBox.innerHTML = (ySlider.getValue());
         } else {
             currentVolObject._indexY = sliceNum;
             currentVolObject.modified();
@@ -99,10 +115,11 @@ function addIndexBoxListeners() {
         }
     });
     
-    zBox.getElement().addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+    goog.events.listen(zBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(zBox.getValue());
         if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[0] || isNaN(sliceNum)) {
-            zBox.setValue(zSlider.getValue());
+            zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
+//            zBox.innerHTML = (zSlider.getValue());
         } else {
             currentVolObject._indexZ = sliceNum;
             currentVolObject.modified();
@@ -115,15 +132,18 @@ function addScrollListeners() {
     // set up reaction functions for scrolling
     twoDrendererX.onScroll = function() {
         xSlider.setValue(currentVolObject.indexX);
-        xBox.setValue(currentVolObject.indexX);
+        xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
+//        xBox.innerHTML = (currentVolObject.indexX);
     };
     twoDrendererY.onScroll = function() {
         ySlider.setValue(currentVolObject.indexY);
-        yBox.setValue(currentVolObject.indexY);
+        yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
+//        yBox.innerHTML = (currentVolObject.indexY);
     };
     twoDrendererZ.onScroll = function() {
         zSlider.setValue(currentVolObject.indexZ);
-        zBox.setValue(currentVolObject.indexZ);
+        zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
+//        zBox.innerHTML = (currentVolObject.indexZ);
     };
 }
 
@@ -139,8 +159,12 @@ function updateSlices() {
     xSlider.setValue(currentVolObject.indexX);
     ySlider.setValue(currentVolObject.indexY);
     zSlider.setValue(currentVolObject.indexZ);
-    
-    xBox.setValue(currentVolObject.indexX);
-    yBox.setValue(currentVolObject.indexY);
-    zBox.setValue(currentVolObject.indexZ);
+    /*
+    xBox.innerHTML = (currentVolObject.indexX);
+    yBox.innerHTML = (currentVolObject.indexY);
+    zBox.innerHTML = (currentVolObject.indexZ);
+    */
+    xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
+    yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
+    zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
 }

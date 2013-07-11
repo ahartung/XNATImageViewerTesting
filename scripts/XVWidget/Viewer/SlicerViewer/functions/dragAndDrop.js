@@ -9,13 +9,12 @@ goog.require('goog.fx.DragDropGroup');
   goog.events.listen(document.getElementById('drophere'), 'click',
                      function(e) { alert('click'); });
                      */
-  //event.stopPropagation();
 
 /**
  * Sets file placeholders to be draggable and droppable into the large viewer.
  * @param {undefined}
  * @return {undefined}
- */
+ * /
 function initDragAndDrop() {
     var viewer = new goog.fx.DragDrop('viewDiv', 'viewer');
     var images = new goog.fx.DragDropGroup();
@@ -49,6 +48,7 @@ function dragOver(event) { goog.style.setOpacity(event.dropTargetItem.element, 0
 function dragOut(event) { goog.style.setOpacity(event.dropTargetItem.element, 1.0); }
 function dragStart(event) { goog.style.setOpacity(event.dragSourceItem.element, 0.75); }
 function dragEnd(event) { goog.style.setOpacity(event.dragSourceItem.element, 1.0); }
+*/
 
 /**
  * Handles a dropped file: Creates renderers and toggle menu if none exist.

@@ -30,15 +30,15 @@
     position: absolute;
     overflow: hidden;
     display: inline;
-    width: 100%;
-    height: 66%;
+    width: 50%;
+    height: 50%;
 }
 
 .twoD {
-	border: 1px solid #333;
+	border: 0px solid #333;
     position: absolute;
-    width: 33.3%;
-    height: 33.3%;
+    width: 50%;
+    height: 50%;
     overflow: hidden;
     display: inline;
 }
@@ -46,42 +46,49 @@
 
 /** portrait **/
 
-#xDiv {
-	top: 66.6%;
+.portrait #vDiv {
+	top: 50%;
+    left: 50%;
 }
 
-#yDiv {
-	top: 66.6%;
-	left: 33.3%;
+.portrait #xDiv {
+	top: 0;
+    left: 0;
 }
 
-#zDiv {
-	top: 66.6%;
-	left: 66.6%;
+.portrait #yDiv {
+	top: 0%;
+	left: 50%;
+}
+
+.portrait #zDiv {
+	top: 50%;
+	left: 0%;
 }
 
 
-/** landscape ** /
+/** landscape **/
 
-#body.landscape #viewDiv #vDiv {
+.landscape #vDiv {
 	width: 66.6%;
 	height: 100%;
 }
 
-#body.landscape #viewDiv #xDiv {
+.landscape #xDiv {
+    top: 0;
 	left: 66.6%;
 }
 
-#body.landscape #viewDiv #yDiv {
+.landscape #yDiv {
 	top: 33.3%;
 	left: 66.6%;
 }
 
-#body.landscape #viewDiv #zDiv {
+.landscape #zDiv {
 	top: 66.6%;
 	left: 66.6%;
 }
-*/
+
 
 /** index input box **/
 
@@ -97,6 +104,15 @@
     border: 1px solid;
     color: #888;
     text-align: right;
+}
+
+.box {
+    position: absolute;
+    width: 90%;
+    left: 5%;
+    bottom: 16px;
+    color: #ddd;
+    font-size: 10px;
 }
 
 .maxIndex {
@@ -121,18 +137,18 @@
 .slice.goog-slider-horizontal {
 	position: absolute;
 	left: 5%;
-	top: 10px;
+	bottom: 10px;
 	width: 90%;
-	height: 8px;
+	height: 4px;
     border-radius: 4px;
     background: #4AA;
 }
 
 .slice .goog-slider-thumb {
 	position: absolute;
-    margin-top: -5px;
-	width: 8px;
-	height: 18px;
+    margin-top: -3px;
+	width: 6px;
+	height: 10px;
 	background: #888;
     border: 0px;
     border-radius: 4px;

@@ -66,7 +66,7 @@ FrameHolder = function(args) {
 	this.frames = [];
 	
 
-	this.updateCSS();
+//	this.updateCSS();
 	
 
 }
@@ -105,19 +105,12 @@ FrameHolder.prototype.defaultArgs = {
 
 
 
-FrameHolder.prototype.loadDroppable = function (droppable) {
-    var that = this;
-    if (droppable.frames) {
-        that.loadFrames(droppable.frames);
-    }
-}
-
-
 //******************************************************
 //  Adds Callback methods once all the images (frames)
 //  are loaded.
 //******************************************************
 FrameHolder.prototype.addOnloadCallback = function (callback) {
+    console.log('adding to the callbacks - frame');
 	this.onloadCallbacks.push(callback)
 }
 

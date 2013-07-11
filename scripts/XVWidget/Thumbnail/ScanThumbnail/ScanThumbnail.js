@@ -65,8 +65,6 @@ ScanThumbnail = function (scanData, args) {
 				'src' : pathName
 			}
 		}); 
-		
-		console.log(that.frames)
 
 	}
 
