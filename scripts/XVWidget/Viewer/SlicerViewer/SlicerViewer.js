@@ -130,10 +130,8 @@ SlicerViewer.prototype.defaultArgs = {
 
 
 SlicerViewer.prototype.loadThumbnail = function (thumb) {
-	
 	SlicerViewer.superClass_.loadThumbnail.call(this, thumb);
-	this.ThreeDHolder.loadThumbnail(thumb, '3D'); 
-	
+	this.ThreeDHolder.loadThumbnail(thumb, '3D');
 }
 
 

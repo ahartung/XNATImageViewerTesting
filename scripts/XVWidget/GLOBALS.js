@@ -349,8 +349,6 @@ GLOBALS = function (){
 		SlicerViewer : 'SlicerViewer',		
 		
         ThreeDHolder: 'ThreeDHolder',
-        ThreeDHolder3D: 'threeD',
-        ThreeDHolder2D: 'twoD',
         
         PlaneHolder: 'PlaneHolder',
         
@@ -358,7 +356,6 @@ GLOBALS = function (){
 		FrameHolderCanvas: 'FrameHolderCanvas',
 			
 		ScrollGallery: 'XVWidget_ScrollGallery',
-
 
 		ThumbnailCanvas: 'ThumbnailCanvas',		
 		FrameSlider: 'FrameSlider',	

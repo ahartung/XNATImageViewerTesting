@@ -20,8 +20,10 @@ PlaneHolder = function(id, args) {
 	this.onloadCallbacks = [];
     
     
-//	this.updateCSS();
-	
+    
+    //----------------------------------
+    // CREATE RENDERER
+    //----------------------------------
     if (id !== 'v') {
         this.Renderer = new X.renderer2D();
         this.Renderer.orientation = id.toUpperCase();
@@ -33,7 +35,11 @@ PlaneHolder = function(id, args) {
     this.Renderer.container = this.widget.id;
     this.Renderer.init();
     
-
+    if (id === 'v') {
+        this.Renderer.render();
+    }
+    
+    //	this.updateCSS();
 }
 goog.inherits(PlaneHolder, XVWidget);
 
@@ -64,6 +70,7 @@ PlaneHolder.prototype.addSliderAndFrameNum = function(id) {
     goog.dom.append(this.widget, [goog.dom.createDom('div', { 'id': id+'Slider', 'class': 'slice' }),
                                   goog.dom.createDom('div', { 'id': id+'Box', 'class': 'box' })]);
 }
+
 
 
 //******************************************************

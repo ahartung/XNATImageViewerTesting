@@ -6,7 +6,7 @@
  * @param {String} type Type of X object file represents
  * @return {undefined}
  */
-function addFileToFolder(parent, file, type) {
+function addFileToFolder(holder3d, parent, file, type) {
     // outer file element containing both button and label
     var outerFileDiv = goog.dom.createDom('div', {
         'id': 'outerFileDiv' + file,
@@ -34,7 +34,7 @@ function addFileToFolder(parent, file, type) {
         updateNonvolOpacity.setValue(1);
         
         goog.events.listen(updateNonvolOpacity, goog.ui.Component.EventType.CHANGE, function(event) {
-            var obj = getObjFromList(file);
+            var obj = holder3d.getObjFromList(file);
             obj.opacity = updateNonvolOpacity.getValue();
         });
     }
@@ -77,7 +77,7 @@ function addVisibilityButtonListener(type, file) {
     goog.events.listen(goog.dom.getElement(type + 'ButtonFor' + file),
                        goog.events.EventType.CHANGE,
                        function(event) {
-        var selectedObject = getObjFromList(file);
+        var selectedObject = holder3d.getObjFromList(file);
         if (type == 'volume') { toggleVolumeVisibility(selectedObject); }
         
         if (this.checked) { selectedObject.visible = true; } // add to viewer
@@ -86,19 +86,4 @@ function addVisibilityButtonListener(type, file) {
 }
 
 
-
-
-
-
-
-
-/**
- * Set up per-file opacity slider.
- * @param {String} file Filename / filepath
- * @return {undefined}
- */
-function initNonvolOpacitySlider(file) {
-
-    
-}
 

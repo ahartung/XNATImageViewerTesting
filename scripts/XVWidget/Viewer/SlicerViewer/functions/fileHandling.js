@@ -1,3 +1,9 @@
+// include all X-classes used -- only required when using xtk-deps.js
+goog.require('X.volume');
+goog.require('X.mesh');
+goog.require('X.fibers');
+
+
 /** 
  * Returns file extension.
  * @param {String} file Filename / filepath
@@ -94,3 +100,31 @@ function getFileObjectType(file) {
     if (isVolume(file)) return 'volume';
     else return 'mesh';
 }
+
+
+/**
+ * Creates and returns a new X object (object depends on file type).
+ * @param {string} file File name or path
+ * @return {Object} X object
+ */
+function createXObject(file) {
+	var ext = getFileExt(file);
+    obj = getXTKObjName(ext);
+    
+    // associate file 
+    if (ext == "dcm" || ext == "dicom") {
+        var dicomFiles = [];
+        var numFiles = 160;     // TODO read this in at some point
+        for (var i=1; i <= numFiles; ++i) {
+            dicomFiles.push(i);
+        }
+        obj.file = dicomFiles.sort().map(function(obj) {
+            return file.slice(0, -4) + obj + ".dcm";
+        });
+    } else {
+        obj.file = file;
+    }
+    
+    return obj;
+}
+

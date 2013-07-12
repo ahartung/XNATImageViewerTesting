@@ -16,16 +16,20 @@ var zBox;
  * @param {Object} obj X object sliders will control
  * @return {undefined}
  */
-function initSliceSliders() {
+function initSliceSliders(that) {
     createSliders();
     createIndexBoxes();
     
-    updateSlices();
+    console.log(xSlider);
     
-    addSliderListeners();
-    addIndexBoxListeners();
-    addScrollListeners();
+//    updateSlices(that);
+    
+//    addSliderListeners();
+//    addIndexBoxListeners();
+//    addScrollListeners();
 }
+
+
 
 function createSliders() {
     xSlider = new goog.ui.Slider;
@@ -38,49 +42,58 @@ function createSliders() {
 }
 
 function createIndexBoxes() {
-    /*
-    xBox = new goog.ui.LabelInput;
-    yBox = new goog.ui.LabelInput;
-    zBox = new goog.ui.LabelInput;
-    
-    xBox.decorate(goog.dom.getElement('xIndexBox'));
-    yBox.decorate(goog.dom.getElement('yIndexBox'));
-    zBox.decorate(goog.dom.getElement('zIndexBox'));
-    */
-    /*
-    xBox = goog.dom.getElement('xIndexBox');
-    yBox = goog.dom.getElement('yIndexBox');
-    zBox = goog.dom.getElement('zIndexBox');
-    */
     xBox = goog.dom.getElement('xBox');
     yBox = goog.dom.getElement('yBox');
     zBox = goog.dom.getElement('zBox');
 }
 
+
+
+function updateSlices(that) {
+    var cvo = that.currentVolObject;
+
+    cvo.indexX = Math.round(cvo.indexX);
+    cvo.indexY = Math.round(cvo.indexY);
+    cvo.indexZ = Math.round(cvo.indexZ);
+    
+    xSlider.setMaximum(cvo.dimensions[2]-1);
+    ySlider.setMaximum(cvo.dimensions[1]-1);
+    zSlider.setMaximum(cvo.dimensions[0]-1);
+    
+    xSlider.setValue(cvo.indexX);
+    ySlider.setValue(cvo.indexY);
+    zSlider.setValue(cvo.indexZ);
+    
+    xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+    yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
+    zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
+}
+
+
+
 /**
  * Updates volume object's currently displayed slices and index boxes to match
  * slider's position. Called when slider slides or changes.
  */
-function addSliderListeners() {
+function addSliderListeners(that) {
+    var cvo = that.currentVolObject;
+
     goog.events.listen(xSlider, goog.ui.Component.EventType.CHANGE, function() {
-        currentVolObject.indexX = xSlider.getValue();
-        xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
-//        xBox.innerHTML = (currentVolObject.indexX);
-        currentVolObject.modified();
+        cvo.indexX = xSlider.getValue();
+        xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+        cvo.modified();
     });
     
     goog.events.listen(ySlider, goog.ui.Component.EventType.CHANGE, function() {
-        currentVolObject.indexY = ySlider.getValue();
-        yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
-//        yBox.innerHTML = (currentVolObject.indexY);
-        currentVolObject.modified();
+        cvo.indexY = ySlider.getValue();
+        yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
+        cvo.modified();
     });
     
     goog.events.listen(zSlider, goog.ui.Component.EventType.CHANGE, function() {
-        currentVolObject.indexZ = zSlider.getValue();
-        zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
-//        zBox.innerHTML = (currentVolObject.indexZ);
-        currentVolObject.modified();
+        cvo.indexZ = zSlider.getValue();
+        zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
+        cvo.modified();
     });
 }
 
@@ -89,82 +102,57 @@ function addSliderListeners() {
  * slider's value. Called when index input box changes. Only called when there
  * is a renderer visible, and when that renderer is displaying a volume.
  */
-function addIndexBoxListeners() {
+function addIndexBoxListeners(that) {
+    var cvo = that.currentVolObject;
     
     goog.events.listen(xBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(xBox.getValue());
-        if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[2] || isNaN(sliceNum)) {
-            xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
-//            xBox.innerHTML = (xSlider.getValue());
+        if (sliceNum < 0 || sliceNum > cvo.dimensions[2] || isNaN(sliceNum)) {
+            xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
         } else {
-            currentVolObject.indexX = sliceNum;
-            currentVolObject.modified();
+            cvo.indexX = sliceNum;
+            cvo.modified();
             xSlider.setValue(sliceNum);
         }
     });
     
     goog.events.listen(yBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(yBox.getValue());
-        if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[1] || isNaN(sliceNum)) {
-            yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
-//            yBox.innerHTML = (ySlider.getValue());
+        if (sliceNum < 0 || sliceNum > cvo.dimensions[1] || isNaN(sliceNum)) {
+            yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
         } else {
-            currentVolObject._indexY = sliceNum;
-            currentVolObject.modified();
+            cvo._indexY = sliceNum;
+            cvo.modified();
             ySlider.setValue(sliceNum);
         }
     });
     
     goog.events.listen(zBox, goog.ui.Component.EventType.CHANGE, function() {
         var sliceNum = new Number(zBox.getValue());
-        if (sliceNum < 0 || sliceNum > currentVolObject.dimensions[0] || isNaN(sliceNum)) {
-            zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
-//            zBox.innerHTML = (zSlider.getValue());
+        if (sliceNum < 0 || sliceNum > cvo.dimensions[0] || isNaN(sliceNum)) {
+            zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
         } else {
-            currentVolObject._indexZ = sliceNum;
-            currentVolObject.modified();
+            cvo._indexZ = sliceNum;
+            cvo.modified();
             zSlider.setValue(sliceNum); 
         }
     });
 }
 
-function addScrollListeners() {
+function addScrollListeners(that) {
+    var cvo = that.currentVolObject;
+    
     // set up reaction functions for scrolling
     twoDrendererX.onScroll = function() {
-        xSlider.setValue(currentVolObject.indexX);
-        xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
-//        xBox.innerHTML = (currentVolObject.indexX);
+        xSlider.setValue(cvo.indexX);
+        xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
     };
     twoDrendererY.onScroll = function() {
-        ySlider.setValue(currentVolObject.indexY);
-        yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
-//        yBox.innerHTML = (currentVolObject.indexY);
+        ySlider.setValue(cvo.indexY);
+        yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
     };
     twoDrendererZ.onScroll = function() {
-        zSlider.setValue(currentVolObject.indexZ);
-        zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
-//        zBox.innerHTML = (currentVolObject.indexZ);
+        zSlider.setValue(cvo.indexZ);
+        zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
     };
-}
-
-function updateSlices() {
-    currentVolObject.indexX = Math.round(currentVolObject.indexX);
-    currentVolObject.indexY = Math.round(currentVolObject.indexY);
-    currentVolObject.indexZ = Math.round(currentVolObject.indexZ);
-    
-    xSlider.setMaximum(currentVolObject.dimensions[2]-1);
-    ySlider.setMaximum(currentVolObject.dimensions[1]-1);
-    zSlider.setMaximum(currentVolObject.dimensions[0]-1);
-    
-    xSlider.setValue(currentVolObject.indexX);
-    ySlider.setValue(currentVolObject.indexY);
-    zSlider.setValue(currentVolObject.indexZ);
-    /*
-    xBox.innerHTML = (currentVolObject.indexX);
-    yBox.innerHTML = (currentVolObject.indexY);
-    zBox.innerHTML = (currentVolObject.indexZ);
-    */
-    xBox.innerHTML = 'Frame: ' + (currentVolObject.indexX) + ' / ' + currentVolObject.dimensions[2];
-    yBox.innerHTML = 'Frame: ' + (currentVolObject.indexY) + ' / ' + currentVolObject.dimensions[1];
-    zBox.innerHTML = 'Frame: ' + (currentVolObject.indexZ) + ' / ' + currentVolObject.dimensions[0];
 }

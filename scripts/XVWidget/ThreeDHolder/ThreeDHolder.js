@@ -31,6 +31,12 @@ ThreeDHolder = function(args) {
 //	this.progBar = utils.gui.ProgressBar(this.widget);
 //	this.progBar.hide();
 	
+    
+    //----------------------------------
+    // VIEW PANES FOR RENDERERS
+    //----------------------------------
+    this.addViewPanes();
+    
 	
 	//----------------------------------
 	//	ONLOAD CALLBACKS
@@ -85,9 +91,6 @@ ThreeDHolder.prototype.defaultArgs = {
 ThreeDHolder.prototype.addOnloadCallback = function (callback) {
 	this.onloadCallbacks.push(callback)
 }
-
-
-
 
 
 
@@ -175,3 +178,77 @@ ThreeDHolder.prototype.addViewPanes = function () {
         }
 	});
 }
+
+
+/**
+ * Returns the already-created X object that matches the provided file.
+ * @param {String} f Filename / filepath
+ * @return {Object | undefined}
+ */
+ThreeDHolder.prototype.getObjFromList = function(f) {
+    for (var i = 0; i < this.currentObjects.length; ++i) {
+        if (this.currentObjects[i].file == f) return this.currentObjects[i];
+    }
+}
+
+
+/**
+ * Sets the .onShowtime() method of the 3D renderer. If we want to show the 2D
+ * renderers, they are prepped and rendered, and the sliders are initialized.
+ * @param {Object} object X object to be displayed
+ * @param {boolean} show2D True if we want to show 2D renderers
+ * @return {undefined}
+ */
+ThreeDHolder.prototype.setOnShowtime3D = function (object, show2D) {
+    var that = this;
+    if (show2D) {
+        that.PlaneHolder3.Renderer.onShowtime = function() {
+            if (that.firstVolObj) {
+                setupVolumeOptions();
+                initSliceSliders(that);
+                that.firstVolObj = false;
+            }
+            that.update2Drenderers(object);
+//            initVolOpacitySlider();
+//            initThreshSlider();
+            
+        };
+    } else {
+        that.PlaneHolder3.Renderer.onShowtime = function() { };
+    }
+}
+
+
+/**
+ * Adds the provided object to each of the 2D renderers and renders. Calls
+ * the slice slider init function to re-init sliders and index boxes for new object.
+ * @param {Object} X object to be added
+ * @return {undefined}
+ */
+ThreeDHolder.prototype.update2Drenderers = function(object) {
+    this.PlaneHolderX.Renderer.add(object);
+    this.PlaneHolderX.Renderer.render();
+    
+    this.PlaneHolderY.Renderer.add(object);
+    this.PlaneHolderY.Renderer.render();
+    
+    this.PlaneHolderZ.Renderer.add(object);
+    this.PlaneHolderZ.Renderer.render();
+    
+//    updateSlices(this);
+}
+
+
+/**
+ * Destroys all 4 renderers. Called when a 2D file is dropped into a viewport
+ * currently displaying 3D images.
+ * @param {undefined}
+ * @return {undefined}
+ */
+ThreeDHolder.prototype.destroyRenderers = function() {
+    this.PlaneHolderX.Renderer.destroy();
+    this.PlaneHolderY.Renderer.destroy();
+    this.PlaneHolderZ.Renderer.destroy();
+    this.PlaneHolder3.Renderer.destroy();
+}
+
