@@ -1,13 +1,3 @@
-
-goog.require('goog.ui.Zippy');
-goog.require('goog.ui.AnimatedZippy');
-goog.require('goog.fx.Dragger');
-
-var menuContent;
-var voluContent;
-var meshContent;
-var fibrContent;
-
 /**
  * Creates a toggle menu div element with 3 folders. Sets menu to be draggable.
  * @param {undefined}
@@ -15,29 +5,31 @@ var fibrContent;
  */
 function initMenu() {
     // create menu
-    var m = goog.dom.createDom('div', { 'id': 'menuDiv' });
+    var m = goog.dom.createDom('div', { 'id': 'menuDiv', 'class': 'toggleMenu' });
     goog.dom.appendChild(goog.dom.getElement('vDiv'), m);
     
     // create primary header and content
     var mHeader = goog.dom.createDom('div', {
         'id': 'menuHeader',
-        'class': 'collapsibleHeader',
+        'class': 'menu collapsibleHeader',
         'innerHTML': 'hide menu' });
     menuContent = goog.dom.createDom('div', {
         'id': 'menuContent',
-        'class': 'collapsibleContent' });
+        'class': 'menu collapsibleContent' });
     goog.dom.append(m, [mHeader, menuContent]);
     
-    voluContent = addFolderToMenu('volumes');
-    meshContent = addFolderToMenu('meshes');
-    fibrContent = addFolderToMenu('fibers');
+//    voluContent = addFolderToMenu('volumes');
+//    meshContent = addFolderToMenu('meshes');
+//    fibrContent = addFolderToMenu('fibers');
     
     // be able to move menu around viewer
     // TODO: set limits
     var mDrag = new goog.fx.Dragger(goog.dom.getElement('menuDiv'));
-    goog.events.listen(mDrag, goog.fx.Dragger.EventType.DRAG, function(event) {
-//			utils.dom.stopPropagation(event);
-            console.log('dragging menu');
+    goog.events.listen(mDrag, goog.events.EventType.DRAG, function(event) {
+//        console.log(event.currentTarget.target.className);
+//        if (event.currentTarget.target.className.toLowerCase().indexOf('slider') > -1) {
+//            console.log('sliding');
+//        }
     });
     mDrag.setHysteresis(5);
 }
@@ -50,7 +42,7 @@ function initMenu() {
  */
 function initCollapsible() {
     // all headers cause collapse
-    var mZippy = new goog.ui.AnimatedZippy('menuHeader', 'menuContent', true);
+    var mZippy = new goog.ui.AnimatedZippy('menuHeader', 'menuContent', false);
     var vZippy = new goog.ui.AnimatedZippy('volumesHeader', 'volumesContent', true);
     var mZippy = new goog.ui.AnimatedZippy('meshesHeader', 'meshesContent', true);
     var fZippy = new goog.ui.AnimatedZippy('fibersHeader', 'fibersContent', true);

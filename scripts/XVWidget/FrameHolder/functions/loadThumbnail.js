@@ -18,8 +18,6 @@ FrameHolder.prototype.loadCurrViewPlane = function () {
 		
 		// Load Frames By ViewPlane
 		that.loadFramesByViewPlane(that.currViewPlane);
-        
-        // Amanda - want to catch when currViewPlane is 3D
 	}		
 }
 

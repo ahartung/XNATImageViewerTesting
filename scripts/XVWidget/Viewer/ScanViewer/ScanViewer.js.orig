@@ -1,49 +1,72 @@
 //******************************************************
 //  Init
+//	
 //******************************************************
 goog.require('Viewer');
-goog.provide('SlicerViewer');
 
+goog.provide('ScanViewer');
 /**
  * @constructor
  * @extends {Viewer}
  */
-SlicerViewer = function (args) {
-	Viewer.call(this, utils.dom.mergeArgs(SlicerViewer.prototype.defaultArgs, args));
+ScanViewer = function (args) {
+						
+	Viewer.call(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
+	//goog.base(this, utils.dom.mergeArgs(ScanViewer.prototype.defaultArgs, args));
+	
 
 	var that = this;
-    this.childrenToFadeOut = [];
-    
-	//----------------------------------
-	// 3D VIEWER
-	//----------------------------------
-	/**
-	  * @type {ThreeDHolder}
+	
+
+	 //----------------------------------
+	 // FRAME VIEWER
+	 //----------------------------------
+	 /**
+	  * @type {FrameHolder}
 	  */
-	this.ThreeDHolder = new ThreeDHolder({
-		parent: this.widget,
-		"border-width": 0
-	});
-	this.ThreeDHolder.Viewer = this;
-    
+	this.FrameHolder = new FrameHolder({
+	 	parent: this.widget,
+	 	"borderWidth": 0
+	 });
+	this.FrameHolder.Viewer = this;
+
+ 	
 	/*
-	 *	Modify the ThreeDHolder such that it lets "this"
+	 *	Modify the FrameHolder such that it lets "this"
 	 *  know of the currentScan when it's dropped in.
 	 */
-	this.ThreeDHolder.addOnloadCallback(function () {
+	this.FrameHolder.addOnloadCallback(function () {
+<<<<<<< HEAD
+        console.log('this IS a callback - scan');
+		if(that.FrameHolder.currDroppable.scanData) {
+			that.populateData(that.FrameHolder.currDroppable.scanData)
+=======
 		var t = that.getThumbnail();
 		if(t && t.scanData) {
-			that.populateData(t.scanData)
+			that.populateData(t.scanData);
+>>>>>>> upstream/master
 		}
 	})
+
+
+
 
 	//----------------------------------
 	// MENUS
 	//----------------------------------	
  	this.addViewPlaneMenu();
+	//this.addLinkMenu(); 	
 
-    
-    
+
+
+	 //----------------------------------
+	 // SLIDER
+	 //----------------------------------	
+	this.addFrameSlider();
+
+
+
+
 	//----------------------------------
 	// CONTENT DIVIDER
 	//----------------------------------
@@ -56,8 +79,11 @@ SlicerViewer = function (args) {
 			backgroundColor: "rgb(35,35,35)" 
 		}
 	});
+
+
+
+
 	
-    
 	//----------------------------------
 	// SCAN TABS
 	//----------------------------------		
@@ -67,7 +93,7 @@ SlicerViewer = function (args) {
 	this.ScanTabs = new ScanTabs({
 
 		parent: this.widget,
-		tabTitles: ["Info", "Adjust", "Menu"],
+		tabTitles: ["Info", "Adjust"],
 		widgetCSS: {
 			height: GLOBALS.minScanTabHeight,
 			width: '100%'
@@ -76,14 +102,15 @@ SlicerViewer = function (args) {
 	});
 	this.linkContentDividerToScanTabs();
 	
-    
-    
-    //----------------------------------
+
+
+	
+	//----------------------------------
 	// ADJUST / IMAGE PROCESSING SLIDERS
 	//----------------------------------		
 	this.addAdjustSliders();
-    
-    
+
+
 	
 	//----------------------------------
 	// METADATA, A.K.A. DISPLAYABLE DATA
@@ -106,33 +133,73 @@ SlicerViewer = function (args) {
 		//border: "solid 1px rgb(255,255,255)",
 		width: 140
 	};
-    
-    
-    //----------------------------------
-    // TOGGLE MENU
-    //----------------------------------
-    this.addToggleMenu();
-    
-    
 
+
+
+
+	/**
+	 * @protected
+	 */
+	this.displayableData.frameNumber = utils.dom.makeElement("div", this.widget, "ScanViewerDisplayableData");
+	utils.css.setCSS( this.displayableData.frameNumber, this.textCSS_small);		
+		
+		
+		
+		
+	//
+	// Synchronize current frame number with display
+	//
+	this.FrameHolder.addOnloadCallback(function () {
+		that.displayableData.frameNumber.innerHTML = "Frame: "+ (that.FrameHolder.currFrame) + 
+													 " / " + that.FrameHolder.frames.length;	
+	});
+
+
+    
     this.setHoverEvents();
     this.updateCSS();
 }
-goog.inherits(SlicerViewer, Viewer);
+goog.inherits(ScanViewer, Viewer);
 
-/*
+
+
+
+
+
+/**
  * @type {object}
  * @protected
  */
-SlicerViewer.prototype.defaultArgs = {
-	className: GLOBALS.classNames.SlicerViewer
+ScanViewer.prototype.defaultArgs = {
+	className: GLOBALS.classNames.ScanViewer,
+	sliderCSS:	
+	{ 
+		parent: document.body,
+		className: 'FrameSlider',
+		widgetCSS:{
+			'height' : 8,
+			'width' : '96%',
+			'left' : '2%'
+		},
+		thumbCSS:{
+			height: 7,
+			width: 7,
+			borderRadius: 2,
+			backgroundColor: "rgba(195,195,195,1)"
+		},
+		trackCSS:{
+			height: 3,
+			backgroundColor: "rgba(55, 55, 55, 1)",
+			borderRadius: 2
+		}
+	}
 }
 
 
-SlicerViewer.prototype.loadThumbnail = function (thumb) {
+ScanViewer.prototype.loadThumbnail = function (thumb) {
 	
-	SlicerViewer.superClass_.loadThumbnail.call(this, thumb);
-	this.ThreeDHolder.loadThumbnail(thumb, '3D'); 
+	ScanViewer.superClass_.loadThumbnail.call(this, thumb);
+	this.FrameHolder.loadThumbnail(thumb); 
 	
 }
 
@@ -141,11 +208,11 @@ SlicerViewer.prototype.loadThumbnail = function (thumb) {
 /**
  * @private
  */
-SlicerViewer.prototype.setHoverEvents = function () {
+ScanViewer.prototype.setHoverEvents = function () {
 	
 	var that = this;
 	var keeperClasses = [
-		GLOBALS.classNames.ThreeDHolder
+		GLOBALS.classNames.FrameHolder
 	]
 	
 	this.hoverOut = function() {
@@ -181,16 +248,16 @@ SlicerViewer.prototype.setHoverEvents = function () {
  * @param {Element}
  * @protected
  */
-SlicerViewer.prototype.createDragElement = function(srcElt) {
+ScanViewer.prototype.createDragElement = function(srcElt) {
 	
-	var returner = SlicerViewer.superClass_.createDragElement.call(this, srcElt);
+	var returner = ScanViewer.superClass_.createDragElement.call(this, srcElt);
 	if (returner.id !== 'DUMMY') {
 	
 		var parent, srcCanv, clonedCanv, context;
-		var keepClasses = [ GLOBALS.classNames.ThreeDHolder ];
+		var keepClasses = [ GLOBALS.classNames.FrameHolder ];
 		var keepElts = [];
 				
-		parent = goog.dom.getAncestorByClass(srcElt, GLOBALS.classNames.SlicerViewer);
+		parent = goog.dom.getAncestorByClass(srcElt, GLOBALS.classNames.ScanViewer);
 	
 		//
 		// Retain any children that you want to keep
@@ -201,10 +268,16 @@ SlicerViewer.prototype.createDragElement = function(srcElt) {
 		//	
 		returner = parent.cloneNode(true);
 		returner.style.fontFamily = GLOBALS.fontFamily;
+		srcCanv = goog.dom.getElementByClass(GLOBALS.classNames.FrameHolderCanvas, parent);
+		clonedCanv = goog.dom.getElementByClass(GLOBALS.classNames.FrameHolderCanvas, returner);
 	
+	
+		
 		//
 		// Draw text on draggable ghost
-		//  
+		//
+		context = clonedCanv.getContext("2d");
+		context.drawImage(srcCanv, 0, 0);		  
 	  	returner.style.opacity = .7;	
 		returner.className = "VIEWERCLONE";
 		returner.id = "CLONE";

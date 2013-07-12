@@ -9,7 +9,7 @@ function addFolderToMenu(folderName) {
     // header div containing both icon and label
     var folderHeader = goog.dom.createDom('div', {
         'id': folderName + 'Header',
-        'class': 'collapsibleHeader folder', });
+        'class': 'menu collapsibleHeader folder', });
         
     // add icon and label to header
     goog.dom.append(folderHeader, [
@@ -20,7 +20,7 @@ function addFolderToMenu(folderName) {
     // content div for this header
     var folderContent = goog.dom.createDom('div', {
         'id': folderName + 'Content',
-        'class': 'collapsibleContent' });
+        'class': 'menu collapsibleContent' });
     
     // add a marker for volume content
     if (folderName == 'volumes') {

@@ -100,7 +100,8 @@ Viewer.prototype.setHoverEvents = function () {
 	
 	var that = this;
 	var keeperClasses = [
-		GLOBALS.classNames.FrameHolder
+		GLOBALS.classNames.FrameHolder,
+        GLOBALS.classNames.ThreeDHolder
 	]
 	
 	this.hoverOut = function() {
@@ -116,7 +117,9 @@ Viewer.prototype.setHoverEvents = function () {
 			if (!found) {
 				utils.fx.fadeOut(node, 0);
 			}
-		})		
+		})
+        
+        
 	}
 	
 	this.hoverIn = function() {

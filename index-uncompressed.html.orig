@@ -2,34 +2,31 @@
  
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>XNAT Image Viewer (Prototype)</title>
-  
 <<<<<<< HEAD
-	<!--link rel="stylesheet" href="./css/jquery-ui-1.10.3.custom.min.css" />
-	<script type="text/javascript" src="./scripts/utils/lib/jquery/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript" src="./scripts/utils/lib/jquery/jquery-ui-1.10.3.custom.min.js"></script>
-	<script type="text/javascript" src="./scripts/utils/lib/jquery/jquery-collision.min.js"--></script>
-    <script type="text/javascript" src="./scripts/utils/lib/jquery/jquery.js"></script>
-    <script type="text/javascript" src="./scripts/utils/lib/jquery/jquery.ui.js"></script>
+    <meta charset="utf-8" />
+    <title>XNAT Image Viewer (Prototype)</title>
+  
+	<!--script type="text/javascript" src="./scripts/utils/lib/jquery/jquery-1.10.1.min.js"></script-->
+    <!--script type="text/javascript" src="./scripts/utils/lib/jquery/jquery.js"></script-->
+    <!--script type="text/javascript" src="./scripts/utils/lib/jquery/jquery.ui.js"></script-->
+    
     <script type="text/javascript" src="./scripts/utils/lib/X/lib/google-closure-library/closure/goog/base.js"></script>
 	<script type="text/javascript" src="./scripts/utils/lib/X/xtk-deps.js"></script>
-	
-	<script> 
-	
-		goog.require('goog.ui.Slider'); 
-		goog.require('goog.events.MouseWheelHandler');
-		goog.require('goog.fx.DragDrop');
+    
+    <script src="./scripts/utils/utils.js"></script>
+    
+    <script type="text/javascript" src="./scripts/utils/includes.js"></script>
 =======
->>>>>>> upstream/master
+  <meta charset="utf-8" />
+  <title>XNAT Image Viewer (Prototype)</title>
 
-	<script type="text/javascript" src="./scripts/utils/thirdparty/jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="closure-library/closure/goog/base.js"></script>
 
 <script src="./scripts/utils/utils.js"></script>	
 
 
 	<script type="text/javascript" src="./scripts/utils/includes.js"></script>
+>>>>>>> upstream/master
 	<script type="text/javascript" src="./scripts/XVWidget/includes.js"></script>
 	
 	<script src="./demoscans/SCAN_07_Defaced.js"></script>
@@ -43,6 +40,15 @@
 	<script src="./demoscans/SCAN_21_Defaced.js"></script>
 	<script src="./demoscans/SCAN_24_Defaced.js"></script>	
 	<script src="./demoscans/demoScanData.js"></script>	
+    
+    <script src="./demoscans/3D/MRHead.js"></script>
+    <script src="./demoscans/3D/Daniel.js"></script>
+    <script src="./demoscans/3D/Mesh.js"></script>
+    <script src="./demoscans/3D/Car.js"></script>
+    <script src="./demoscans/3D/Points.js"></script>
+    <script src="./demoscans/3D/Fibers.js"></script>
+    <script src="./demoscans/3D/Ventricles.js"></script>
+	<script src="./demoscans/TestSlicerData.js"></script>
 
 	
 	<script src="./scripts/utils/globals/globals.js"></script>
@@ -59,8 +65,6 @@
 	<script src="./scripts/utils/css/dims.js"></script>
 	<script src="./scripts/utils/css/absolutePosition.js"></script>
 	<script src="./scripts/utils/css/setCSS.js"></script>
-	<script src="./scripts/utils/css/totalHeight.js"></script>
-	<script src="./scripts/utils/css/totalWidth.js"></script>
 	<script src="./scripts/utils/css/processCSSObject.js"></script>
 	
 
@@ -95,10 +99,6 @@
 	<script src="./scripts/XVWidget/SliderLinker/SliderLinker.js"></script>
 	<script src="./scripts/XVWidget/SliderLinker/functions/addClearAllPopup.js"></script>
 	<script src="./scripts/XVWidget/SliderLinker/functions/addLinkMenuPopup.js"></script>
-<<<<<<< HEAD
-	<!--script src="./scripts/XVWidget/SliderLinker/functions/setViewerClickListen.js"></script-->
-=======
->>>>>>> upstream/master
 	
 
 	<script src="./scripts/XVWidget/GLOBALS.js"></script>
@@ -107,13 +107,11 @@
 	
 
 	<script src="./scripts/XVWidget/ContentDivider/ContentDivider.js"></script>
-<<<<<<< HEAD
+    
 	<script src="./scripts/XVWidget/ThreeDHolder/ThreeDHolder.js"></script>
-	<script src="./scripts/XVWidget/ThreeDHolder/loadThumbnail.js"></script>
-=======
-	
-
->>>>>>> upstream/master
+	<script src="./scripts/XVWidget/ThreeDHolder/functions/loadThumbnail.js"></script>
+	<script src="./scripts/XVWidget/ThreeDHolder/functions/updateCSS.js"></script>
+    
 	<script src="./scripts/XVWidget/FrameHolder/FrameHolder.js"></script>
 	<script src="./scripts/XVWidget/FrameHolder/functions/loadFrames.js"></script>
 	<script src="./scripts/XVWidget/FrameHolder/functions/updateCSS.js"></script>
@@ -137,16 +135,12 @@
 	<script src="./scripts/XVWidget/Viewer/Viewer.js"></script>
 	<script src="./scripts/XVWidget/Viewer/functions/linkContentDividerToScanTabs.js"></script>
 	<script src="./scripts/XVWidget/Viewer/functions/addViewPlaneMenu.js"></script>
+	<script src="./scripts/XVWidget/Viewer/functions/populateData.js"></script>
 	
 	
 
 	<script src="./scripts/XVWidget/Viewer/ScanViewer/ScanViewer.js"></script>
 	<script src="./scripts/XVWidget/Viewer/ScanViewer/functions/addLinkMenu.js"></script>
-	<script src="./scripts/XVWidget/Viewer/ScanViewer/functions/populateData.js"></script>
-<<<<<<< HEAD
-	<!--script src="./scripts/XVWidget/Viewer/ScanViewer/functions/setDraggable_jQuery.js"></script-->
-=======
->>>>>>> upstream/master
 	<script src="./scripts/XVWidget/Viewer/ScanViewer/functions/addAdjustSliders.js"></script>
 	<script src="./scripts/XVWidget/Viewer/ScanViewer/functions/addFrameSlider.js"></script>
 	<script src="./scripts/XVWidget/Viewer/ScanViewer/functions/updateCSS.js"></script>
@@ -157,6 +151,7 @@
 	<script src="./scripts/XVWidget/Viewer/SlicerViewer/functions/rendering.js"></script>
 	<script src="./scripts/XVWidget/Viewer/SlicerViewer/functions/sliceSliders.js"></script>
 	<script src="./scripts/XVWidget/Viewer/SlicerViewer/functions/viewer.js"></script>
+	<script src="./scripts/XVWidget/Viewer/SlicerViewer/functions/updateCSS.js"></script>
 	<link rel="stylesheet" href="./scripts/XVWidget/Viewer/SlicerViewer/functions/viewer.css" />
     
     
@@ -174,32 +169,6 @@
 	<script src="./scripts/XVWidget/ScrollGallery/ScrollGallery.js"></script>
 	
 	
-<<<<<<< HEAD
-	<script src="./testscans/SCAN_07_Defaced.js"></script>
-	<script src="./testscans/SCAN_08_Defaced.js"></script>
-	<script src="./testscans/SCAN_09_Defaced.js"></script>
-	<script src="./testscans/SCAN_10_Defaced.js"></script>
-	<script src="./testscans/SCAN_17_Defaced.js"></script>
-	<script src="./testscans/SCAN_18_Defaced.js"></script>
-	<script src="./testscans/SCAN_19_Defaced.js"></script>
-	<script src="./testscans/SCAN_20_Defaced.js"></script>
-	<script src="./testscans/SCAN_21_Defaced.js"></script>
-	<script src="./testscans/SCAN_24_Defaced.js"></script>
-	
-    <script src="./testscans/3D/MRHead.js"></script>
-    <script src="./testscans/3D/Daniel.js"></script>
-    <script src="./testscans/3D/Mesh.js"></script>
-    <script src="./testscans/3D/Car.js"></script>
-    <script src="./testscans/3D/Points.js"></script>
-    <script src="./testscans/3D/Fibers.js"></script>
-	
-	<script src="./testscans/TestScanData.js"></script>
-	<script src="./testscans/TestSlicerData.js"></script>
-	
-=======
-
-
->>>>>>> upstream/master
 	<script src="./scripts/XVWidget/Modal/Modal.js"></script>
 	<script src="./scripts/XVWidget/Modal/functions/animateModal.js"></script>
 	<script src="./scripts/XVWidget/Modal/functions/destroy.js"></script>
@@ -212,30 +181,14 @@
 	<script src="./scripts/XVWidget/Modal/functions/addScrollGallery.js"></script>
 	<script src="./scripts/XVWidget/Modal/functions/ThumbnailDragAndDrop.js"></script>
 	<script src="./scripts/XVWidget/Modal/functions/ViewerDragAndDrop.js"></script>
-<<<<<<< HEAD
-	<!--script src="./scripts/XVWidget/Modal/functions/setViewerToThumb.js"></script-->
-	<script src="./scripts/XVWidget/Modal/ModalOnload.js"></script>
-
-
-=======
 	<script src="./scripts/xmiv.start.js"></script>	
 	
 	
->>>>>>> upstream/master
 </head>
 
-
-
 	
-<body> 
-
-<script>
-      xmiv.start();
-</script>
-
-	
+<body>
+    <script>xmiv.start();</script>
 </body>
-
-
 
 </html>

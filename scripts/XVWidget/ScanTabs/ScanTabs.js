@@ -102,8 +102,8 @@ goog.inherits(ScanTabs, XVWidget);
 ScanTabs.prototype.defaultArgs = {
 	parent: document.body,
 	className: GLOBALS.classNames.ScanTabs,
-	tabTitles: ["Info", "Adjust"],
-	tabIconSrc: ["./icons/InfoIcon.png", "./icons/Adjust.png"],
+	tabTitles: ["Info", "Adjust", "Menu"],
+	tabIconSrc: ["./icons/InfoIcon.png", "./icons/Adjust.png", "./icons/Menu.png"],
 	widgetCSS: {
 		position: 'absolute',
 		top: 400,

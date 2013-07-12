@@ -25,12 +25,10 @@
 }
 
 .folder {
-    margin-top: 15px;
     font-weight: bold;
     letter-spacing: -1px;
-    border-bottom: 1px solid #333;
-    background: #aaa;
-    cursor: pointer;
+    border-bottom: 1px solid #888;
+    background: #999;
 }
 
 .goog-zippy-expanded .arrow, .goog-zippy-collapsed .arrow {

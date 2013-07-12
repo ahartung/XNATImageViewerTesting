@@ -38,10 +38,12 @@ ThreeDHolder = function(args) {
         position: 'absolute',
         overflow: 'hidden',
         display: 'inline',
-        width: '100%',
-        height: '66%',
+        width: '50%',
+        height: '50%',
+        left: '50%',
+        top: '50%',
     });
-    
+    /*
     this.twoDviewerX = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
     this.twoDviewerY = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
     this.twoDviewerZ = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
@@ -101,7 +103,6 @@ ThreeDHolder.prototype.defaultArgs = {
 //  are loaded.
 //******************************************************
 ThreeDHolder.prototype.addOnloadCallback = function (callback) {
-    console.log('adding to the callbacks - threed');
 	this.onloadCallbacks.push(callback)
 }
 
@@ -131,7 +132,7 @@ ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 	//
 	// Arguments are needed only when initializing the adjustMethods
 	//
-	if (methodType !== 'undefined' && value  && this.canvas.height > 0 && this.canvas.width > 0) {
+	if (methodType !== 'undefined' && value) {
 		
 		
 		
@@ -144,18 +145,6 @@ ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 		this.adjustMethods[methodType] = value;
 		
 		
-		
-		//
-		// Draw original frame
-		//
-		this.drawFrame(this.currFrame); 
-
-	
-		//
-		// Get canvas's imageData
-		//
-		var imageData = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);	
-
 
 		//
 		// Apply image adjustment methods
@@ -163,18 +152,14 @@ ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 		for (var i in this.adjustMethods) {
 			switch (i) {
 				case "brightness":
-					imageData.data = linearBrightness(imageData.data, this.adjustMethods[i]);
+					console.log('adjust brightness');
 					break;
 				case "contrast":
-					imageData.data = linearContrast(imageData.data, this.adjustMethods[i], this.defaultArgs.contrastThreshold);
+					console.log('adjust contrast');
 					break;
 			}
 		}
 		
 
-		//
-		// Put the new image data back into canvas
-		//
-		this.context.putImageData(imageData, 0, 0);	
 	}
 }

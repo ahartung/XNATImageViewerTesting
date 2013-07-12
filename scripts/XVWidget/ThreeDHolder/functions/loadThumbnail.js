@@ -82,10 +82,15 @@ ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
 		this.currDroppable = droppable;
 		this.currViewPlane = "3D";
         
-        that.Viewer.ViewPlaneMenu.activateIcon('3D');
+        that.Viewer.ViewPlaneMenu.activateIcon('3D', true);
         
 //        console.log(droppable.scanData);
         loadFileOnDrop(droppable.scanData.filePath, this.widget.id);
+        
+        // Run any callbacks once everything is loaded
+        utils.array.forEach(this.onloadCallbacks, function(callback) {
+            callback(this.widget);
+        })	
         
 //		throw "ThreeDHolder.js: Invalid Droppable for ThreeDHolder."
 	}

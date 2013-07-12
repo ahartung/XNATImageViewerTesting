@@ -69,7 +69,6 @@ ScrollGallery = function (args) {
 		}
 	});
 	
-	console.log(this.ContentSlider)	
 	this.ContentSlider.addSlideCallback(that.moveContents, that);  
 	this.ContentSlider.bindToMouseWheel(that.widget);
 	

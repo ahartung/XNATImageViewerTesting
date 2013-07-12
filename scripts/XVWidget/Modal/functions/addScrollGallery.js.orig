@@ -6,6 +6,7 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	//----------------------------------
 	//	SCROLL GALLERY
 	//----------------------------------
+	
 	this.ScrollGallery = new ScrollGallery({
 		parent: this.modal,
 		orientation: "vertical",
@@ -15,7 +16,7 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 			height: 700
 		}
 	});	
-	
+
 
 	
 	//----------------------------------
@@ -29,7 +30,10 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	
 	
 	utils.array.forEach(that.scanDataPaths, function(dataPath) { 
-		console.log('data path ', dataPath)	
+<<<<<<< HEAD
+//		console.log('data path ', dataPath)	
+=======
+>>>>>>> upstream/master
 		that.dragDropThumbnails.push(new ScanThumbnail(dataPath, {		  	
 		  	parent: thumbContents,  	
 		  	widgetCSS: {
@@ -59,13 +63,8 @@ Modal.prototype.addScrollGallery = function (rowPos) {
 	var thumbContents = this.ScrollGallery.getScrollables(slicerKey , 'content');
 	var thumbContentsWidth = utils.css.dims(thumbContents, 'width');
 	
-<<<<<<< HEAD
-	
-	utils.array.forEach(that.slicerDataPaths, function(dataPath) { 	
-=======
 						//
-	utils.array.forEach(that.scanDataPaths, function(dataPath) { 	
->>>>>>> upstream/master
+	utils.array.forEach(that.slicerDataPaths, function(dataPath) { 	
 		//--------------------------------
 		// ********AMANDA CODE HERE*******
 		//  

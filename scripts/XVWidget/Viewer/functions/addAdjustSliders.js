@@ -2,7 +2,7 @@
 //  
 //
 //******************************************************
-ScanViewer.prototype.addAdjustSliders = function () {
+Viewer.prototype.addAdjustSliders = function () {
 	
 	var that = this;
 	
@@ -13,8 +13,7 @@ ScanViewer.prototype.addAdjustSliders = function () {
 	var sliderLeft = labelLeft + 65;
 	var numLeft = sliderLeft + sliderWidth + 10;
 
-	var imgProcSliderCSS =
-	{
+	var imgProcSliderCSS = {
 		widgetCSS:{
 			position: 'absolute',
 			width: sliderWidth,
@@ -52,7 +51,7 @@ ScanViewer.prototype.addAdjustSliders = function () {
 	
 	var sliderVals = ['Brightness', 'Contrast'];
 	var sliderKey;
-	
+    
 	utils.array.forEach(sliderVals, function(SliderName, i) { 
 
 		sliderKey = SliderName + 'Slider';
@@ -84,7 +83,7 @@ ScanViewer.prototype.addAdjustSliders = function () {
 	    
 
 	    bNum = utils.dom.makeElement("div", that.ScanTabs.getTab("Adjust"), "SliderLabel", utils.dom.mergeArgs(labelCSS, {
-	    	top: sliderMarginTop + (sliderVerticalSpacing * (i)) + imgProcSliderCSS.thumbCSS.height/2 - GLOBALS.fontSizeMed/2 - 2 + 3,
+	    	top: sliderMarginTop + (sliderVerticalSpacing * (i)) + imgProcSliderCSS.thumbCSS.height/2 - GLOBALS.fontSizeMed/2 + 1,
 	    	left: numLeft ,
 	    	fontSize: GLOBALS.fontSizeMed
 	    }))
@@ -93,9 +92,11 @@ ScanViewer.prototype.addAdjustSliders = function () {
 		// Callback
 		this[sliderKey].addSlideCallback(function (_slider) {		
 			var sliderVal = _slider.getValue();
-			console.log("SLIDER VAL ",  sliderVal)
-			bNum.innerHTML = Math.round(sliderVal);		
-			that.FrameHolder.imageAdjust(SliderName.toLowerCase(), sliderVal);
+			bNum.innerHTML = Math.round(sliderVal);
+            if (that.FrameHolder)
+                that.FrameHolder.imageAdjust(SliderName.toLowerCase(), sliderVal);
+            else
+                that.ThreeDHolder.imageAdjust(SliderName.toLowerCase(), sliderVal);
 	    });  
 
 	})

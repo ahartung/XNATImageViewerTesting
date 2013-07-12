@@ -81,8 +81,6 @@ function loadFileOnDrop(file, container) {
     // create renderers if they don't exist yet
     if (! threeDrenderer) {
         createRenderers(newObj, container, 'vDiv', 'xDiv', 'yDiv', 'zDiv');
-        initMenu();
-        initCollapsible();
     }
     
     threeDrenderer.add(newObj);

@@ -110,7 +110,6 @@ FrameHolder.prototype.defaultArgs = {
 //  are loaded.
 //******************************************************
 FrameHolder.prototype.addOnloadCallback = function (callback) {
-    console.log('adding to the callbacks - frame');
 	this.onloadCallbacks.push(callback)
 }
 
@@ -124,7 +123,7 @@ FrameHolder.prototype.addOnloadCallback = function (callback) {
 //******************************************************
 FrameHolder.prototype.drawFrame = function (frameNumber, adjustments) {	
 
-	if (this.frames) {		
+	if (this.frames) {
 
 		//
 		//  Adjust frameNumber to start at 1 instead of 0

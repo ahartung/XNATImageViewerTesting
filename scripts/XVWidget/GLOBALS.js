@@ -349,6 +349,8 @@ GLOBALS = function (){
 		SlicerViewer : 'SlicerViewer',		
 		
         ThreeDHolder: 'ThreeDHolder',
+        ThreeDHolder3D: 'threeD',
+        ThreeDHolder2D: 'twoD',
         
 		FrameHolder: 'FrameHolder',
 		FrameHolderCanvas: 'FrameHolderCanvas',

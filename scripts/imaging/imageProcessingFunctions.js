@@ -169,7 +169,8 @@ function thresholdAutoDetect(data) {
 		var i = 0;	
 		while ((delta !== 0) && (i<numIters)) {		
 			var TInds = [];
-			for (var k = 0, len = intensity.length; k < len; k++) {				if (intensity[k] > T[i]) {
+			for (var k = 0, len = intensity.length; k < len; k++) {
+                if (intensity[k] > T[i]) {
 					TInds.push(k);	
 				}
 			}
