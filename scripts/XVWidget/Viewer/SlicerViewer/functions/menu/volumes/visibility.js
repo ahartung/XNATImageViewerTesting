@@ -14,14 +14,13 @@ function toggleVolumeVisibility(newObj) {
         (currentVolObject.volumeRendering) ? 'checked' : '';
     
     // set threshold sliders to match object properties
-    var tSlider = goog.dom.getElement('threshSlider');
-    tSlider.setMinimum(currentVolObject.min);
-    tSlider.setMaximum(currentVolObject.max);
-    tSlider.setValueAndExtent(currentVolObject.lowerThreshold,
+    volThreshSlider.setMinimum(currentVolObject.min);
+    volThreshSlider.setMaximum(currentVolObject.max);
+    volThreshSlider.setValueAndExtent(currentVolObject.lowerThreshold,
         currentVolObject.upperThreshold - currentVolObject.lowerThreshold);
     
     // set opacity slider to match object property
-    goog.dom.getElement('opacitySliderVol').setValue(currentVolObject.opacity);
+    volOpacitySlider.setValue(currentVolObject.opacity);
     
     update2Drenderers(newObj);  // updates 2D renderers so that correct images are displayed
 }

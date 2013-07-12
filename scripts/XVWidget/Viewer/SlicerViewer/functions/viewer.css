@@ -1,98 +1,33 @@
 
-/** viewer elements **/
+/** viewer elements ** /
 
-#fileDiv {
-	border: 5px solid black;
-    border-radius: 5px;
+.renderer {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 15%;
-    height: 80%;
-    text-align: center;
-    overflow: auto;
-    background: black;
-    color: white;
-}
-
-#viewDiv {
-    position: absolute;
-    border: 5px solid #000;
-    border-radius: 5px;
     background: #000;
-    top: 10%;
-    left: 30%;
-    height: 80%;
-    width: 60%;
-}
-
-.threeD {
-    position: absolute;
     overflow: hidden;
     display: inline;
     width: 50%;
     height: 50%;
 }
 
-.twoD {
-	border: 0px solid #333;
-    background: #000;
-    position: absolute;
-    width: 50%;
-    height: 50%;
-    overflow: hidden;
-    display: inline;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
-}
-
-
-/** portrait **/
-
-.portrait #vDiv {
+#vDiv {
 	top: 50%;
     left: 50%;
 }
 
-.portrait #xDiv {
+#xDiv {
 	top: 0;
     left: 0;
 }
 
-.portrait #yDiv {
+#yDiv {
 	top: 0%;
 	left: 50%;
 }
 
-.portrait #zDiv {
+#zDiv {
 	top: 50%;
 	left: 0%;
-}
-
-
-/** landscape **/
-
-.landscape #vDiv {
-	width: 66.6%;
-	height: 100%;
-}
-
-.landscape #xDiv {
-    top: 0;
-	left: 66.6%;
-}
-
-.landscape #yDiv {
-	top: 33.3%;
-	left: 66.6%;
-}
-
-.landscape #zDiv {
-	top: 66.6%;
-	left: 66.6%;
 }
 
 
@@ -112,6 +47,10 @@ canvas {
     text-align: right;
 }
 
+#xIndexBox { border-color: #CC0; }
+#yIndexBox { border-color: #0f0; }
+#zIndexBox { border-color: #f00; }
+
 .box {
     position: absolute;
     width: 90%;
@@ -120,22 +59,6 @@ canvas {
     color: #ddd;
     font-size: 10px;
 }
-
-.maxIndex {
-    position: absolute;
-    right: 6px;
-    bottom: 8px;
-    width: 22px;
-    height: 16px;
-    font-family: Arial;
-    font-size: 12px;
-    color: #888;
-    text-align: right;
-}
-
-#xIndexBox { border-color: #CC0; }
-#yIndexBox { border-color: #0f0; }
-#zIndexBox { border-color: #f00; }
 
 
 /** 2D slice sliders **/

@@ -21,7 +21,7 @@ function setupVolumeOptions() {
 
     // create volume rendering option
     var outerRendDiv = goog.dom.createDom('div', { 'id': 'outerRendDiv' });
-    addButtonAndLabel(outerRendDiv, 'renderButtonForVolumes', 'volume rendering');  // create button and label
+    addButtonAndLabel(outerRendDiv, 'renderButtonForVolumes', 'render volume');  // create button and label
     goog.dom.appendChild(voluContent, outerRendDiv);  // add to folder's contents
     addRenderingButtonListener();                     // listen for changes
     

@@ -12,7 +12,7 @@ SlicerViewer.prototype.addToggleMenu = function() {
     
     var that = this;
     
-    var innerDivCSS = {
+    var folderContentCSS = {
         position: 'absolute',
         color: '#000',
         background: '#fff',
@@ -25,41 +25,50 @@ SlicerViewer.prototype.addToggleMenu = function() {
         border: '1px solid #888',
     }
     
+    //----------------------
     // volumes
+    //----------------------
     voluContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",
-                                        utils.dom.mergeArgs(innerDivCSS, {left: '7%'}));
+                                        utils.dom.mergeArgs(folderContentCSS, {left: '7%'}));
+    
     var voluHeader = utils.dom.makeElement('div',
-                                           voluContent,
-                                           "InnerHeader folder",
-                                           {color: '#000', fontSize: GLOBALS.fontSizeMed});
+                                        voluContent,
+                                        "InnerHeader folder",
+                                        {color: '#000', fontSize: GLOBALS.fontSizeMed});
     voluHeader.innerHTML = 'volumes';
     goog.dom.appendChild(voluContent, goog.dom.createDom('span', { 'id': 'marker' }));
 //    var marker = utils.dom.makeElement('span', voluContent, 'marker');
     
     
+    //----------------------
     // meshes
+    //----------------------
     meshContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",
-                                        utils.dom.mergeArgs(innerDivCSS, {left: '38%'}));
+                                        utils.dom.mergeArgs(folderContentCSS, {left: '38%'}));
+    
     var meshHeader = utils.dom.makeElement('div',
-                                           meshContent,
-                                           "InnerHeader folder",
-                                           {color: '#000', fontSize: GLOBALS.fontSizeMed});
+                                        meshContent,
+                                        "InnerHeader folder",
+                                        {color: '#000', fontSize: GLOBALS.fontSizeMed});
     meshHeader.innerHTML = 'meshes';
     
     
     
+    //----------------------
     // fibers
+    //----------------------
     fibrContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",
-                                        utils.dom.mergeArgs(innerDivCSS, {left: '69%'}));
+                                        utils.dom.mergeArgs(folderContentCSS, {left: '69%'}));
+    
     var fibrHeader = utils.dom.makeElement('div',
-                                           fibrContent,
-                                           "InnerHeader folder",
-                                           {color: '#000', fontSize: GLOBALS.fontSizeMed});
+                                        fibrContent,
+                                        "InnerHeader folder",
+                                        {color: '#000', fontSize: GLOBALS.fontSizeMed});
     fibrHeader.innerHTML = 'fibers';
 }

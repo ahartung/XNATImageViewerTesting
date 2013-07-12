@@ -2,28 +2,6 @@
 
 /** Folders and headers **/
 
-#menuDiv {
-    position: absolute;
-    border: 5px solid #fff;
-    border-radius: 5px;
-    background: #fff;
-    top: 10px;
-    right: 10px;
-    width: 150px;
-    opacity: 0.45;
-    color: #000;
-    font-size: 11px;
-}
-
-#menuHeader {
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-bottom: 2px solid #333;
-    letter-spacing: 2px;
-    cursor: pointer;
-}
-
 .folder {
     font-weight: bold;
     letter-spacing: -1px;
@@ -31,22 +9,14 @@
     background: #999;
 }
 
-.goog-zippy-expanded .arrow, .goog-zippy-collapsed .arrow {
-    width: 16px;
-    height: 12px;
-    background-image: url(http://code.jquery.com/ui/1.9.1/themes/base/images/ui-icons_454545_256x240.png);
-}
-
-.goog-zippy-expanded .arrow { background-position: -64px -16px; }
-.goog-zippy-collapsed .arrow { background-position: -32px -16px; }
 
 /** Inner content of folders **/
 
 .wrapper {
     position: relative;
-    width: 42%;
+    width: 90%;
     margin-top: 5px;
-    margin-left: 5px;
+    margin-left: 5%;
     margin-right: 5px;
     display: inline-block;
 }

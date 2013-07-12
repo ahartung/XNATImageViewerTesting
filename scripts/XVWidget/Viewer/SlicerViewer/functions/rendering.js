@@ -6,12 +6,12 @@ goog.require('X.mesh');
 goog.require('X.fibers');
 goog.require('goog.fx.AbstractDragDrop');
 
-var firstVolObj = true;
+//var firstVolObj = true;
 
-var threeDrenderer;
-var twoDrendererX;
-var twoDrendererY;
-var twoDrendererZ;
+//var threeDrenderer;
+//var twoDrendererX;
+//var twoDrendererY;
+//var twoDrendererZ;
 
 /**
  * Creates and returns a new X object (object depends on file type).
@@ -43,7 +43,7 @@ function createXObject(file) {
  * Creates and initializes 3D renderer.
  * @param {string} vID Div ID of element to place renderer in.
  * @return {undefined}
- */
+ * /
 function create3D(vID) {
     // create and initialize a 3D renderer
     threeDrenderer = new X.renderer3D();
@@ -57,7 +57,7 @@ function create3D(vID) {
  * @param {string} yID Div ID of element to place Y renderer in
  * @param {string} zID Div ID of element to place Z renderer in
  * @return {undefined}
- */
+ * /
 function create2D(xID, yID, zID) {
     // create and initialize three 2D renderers
     twoDrendererX = new X.renderer2D();
@@ -72,7 +72,9 @@ function create2D(xID, yID, zID) {
     twoDrendererX.init();
     twoDrendererY.init();
     twoDrendererZ.init();
+    
 }
+*/
 
 /**
  * Create all 4 renderers and add X object to 3D renderer. Called when a 3D file
@@ -86,10 +88,10 @@ function create2D(xID, yID, zID) {
  */
 function createRenderers(object, container, vID, xID, yID, zID) {
     // add in the elements for the renderers
-    var v = goog.dom.createDom('div', { 'id': vID, 'class': 'threeD'});
-    var x = goog.dom.createDom('div', { 'id': xID, 'class': 'twoD' });
-    var y = goog.dom.createDom('div', { 'id': yID, 'class': 'twoD' });
-    var z = goog.dom.createDom('div', { 'id': zID, 'class': 'twoD' });
+    var v = goog.dom.createDom('div', { 'id': vID, 'class': 'renderer'});
+    var x = goog.dom.createDom('div', { 'id': xID, 'class': 'renderer' });
+    var y = goog.dom.createDom('div', { 'id': yID, 'class': 'renderer' });
+    var z = goog.dom.createDom('div', { 'id': zID, 'class': 'renderer' });
     goog.dom.append(goog.dom.getElement(container), [v, x, y, z]);
     
     // add in the elements for the sliders and index boxes

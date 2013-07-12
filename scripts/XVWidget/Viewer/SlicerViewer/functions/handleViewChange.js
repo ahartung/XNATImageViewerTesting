@@ -14,16 +14,19 @@ function getDivFromTitle(title) {
         case 'Transverse':  // z
             id = 'zDiv';
             break;
+        case '3D':
+            id = 'vDiv';
+            break;
     }
     return id;
 }
 
-function handle3Dto2D(oldIcon, newIcon) {
+function handle3Dto2D(newIcon) {
     var twoD = goog.dom.getElement(getDivFromTitle(newIcon));
     expandPanel(twoD);
 }
 
-function handle2Dto3D(oldIcon, newIcon) {
+function handle2Dto3D(oldIcon) {
     var twoD = goog.dom.getElement(getDivFromTitle(oldIcon));
     closePanel(twoD);
 }
@@ -71,6 +74,10 @@ function closePanel(elt) {
             ox = 0;
             oy = par.offsetHeight*0.5;
             break;
+        case 'v':
+            ox = par.offsetWidth*0.5;
+            oy = par.offsetHeight*0.5;
+            break;
     }
     
     var slide = new goog.fx.dom.Slide(elt, [elt.offsetLeft, elt.offsetTop],
@@ -79,14 +86,16 @@ function closePanel(elt) {
     var resize = new goog.fx.dom.Resize(elt, [elt.offsetWidth, elt.offsetHeight],
             [par.offsetWidth*0.5, par.offsetHeight*0.5], 500, goog.fx.easing.easeOut);
     
-    --elt.style.zIndex;
-    elt.style.top = '0';
-    elt.style.left = '50%';
-    elt.style.width = '50%';
-    elt.style.height = '50%';
-    
     slide.play();
     resize.play();
+    
+    // timeout is for aesthetic purposes
+    window.setTimeout(function() {--elt.style.zIndex}, 300);
+    
+//    elt.style.top = '0';
+//    elt.style.left = '50%';
+//    elt.style.width = '50%';
+//    elt.style.height = '50%';
     
     // refresh size of canvas and sliders
 }

@@ -14,7 +14,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	var iconDimSmall = 23;
 	var iconDimMed = 23;
 	var spacer = iconDimMed*1.2;	
-	var iconVals = ['Sagittal', 'Coronal', 'Transverse', '3D'];
+	var iconVals = ['Sagittal', 'Coronal', 'Transverse', 'All', '3D'];
 	var allIcons = [];
 
 	
@@ -117,26 +117,19 @@ Viewer.prototype.addViewPlaneMenu = function () {
             utils.dom.stopPropagation(event);
             that.ViewPlaneMenu.activateIcon(newIcon);
             
-            if (oldIcon === '3D') {
-                if (newIcon === '3D') {
-//                    console.log('3D (' + oldIcon + ') -> 3D (' + newIcon + ')');
+            if (oldIcon === 'All') {
+                if (newIcon === 'All') {}
                     // do nothing
-                }
-                else {
-//                    console.log('3D (' + oldIcon + ') -> 2D (' + newIcon + ')');
-                    handle3Dto2D(oldIcon, newIcon);
-                }
+                else
+                    handle3Dto2D(newIcon);
             }
             else {
-                if (newIcon === '3D') {
-//                    console.log('2D (' + oldIcon + ') -> 3D (' + newIcon + ')');
-                    handle2Dto3D(oldIcon, newIcon);
-                }
+                if (newIcon === 'All')
+                    handle2Dto3D(oldIcon);
                 else {
                     if (that.FrameHolder)
                         that.FrameHolder.loadDroppable(that.FrameHolder.currDroppable, event.currentTarget.axis.toLowerCase());
                     else
-//                        console.log('2D (' + oldIcon + ') -> 2D (' + newIcon + ')');
                         handle2Dto2D(oldIcon, newIcon);
                 }
             }

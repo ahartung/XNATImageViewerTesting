@@ -15,12 +15,10 @@ function addFileToFolder(parent, file, type) {
     // create button and label
     addVisibilityButton(outerFileDiv, file, type);
     
-//    console.log('adding to the ' + type + ' folder');
     // add to folder's contents
     if (type == 'volume')
         goog.dom.insertSiblingBefore(outerFileDiv, goog.dom.getElement('marker'));
     else {
-        console.log('making a nonvol opacity slider');
         // if not a volume, each file get its own opacity slider
         var s = goog.dom.createDom('div', { 'id': file, 'class': 'opacityNonvol' })
         goog.dom.appendChild(outerFileDiv, s);
@@ -81,6 +79,7 @@ function addVisibilityButtonListener(type, file) {
                        function(event) {
         var selectedObject = getObjFromList(file);
         if (type == 'volume') { toggleVolumeVisibility(selectedObject); }
+        
         if (this.checked) { selectedObject.visible = true; } // add to viewer
         else { selectedObject.visible = false; } // remove from viewer
     });

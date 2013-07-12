@@ -1,13 +1,12 @@
 /**
  * ThreeDHolder is contained within the Slicer Viewer. Its siblings include the
- * View Plan Menu (and potentially the Content Divider and Scan Tabs). Its
- * children are the 4 div elements for the renderers.
+ * View Plan Menu, Content Divider, and Scan Tabs. Its children are 4 Plane Holders
+ * which hold the renderers.
  */
 
 
 //******************************************************
 //  Init
-//
 //******************************************************
 goog.provide('ThreeDHolder');
 
@@ -20,36 +19,18 @@ ThreeDHolder = function(args) {
 	
 	goog.base(this, utils.dom.mergeArgs(ThreeDHolder.prototype.defaultArgs, args));
 	
-	
-	
+    // viewer-specific properties
+    this.firstVolumeObject = true;
+    this.currentVolOject;
+    this.currentObjects = [];
+    
+    
 	//----------------------------------
 	//	PROGRESS BAR
 	//----------------------------------
 //	this.progBar = utils.gui.ProgressBar(this.widget);
 //	this.progBar.hide();
 	
-	
-	
-	//----------------------------------
-	//	add in elements for 3D and 2D renderers
-	//----------------------------------
-    /*
-    this.threeDviewer = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder3D, {
-        position: 'absolute',
-        overflow: 'hidden',
-        display: 'inline',
-        width: '50%',
-        height: '50%',
-        left: '50%',
-        top: '50%',
-    });
-    /*
-    this.twoDviewerX = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
-    this.twoDviewerY = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
-    this.twoDviewerZ = utils.dom.makeElement('div', this.widget, GLOBALS.classNames.ThreeDHolder2D, {});
-    */
-	
-
 	
 	//----------------------------------
 	//	ONLOAD CALLBACKS
@@ -58,7 +39,6 @@ ThreeDHolder = function(args) {
 	this.adjustMethods = {};
     
     
-	
     
 //	this.updateCSS();
 	
@@ -73,7 +53,7 @@ goog.inherits(ThreeDHolder, XVWidget);
  * @protected
  */
 ThreeDHolder.prototype.defaultArgs = {
-	className: GLOBALS.classNames.ThreeDHolder + ' portrait',
+	className: GLOBALS.classNames.ThreeDHolder,
 	parent: document.body,
 	blankMsg : "drag and drop Thumbnail here",
 	contrastThreshold: .01,
@@ -128,10 +108,7 @@ ThreeDHolder.prototype.applyImageAdjustments = function () {
 //******************************************************
 ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 
-
-	//
 	// Arguments are needed only when initializing the adjustMethods
-	//
 	if (methodType !== 'undefined' && value) {
 		
 		
@@ -162,4 +139,39 @@ ThreeDHolder.prototype.imageAdjust = function (methodType, value) {
 		
 
 	}
+}
+
+
+ThreeDHolder.prototype.addViewPanes = function () {
+    this.PlaneHolderX = new PlaneHolder('x', {
+		parent: this.widget,
+        CSS: {
+            left: '0%',
+            top: '0%',
+        }
+	});
+    
+    this.PlaneHolderY = new PlaneHolder('y', {
+		parent: this.widget,
+        CSS: {
+            left: '50%',
+            top: '0%',
+        }
+	});
+    
+    this.PlaneHolderZ = new PlaneHolder('z', {
+		parent: this.widget,
+        CSS: {
+            left: '0%',
+            top: '50%',
+        }
+	});
+    
+    this.PlaneHolder3 = new PlaneHolder('v', {
+		parent: this.widget,
+        CSS: {
+            left: '50%',
+            top: '50%',
+        }
+	});
 }

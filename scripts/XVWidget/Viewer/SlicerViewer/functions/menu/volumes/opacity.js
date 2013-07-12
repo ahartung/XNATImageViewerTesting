@@ -5,7 +5,7 @@
  */
 function initVolOpacitySlider() {
     // set attributes
-    var volOpacitySlider = new goog.ui.Slider;
+    volOpacitySlider = new goog.ui.Slider;
     volOpacitySlider.decorate(goog.dom.getElement('opacitySliderVol'));
     volOpacitySlider.setMaximum(1);
     volOpacitySlider.setStep(0.01);

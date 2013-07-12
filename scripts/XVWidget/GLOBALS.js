@@ -352,6 +352,8 @@ GLOBALS = function (){
         ThreeDHolder3D: 'threeD',
         ThreeDHolder2D: 'twoD',
         
+        PlaneHolder: 'PlaneHolder',
+        
 		FrameHolder: 'FrameHolder',
 		FrameHolderCanvas: 'FrameHolderCanvas',
 			

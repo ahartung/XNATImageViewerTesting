@@ -59,7 +59,8 @@ SlicerViewer.prototype.updateCSS = function (args) {
 	var threeDHolderDims = {};
 	threeDHolderDims.width = ((cDivDims.top - 15) > this.widgetDims.width) ? 
 							this.widgetDims.width : (cDivDims.top - 15);
-	threeDHolderDims.height = this.widgetDims.height - scanTabHeight;
+//	threeDHolderDims.height = this.widgetDims.height - scanTabHeight;
+	threeDHolderDims.height = threeDHolderDims.width;
 	threeDHolderDims.top = 0;
 	threeDHolderDims.left = this.widgetDims.width/2 - threeDHolderDims.width/2;
 
@@ -97,18 +98,6 @@ SlicerViewer.prototype.updateCSS = function (args) {
 	});	 
     
     
-    
-    //----------------------------------
-    // CANVASES WITHIN RENDERERS
-    //----------------------------------
-//	this.ThreeDHolder.Renderers.updateCSS();
-    var canvases = goog.dom.getElementsByTagNameAndClass('canvas', 'twoD');
-    utils.array.forEach(canvases, function(canvas) {
-        console.log(canvas);
-        console.log('update canvas size');
-//        canvas.width = '100%';
-//        canvas.height = '100%';
-    });
     
     
 	
