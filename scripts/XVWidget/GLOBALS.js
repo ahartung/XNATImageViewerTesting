@@ -352,6 +352,8 @@ GLOBALS = function (){
         
         PlaneHolder: 'PlaneHolder',
         
+        Menu: 'Menu',
+        
 		FrameHolder: 'FrameHolder',
 		FrameHolderCanvas: 'FrameHolderCanvas',
 			

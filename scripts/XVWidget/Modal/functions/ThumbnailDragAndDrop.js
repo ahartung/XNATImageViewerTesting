@@ -35,42 +35,34 @@ Modal.prototype.initThumbnailDragDrop = function() {
 	
 	
 	this.thumbnailDragDrop['drop'] = function(event) {
-		
 		if (event.dragSourceItem.element.className.indexOf(GLOBALS.classNames.Thumbnail) > -1) {
 			var dragThumb, found, newViewer;
 			var dropViewer = XV.ViewerManager(event.dropTargetItem.element);
 			
-			
-			//
 			// Find the XVThumbnail that owns 'event.dragSourceItem.element'
-			//
 			utils.array.forEach(that.dragDropThumbnails, function(thumbObj) {
-				
 				if (!found && thumbObj.widget == event.dragSourceItem.element) {
-					
-					dragThumb = thumbObj;			
+					dragThumb = thumbObj;
 					found = true;
-					
 				}
-				
 			})
-		
 			
-			
-			if (dropViewer) {		
-
-				XV.ViewerManager.adaptAndLoad(dropViewer, dragThumb);
-				
-				that.updateCSS();
-			
+			if (dropViewer) {
+                if (!event.isClick &&
+                    event.dragSourceItem.element.className === GLOBALS.classNames.SlicerThumbnail &&
+                    event.dropTargetItem.element.className === GLOBALS.classNames.SlicerViewer) {
+                    XV.ViewerManager.keepAndLoad(dropViewer, dragThumb);
+                } else {
+                    XV.ViewerManager.adaptAndLoad(dropViewer, dragThumb);
+                }
+                that.updateCSS();
 			}
 			
 			if (event.dropTargetItem.element.prevBorder) {
 				event.dropTargetItem.element.style.borderColor = event.dropTargetItem.element.prevBorder;	
-			}	
-					
+			}
 			
-		}		
+		}
 
 	}
 	
@@ -144,8 +136,9 @@ Modal.prototype.setThumbnailDragAndDrop = function () {
 			},
 			dragSourceItem : {
 				element : srcObj.widget
-			}
-		}) 		
+			},
+            isClick : true,
+		})
  	}
  	
  	

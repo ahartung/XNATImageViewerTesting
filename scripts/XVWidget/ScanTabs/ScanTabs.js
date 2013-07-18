@@ -75,10 +75,8 @@ ScanTabs = function (args) {
 		}
 		return retVal;
 	}
-
-
+    
 	
-
 	this.updateCSS();
 	this.setClickUI();
 
@@ -127,10 +125,20 @@ ScanTabs.prototype.setClickUI = function() {
 	//
 	// CYCLE THROUGH
 	//
-	utils.array.forEach(goog.dom.getElementsByClass('Tab', that.widget), function(tab, i) { 
-		
+	utils.array.forEach(goog.dom.getElementsByClass('Tab', that.widget), function(tab, i) {         
+        
 		goog.events.listen(tab, goog.events.EventType.CLICK, function(event) { 
 			
+            if (tab.isActive) {
+				that.callbacks['deactivate']();
+				tab.isActive = false;
+			}
+			else {
+				that.setActive(i);
+				that.callbacks['activate']();
+			}
+            
+            /*
 			if (!tab.isActive) {
 				that.setActive(i);
 				that.callbacks['activate']();
@@ -139,7 +147,7 @@ ScanTabs.prototype.setClickUI = function() {
 				that.callbacks['deactivate']();
 				tab.isActive = false;
 			}
-			
+			*/
 		})
 		
 		goog.events.listen(tab, goog.events.EventType.MOUSEOVER, function(event) { 

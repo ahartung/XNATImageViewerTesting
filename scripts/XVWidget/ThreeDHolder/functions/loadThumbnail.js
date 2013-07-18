@@ -2,64 +2,26 @@
 goog.require('goog.events');
 
 ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
-    
-    var that = this;
-	
-    // set menu option to be 3d
-    var that = this;
     this.currDroppable = droppable;
-    this.currViewPlane = "All";
-    
-    that.Viewer.ViewPlaneMenu.activateIcon('All', true);
-    
-    
-    
-    
-    
+
+    var m = this.Viewer.Menu;
     var file = droppable.scanData.filePath;
     var filetype = getFileObjectType(file);
     
-    // check to see if object has already been created and rendered...
-    // don't want to recreate and rerender
-    // keep desired functionality though -- set viewer to be dropped file
-    var droppedObj = that.getObjFromList(file);
-    if (droppedObj) {
-        // set to be visible
-        droppedObj.visible = true;
-        if (filetype == 'volume' && that.currentVolObject != droppedObj) {
-            toggleVolumeVisibility(droppedObj);
-        }
-        // make it 'selected'
-        goog.dom.getElement(filetype + 'ButtonFor' + file).checked = 'checked';
-        return;
+    
+    
+    var droppedObj = m.getObjFromList(file);
+    
+    if (droppedObj) { // dropped file is already in viewer
+        this.dontReloadObj(droppedObj, file, filetype);
+    } else {          // dropped file is new, create it and add it
+        this.createAndLoadObj(file, filetype);
     }
     
-    // dropped file is new, create it and add it
-	var show2D = filetype == 'volume';
-	var newObj = createXObject(file);
-    
-    that.PlaneHolder3.Renderer.add(newObj);
-    that.setOnShowtime3D(newObj, show2D);
-    
-    var c;
-    if (filetype == 'volume') {
-        c = voluContent;
-        if (that.currentVolObject) {
-            that.currentVolObject.visible = false;
-            // deal with scrolling still
-        }
-        that.currentVolObject = newObj;
+    if (m.currentObjects.length < 2) {
+        this.currViewPlane = "All";
+        this.Viewer.ViewPlaneMenu.activateIcon('All', true);
     }
-    else if (filetype == 'mesh') c = meshContent;
-    else if (filetype == 'fiber') c = fibrContent;
-    
-    that.currentObjects.push(newObj);
-//    addFileToFolder(that, c, file, filetype);
-    
-    
-    
-    
-    
     
     // Run any callbacks once everything is loaded
     utils.array.forEach(this.onloadCallbacks, function(callback) {
@@ -67,7 +29,35 @@ ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
     })	
     
 
-}
+};
+
+
+ThreeDHolder.prototype.dontReloadObj = function(droppedObj, file, filetype) {
+    // set to be visible
+    if (filetype == 'volume' && this.Viewer.Menu.currentVolObject != droppedObj) {
+        this.Viewer.Menu.toggleVolumeVisibility(droppedObj);
+    } else {
+        droppedObj.visible = true;
+    }
+    // make it 'selected'
+    this.Viewer.Menu.findAndSelectCheckbox(file, filetype);
+};
+
+
+ThreeDHolder.prototype.createAndLoadObj = function(file, filetype) {
+    var that = this;
+    var m = this.Viewer.Menu;
+	
+    var show2D = filetype == 'volume';
+    var newObj = createXObject(file);
+    
+    m.currentObjects.push(newObj);
+    m.addFileToFolder(newObj, file, filetype);
+    
+    
+    that.PlaneHolder3.Renderer.add(newObj);
+    that.setOnShowtime3D(show2D, newObj);
+};
 
 
 // http://jsfiddle.net/QpAcf/

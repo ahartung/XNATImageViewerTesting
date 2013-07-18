@@ -20,17 +20,13 @@ ThreeDHolder = function(args) {
 	goog.base(this, utils.dom.mergeArgs(ThreeDHolder.prototype.defaultArgs, args));
 	
     // viewer-specific properties
-    this.firstVolumeObject = true;
-    this.currentVolOject;
-    this.currentObjects = [];
+    this.hasLoaded = false;
+    this.firstVolObject = true;
+    
+    this.xSlider, this.ySlider, this.zSlider;
+    this.xBox, this.yBox, this.zBox;
     
     
-	//----------------------------------
-	//	PROGRESS BAR
-	//----------------------------------
-//	this.progBar = utils.gui.ProgressBar(this.widget);
-//	this.progBar.hide();
-	
     
     //----------------------------------
     // VIEW PANES FOR RENDERERS
@@ -43,7 +39,6 @@ ThreeDHolder = function(args) {
 	//----------------------------------
 	this.onloadCallbacks = [];
 	this.adjustMethods = {};
-    
     
     
 //	this.updateCSS();
@@ -181,39 +176,39 @@ ThreeDHolder.prototype.addViewPanes = function () {
 
 
 /**
- * Returns the already-created X object that matches the provided file.
- * @param {String} f Filename / filepath
- * @return {Object | undefined}
- */
-ThreeDHolder.prototype.getObjFromList = function(f) {
-    for (var i = 0; i < this.currentObjects.length; ++i) {
-        if (this.currentObjects[i].file == f) return this.currentObjects[i];
-    }
-}
-
-
-/**
  * Sets the .onShowtime() method of the 3D renderer. If we want to show the 2D
  * renderers, they are prepped and rendered, and the sliders are initialized.
  * @param {Object} object X object to be displayed
  * @param {boolean} show2D True if we want to show 2D renderers
  * @return {undefined}
  */
-ThreeDHolder.prototype.setOnShowtime3D = function (object, show2D) {
+ThreeDHolder.prototype.setOnShowtime3D = function (show2D, newObj) {
     var that = this;
-    if (show2D) {
+    if (show2D) { // volume being added
+        var m = that.Viewer.Menu;
+        m.currentVolObject = newObj;
         that.PlaneHolder3.Renderer.onShowtime = function() {
-            if (that.firstVolObj) {
-                setupVolumeOptions();
-                initSliceSliders(that);
-                that.firstVolObj = false;
+            if (that.firstVolObject) {
+                m.initVolumeOptions();
+                that.initSliceSliders();
+                that.firstVolObject = false;
+                
+                that.fadeOnHoverOut = [that.xSlider.element_,
+                                       that.ySlider.element_,
+                                       that.zSlider.element_,
+                                       that.xBox, that.yBox, that.zBox];
             }
-            that.update2Drenderers(object);
-//            initVolOpacitySlider();
-//            initThreshSlider();
+            that.update2Drenderers();
+            that.updateSlices();
+            
+            if (show2D && m.volRenderButton.checked) {
+                m.currentVolObject.volumeRendering = true;
+                m.currentVolObject.lowerThreshold = m.volThreshSlider.getValue();
+                m.currentVolObject.upperThreshold = m.volThreshSlider.getValue() + m.volThreshSlider.getExtent();
+            }
             
         };
-    } else {
+    } else { // nonvolume being added
         that.PlaneHolder3.Renderer.onShowtime = function() { };
     }
 }
@@ -225,17 +220,17 @@ ThreeDHolder.prototype.setOnShowtime3D = function (object, show2D) {
  * @param {Object} X object to be added
  * @return {undefined}
  */
-ThreeDHolder.prototype.update2Drenderers = function(object) {
-    this.PlaneHolderX.Renderer.add(object);
+ThreeDHolder.prototype.update2Drenderers = function() {
+    this.PlaneHolderX.Renderer.add(this.Viewer.Menu.currentVolObject);
     this.PlaneHolderX.Renderer.render();
     
-    this.PlaneHolderY.Renderer.add(object);
+    this.PlaneHolderY.Renderer.add(this.Viewer.Menu.currentVolObject);
     this.PlaneHolderY.Renderer.render();
     
-    this.PlaneHolderZ.Renderer.add(object);
+    this.PlaneHolderZ.Renderer.add(this.Viewer.Menu.currentVolObject);
     this.PlaneHolderZ.Renderer.render();
     
-//    updateSlices(this);
+    this.Viewer.Menu.currentVolObject.modified();
 }
 
 

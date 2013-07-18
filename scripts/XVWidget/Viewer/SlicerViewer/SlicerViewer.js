@@ -12,7 +12,6 @@ SlicerViewer = function (args) {
 	Viewer.call(this, utils.dom.mergeArgs(SlicerViewer.prototype.defaultArgs, args));
 
 	var that = this;
-    this.childrenToFadeOut = [];
     
 	//----------------------------------
 	// 3D VIEWER
@@ -38,9 +37,9 @@ SlicerViewer = function (args) {
 	})
 
 	//----------------------------------
-	// MENUS
+	// VIEW PLANE MENU
 	//----------------------------------	
- 	this.addViewPlaneMenu();
+ 	this.addViewPlaneMenu(this);
 
     
     
@@ -60,14 +59,14 @@ SlicerViewer = function (args) {
     
 	//----------------------------------
 	// SCAN TABS
-	//----------------------------------		
+	//----------------------------------
 	/**
 	 * @type {ScanTabs}
 	 */	
 	this.ScanTabs = new ScanTabs({
 
 		parent: this.widget,
-		tabTitles: ["Info", "Adjust", "Menu"],
+		tabTitles: ["Info", "Menu"],
 		widgetCSS: {
 			height: GLOBALS.minScanTabHeight,
 			width: '100%'
@@ -80,14 +79,14 @@ SlicerViewer = function (args) {
     
     //----------------------------------
 	// ADJUST / IMAGE PROCESSING SLIDERS
-	//----------------------------------		
-	this.addAdjustSliders();
+	//----------------------------------
+//	this.addAdjustSliders();
     
     
 	
 	//----------------------------------
 	// METADATA, A.K.A. DISPLAYABLE DATA
-	//----------------------------------	
+	//----------------------------------
 	/**
 	 * @type {object}
 	 */
@@ -111,7 +110,9 @@ SlicerViewer = function (args) {
     //----------------------------------
     // TOGGLE MENU
     //----------------------------------
-    this.addToggleMenu();
+    this.Menu = new Menu(this.ThreeDHolder, {
+        parent: this.ScanTabs.getTab('Menu'),
+    });
     
     
 
@@ -149,23 +150,30 @@ SlicerViewer.prototype.setHoverEvents = function () {
 	this.hoverOut = function() {
 		utils.array.forEach(that.widget.childNodes, function (node) { 
 			
-			var found = false;
 			utils.array.forEach(keeperClasses, function (keeper) { 
-				if (node.className.indexOf(keeper) > -1) {
-					found = true;
+				if (node.className.indexOf(keeper) < 0) {
+					utils.fx.fadeOut(node, 0);
 				}	
 			});
-			
-			if (!found) {
-				utils.fx.fadeOut(node, 0);
-			}
-		})		
+            
+		});
+        
+        if (this.ThreeDHolder && this.ThreeDHolder.fadeOnHoverOut) {
+            utils.array.forEach(that.ThreeDHolder.fadeOnHoverOut, function(node) {
+                utils.fx.fadeOut(node, 0);
+            });
+        }
 	}
 	
 	this.hoverIn = function() {
 		utils.array.forEach(that.widget.childNodes, function (node) { 
 			utils.fx.fadeIn(node, 0);
-		})
+		});
+        if (this.ThreeDHolder && this.ThreeDHolder.fadeOnHoverOut) {
+            utils.array.forEach(that.ThreeDHolder.fadeOnHoverOut, function(node) {
+                utils.fx.fadeIn(node, 0);
+            });
+        }
 	}
 	
 	goog.events.listen(this.widget, goog.events.EventType.MOUSEOVER, function() { that.hoverIn() });

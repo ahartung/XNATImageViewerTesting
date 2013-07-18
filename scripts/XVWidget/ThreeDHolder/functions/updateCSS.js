@@ -3,7 +3,6 @@
 //
 //******************************************************
 ThreeDHolder.prototype.updateCSS = function (args) {
-
 	var widgetDims = utils.dom.mergeArgs(utils.css.dims(this.widget), args);
 	utils.css.setCSS(this.widget, widgetDims);
     
@@ -13,4 +12,6 @@ ThreeDHolder.prototype.updateCSS = function (args) {
     if (this.PlaneHolderZ) this.PlaneHolderZ.updateCSS();
     if (this.PlaneHolder3) this.PlaneHolder3.updateCSS();
     
+    // update slider thumb positions?
+//    if (this.xSlider) this.xSlider.setValue(this.currentVolObject.indexX);
 }

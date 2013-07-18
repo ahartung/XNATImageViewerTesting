@@ -69,7 +69,10 @@ ScanTabs.prototype.addTabs = function() {
 		//	TAB ICON
 		//----------------------------------			
 		var tabIcon = utils.dom.makeElement("img", tab, "TabIcon", tabIconCSS);
-		tabIcon.src = that.args.tabIconSrc[i];	
+		utils.array.forEach(that.args.tabIconSrc, function(iconSrc) {
+            if (iconSrc.indexOf(title) > -1) tabIcon.src = iconSrc;
+        });
+//        tabIcon.src = that.args.tabIconSrc[i];
 
 
 

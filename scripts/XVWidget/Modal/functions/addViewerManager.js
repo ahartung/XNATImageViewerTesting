@@ -80,7 +80,7 @@ Modal.prototype.addViewerManager = function () {
 
 
 		function swap(v1, v2) {
-
+            console.log('swapping');
 			var arrLoc = loop ( function (v, i, j) { 
 				
 				var byObj = (v === v1) || (v === v2);
@@ -411,6 +411,13 @@ Modal.prototype.addViewerManager = function () {
 			that.manageActiveThumbs(newViewer, Thumbnail);	
 			runViewersChangedCallbacks();
 		}
+        
+        
+        this.ViewerManager.keepAndLoad = function(oldViewer, Thumbnail) {
+            oldViewer.loadThumbnail(Thumbnail);
+			that.manageActiveThumbs(oldViewer, Thumbnail);
+			runViewersChangedCallbacks();
+        }
 	
 	}
 

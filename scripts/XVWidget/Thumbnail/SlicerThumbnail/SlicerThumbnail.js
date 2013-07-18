@@ -43,10 +43,13 @@ SlicerThumbnail = function (scanData, args) {
     // so, got rid of frames
 
 	this.ThumbnailCanvas.metaText = [];
-	this.ThumbnailCanvas.metaText[0] = this.scanData.sessionInfo["Scan"].value;
-	this.ThumbnailCanvas.metaText[1] = this.scanData.sessionInfo["type"].value.toString().toLowerCase();
-    this.ThumbnailCanvas.metaText[2] = this.scanData.filePath;
-	
+	this.ThumbnailCanvas.metaText[0] = this.scanData.sessionInfo["SessionID"].value;
+	this.ThumbnailCanvas.metaText[1] = this.scanData.sessionInfo["Format"].value.toString().toUpperCase();
+    if (this.scanData.filePath.split('/3D/')[1])
+        this.ThumbnailCanvas.metaText[2] = this.scanData.filePath.split('/3D/')[1];
+	else
+        this.ThumbnailCanvas.metaText[2] = this.scanData.filePath;
+        
 	
 	this.TextElement.innerHTML += "<b><font size = '3'>" + this.ThumbnailCanvas.metaText[0]  + "</font></b><br>";
 	this.TextElement.innerHTML += this.ThumbnailCanvas.metaText[1]  + "<br>";

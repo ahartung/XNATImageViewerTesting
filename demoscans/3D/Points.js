@@ -1,7 +1,8 @@
 var Points = {
     filePath: "http://x.babymri.org/?pits.vtk",
     sessionInfo:{
-        "Scan" : {label:"Scan", value: ["Points"]},
-        "type" : {label:"type", value: ["MPRAGE"]}
+        "SessionID" : {label:"Session ID", value: ["Points"]},
+        "type" : {label:"type", value: ["MPRAGE"]},
+        "Format" : {label:"Format", value: ["VTK"]},
     }
 };

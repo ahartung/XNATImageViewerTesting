@@ -48,7 +48,7 @@ ScanViewer = function (args) {
 	//----------------------------------
 	// MENUS
 	//----------------------------------	
- 	this.addViewPlaneMenu();
+ 	this.addViewPlaneMenu(this);
 	//this.addLinkMenu(); 	
 
 
@@ -101,7 +101,7 @@ ScanViewer = function (args) {
 	
 	//----------------------------------
 	// ADJUST / IMAGE PROCESSING SLIDERS
-	//----------------------------------		
+	//----------------------------------
 	this.addAdjustSliders();
 
 

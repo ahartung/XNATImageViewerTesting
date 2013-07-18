@@ -2,44 +2,83 @@
 goog.require('goog.fx');
 goog.require('goog.fx.dom');
 
-function getDivFromTitle(title) {
-    var id;
+function getPlaneFromTitle(viewer, title) {
     switch (title) {
         case 'Sagittal':    // x
-            id = 'xDiv';
+            planeHolder = viewer.ThreeDHolder.PlaneHolderX;
             break;
         case 'Coronal':     // y
-            id = 'yDiv';
+            planeHolder = viewer.ThreeDHolder.PlaneHolderY;
             break;
         case 'Transverse':  // z
-            id = 'zDiv';
+            planeHolder = viewer.ThreeDHolder.PlaneHolderZ;
             break;
         case '3D':
-            id = 'vDiv';
+            planeHolder = viewer.ThreeDHolder.PlaneHolder3;
             break;
     }
-    return id;
+    return planeHolder;
 }
 
-function handle3Dto2D(newIcon) {
-    var twoD = goog.dom.getElement(getDivFromTitle(newIcon));
+function handle3Dto2D(viewer, newIcon) {
+    var twoD = getPlaneFromTitle(viewer, newIcon);
     expandPanel(twoD);
 }
 
-function handle2Dto3D(oldIcon) {
-    var twoD = goog.dom.getElement(getDivFromTitle(oldIcon));
+function handle2Dto3D(viewer, oldIcon) {
+    var twoD = getPlaneFromTitle(viewer, oldIcon);
     closePanel(twoD);
 }
 
-function handle2Dto2D(oldIcon, newIcon) {
-    var o = goog.dom.getElement(getDivFromTitle(oldIcon));
-    var n = goog.dom.getElement(getDivFromTitle(newIcon));
+function handle2Dto2D(viewer, oldIcon, newIcon) {
+    var o = getPlaneFromTitle(viewer, oldIcon);
+    var n = getPlaneFromTitle(viewer, newIcon);
     closePanel(o);
     expandPanel(n);
 }
 
+function expandPanel(plane) {
+    var elt = plane.widget;
+    
+    ++elt.style.zIndex;
 
-function expandPanel(elt) {
+    // refresh size of canvas and sliders w/in twoD
+    plane.updateCSS({ left: 0, top: 0, width: '100%', height: '100%' });
+}
+
+function closePanel(plane) {
+    var elt = plane.widget;
+    var px, py;
+    
+    switch (elt.id[0]) {
+        case 'x':
+            px = '0%', py = '0%';
+            break;
+        case 'y':
+            px = '50%', py = '0%';
+            break;
+        case 'z':
+            px = '0%', py = '50%';
+            break;
+        case 'v':
+            px = '50%', py = '50%';
+            break;
+    }
+
+    --elt.style.zIndex;
+    
+    // refresh size of canvas and sliders
+    plane.updateCSS({ left: px, top: py, width: '50%', height: '50%' });
+}
+
+
+
+
+
+
+
+    /*
+    
     var par = goog.dom.getParentElement(elt);
     
     var slide = new goog.fx.dom.Slide(elt, [elt.offsetLeft, elt.offsetTop],
@@ -48,35 +87,27 @@ function expandPanel(elt) {
     var resize = new goog.fx.dom.Resize(elt, [elt.offsetWidth, elt.offsetHeight],
             [par.offsetWidth, par.offsetHeight], 500, goog.fx.easing.easeOut);
     
-    ++elt.style.zIndex;
-    
     slide.play();
     resize.play();
-    
-    // refresh size of canvas and sliders w/in twoD
-}
+    */
 
-
-function closePanel(elt) {
-    var par = goog.dom.getParentElement(elt);
-    var ox, oy;
-    
-    switch (elt.id[0]) {
+    /*
+        switch (elt.id[0]) {
         case 'x':
-            ox = 0;
-            oy = 0;
+            ox = 0, oy = 0;
+            px = '0%', py = '0%';
             break;
         case 'y':
-            ox = par.offsetWidth*0.5;
-            oy = 0;
+            ox = par.offsetWidth*0.5, oy = 0;
+            px = '50%', py = '0%';
             break;
         case 'z':
-            ox = 0;
-            oy = par.offsetHeight*0.5;
+            ox = 0, oy = par.offsetHeight*0.5;
+            px = '0%', py = '50%';
             break;
         case 'v':
-            ox = par.offsetWidth*0.5;
-            oy = par.offsetHeight*0.5;
+            ox = par.offsetWidth*0.5, oy = par.offsetHeight*0.5;
+            px = '50%', py = '50%';
             break;
     }
     
@@ -88,15 +119,4 @@ function closePanel(elt) {
     
     slide.play();
     resize.play();
-    
-    // timeout is for aesthetic purposes
-    window.setTimeout(function() {--elt.style.zIndex}, 300);
-    
-//    elt.style.top = '0';
-//    elt.style.left = '50%';
-//    elt.style.width = '50%';
-//    elt.style.height = '50%';
-    
-    // refresh size of canvas and sliders
-}
-
+    */

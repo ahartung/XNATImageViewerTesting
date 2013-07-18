@@ -5,9 +5,9 @@
 
 //goog.provide('goog.async.Delay');
 
-Viewer.prototype.addViewPlaneMenu = function () {
+Viewer.prototype.addViewPlaneMenu = function (that) {
 
-	var that = this;	
+//	var that = that;
 	var iconStartLeft = 7;
 	var iconStartTop = 7;
 	var imgDiv = 7;
@@ -23,7 +23,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	//------------------------------
 	// MAIN MENU
 	//------------------------------	
-	this.ViewPlaneMenu = utils.dom.makeElement("div", this.widget, "ViewPlaneMenu",{
+	that.ViewPlaneMenu = utils.dom.makeElement("div", that.widget, "ViewPlaneMenu",{
 		position: "absolute",
 		left: iconStartLeft,
 		top: iconStartTop,
@@ -32,7 +32,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 		cursor: "pointer",
         zIndex: '10',
 	});
-	this.ViewPlaneMenu.title  = "Select View Plane";	
+	that.ViewPlaneMenu.title  = "Select View Plane";
 	
 	
 	
@@ -40,23 +40,23 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	//------------------------------
 	// MAIN MENU ICON
 	//------------------------------	
-	this.ViewPlaneMenu.mainIcon = utils.dom.makeElement("img", this.ViewPlaneMenu, "menuIcon",{
+	that.ViewPlaneMenu.mainIcon = utils.dom.makeElement("img", that.ViewPlaneMenu, "menuIcon",{
 		position: "absolute",
 		height: iconDimSmall, 
 		width: iconDimSmall,
 		cursor: "pointer" 
 	});	
-	this.ViewPlaneMenu.mainIcon.src = "./icons/ViewPlaneMenu/Sagittal.png";
-	this.ViewPlaneMenu.mainIcon.axis = 'Sagittal';
-	this.ViewPlaneMenu.mainIcon.title = 'Sagittal';
-	allIcons.push(this.ViewPlaneMenu.mainIcon);
+	that.ViewPlaneMenu.mainIcon.src = "./icons/ViewPlaneMenu/Sagittal.png";
+	that.ViewPlaneMenu.mainIcon.axis = 'Sagittal';
+	that.ViewPlaneMenu.mainIcon.title = 'Sagittal';
+	allIcons.push(that.ViewPlaneMenu.mainIcon);
 
 
 
 	//------------------------------
 	// SUB MENU
 	//------------------------------	
-	this.ViewPlaneMenu.subMenu = utils.dom.makeElement("div", this.ViewPlaneMenu, "subMenu",{
+	that.ViewPlaneMenu.subMenu = utils.dom.makeElement("div", that.ViewPlaneMenu, "subMenu",{
 		position: "relative",
 		left: iconDimSmall * 1.5,
 		height: iconDimSmall, 
@@ -65,7 +65,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 		//backgroundColor: 'rgba(200,100,100,.5)'
 	});	
 	// For onclick purposes
-	this.ViewPlaneMenu.subMenu.pinned = false;
+	that.ViewPlaneMenu.subMenu.pinned = false;
 	
 
 
@@ -73,7 +73,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	//------------------------------
 	// ADD MENU ICONS
 	//------------------------------
-	this.ViewPlaneMenu.subMenu.icons = [];	
+	that.ViewPlaneMenu.subMenu.icons = [];	
 	
 	var startI = 0;
 	utils.array.forEach(iconVals, function(iconVal) {
@@ -121,16 +121,16 @@ Viewer.prototype.addViewPlaneMenu = function () {
                 if (newIcon === 'All') {}
                     // do nothing
                 else
-                    handle3Dto2D(newIcon);
+                    handle3Dto2D(that, newIcon);
             }
             else {
                 if (newIcon === 'All')
-                    handle2Dto3D(oldIcon);
+                    handle2Dto3D(that, oldIcon);
                 else {
                     if (that.FrameHolder)
                         that.FrameHolder.loadDroppable(that.FrameHolder.currDroppable, event.currentTarget.axis.toLowerCase());
                     else
-                        handle2Dto2D(oldIcon, newIcon);
+                        handle2Dto2D(that, oldIcon, newIcon);
                 }
             }
         });
@@ -263,7 +263,7 @@ Viewer.prototype.addViewPlaneMenu = function () {
 	}
 	
 	
-	this.ViewPlaneMenu.activateIcon = function (iconName) {
+	that.ViewPlaneMenu.activateIcon = function (iconName) {
 		
 		utils.array.forEach(that.ViewPlaneMenu.subMenu.icons, function(icon) {
 			

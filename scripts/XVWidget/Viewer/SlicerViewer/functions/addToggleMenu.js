@@ -25,9 +25,9 @@ SlicerViewer.prototype.addToggleMenu = function() {
         border: '1px solid #888',
     }
     
-    //----------------------
+    //----------------------------------
     // volumes
-    //----------------------
+    //----------------------------------
     voluContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",
@@ -39,12 +39,11 @@ SlicerViewer.prototype.addToggleMenu = function() {
                                         {color: '#000', fontSize: GLOBALS.fontSizeMed});
     voluHeader.innerHTML = 'volumes';
     goog.dom.appendChild(voluContent, goog.dom.createDom('span', { 'id': 'marker' }));
-//    var marker = utils.dom.makeElement('span', voluContent, 'marker');
     
     
-    //----------------------
+    //----------------------------------
     // meshes
-    //----------------------
+    //----------------------------------
     meshContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",
@@ -58,9 +57,9 @@ SlicerViewer.prototype.addToggleMenu = function() {
     
     
     
-    //----------------------
+    //----------------------------------
     // fibers
-    //----------------------
+    //----------------------------------
     fibrContent = utils.dom.makeElement('div',
                                         that.ScanTabs.getTab('Menu'),
                                         "InnerDiv",

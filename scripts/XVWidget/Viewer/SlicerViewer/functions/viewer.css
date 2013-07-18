@@ -1,39 +1,47 @@
 
-.box {
+.outerFileDiv {
+    position: relative;
+}
+
+.innerFileDiv {
     position: absolute;
-    width: 90%;
-    left: 5%;
-    bottom: 16px;
-    color: #ddd;
-    font-size: 10px;
+    top: 3px;
+    height: 100%;
+    width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 
-/** 2D slice sliders **/
 
-.slice.goog-slider-horizontal {
-	position: absolute;
-	left: 5%;
-	bottom: 10px;
-	width: 90%;
-	height: 4px;
-    border-radius: 4px;
-    background: #4AA;
-}
-
-.slice .goog-slider-thumb {
+.sliceSlider .goog-slider-thumb {
 	position: absolute;
     margin-top: -3px;
 	width: 6px;
-	height: 10px;
+	height: 9px;
 	background: #888;
     border: 0px;
     border-radius: 4px;
 }
 
-#xSlider { background: #CC0; }
-#ySlider { background: #0f0; }
-#zSlider { background: #f00; }
+.Menu .goog-slider-thumb,
+.Menu .goog-twothumbslider-value-thumb,
+.Menu .goog-twothumbslider-extent-thumb {
+    position: absolute;
+    margin-top: -2px;
+	width: 4px;
+	height: 6px;
+	background: #eee;
+    border: 1px solid #333;
+    border-radius: 4px;
+}
 
+.Menu .goog-twothumbslider-rangehighlight {
+    position: absolute;
+    height: 3px;
+    background-color: #999;
+}
 
 
