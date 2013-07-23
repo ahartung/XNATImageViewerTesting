@@ -16,7 +16,7 @@ Menu.prototype.folderContentCSS = {
     position: 'absolute',
     color: '#000',
     background: '#fff',
-    opacity: '0.35',
+    opacity: '0.3',
     fontSize: GLOBALS.fontSizeSmall,
     fontFamily: GLOBALS.fontFamily,
     width: '24%',
@@ -34,7 +34,7 @@ Menu.prototype.folderHeaderCSS = {
     color: '#000',
     fontSize: GLOBALS.fontSizeMed,
 }
-
+/*
 Menu.prototype.wrapperCSS = {
     position: 'relative',
     width: '90%',
@@ -49,18 +49,24 @@ Menu.prototype.labelCSS = {
     'text-transform': 'uppercase',
     'letter-spacing': '-1px',
 }
-
+*/
 Menu.prototype.longSliderCSS = {
     position: 'relative',
-    width: '90%',
+    width: '70%',
     height: '3px',
     'border-radius': '4px',
-    background: '#555',
+    background: '#222',
     display: 'inline-block',
-    'margin-left': '5%',
-    'margin-bottom': '8px',
 }
 
+Menu.prototype.sliderLabelCSS = {
+    'margin-left': '20px',
+    'margin-right': '3px',
+    'font-weight': 'bold',
+    display: 'inline-block',
+    width: '10px',
+}
+/*
 Menu.prototype.filenameCSS = {
     position: 'absolute',
     top: '3px',
@@ -71,3 +77,4 @@ Menu.prototype.filenameCSS = {
     'white-space': 'nowrap',
     display: 'inline-block',
 }
+*/

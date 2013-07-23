@@ -184,12 +184,12 @@ ThreeDHolder.prototype.addViewPanes = function () {
  */
 ThreeDHolder.prototype.setOnShowtime3D = function (show2D, newObj) {
     var that = this;
+    var m = that.Viewer.Menu;
     if (show2D) { // volume being added
-        var m = that.Viewer.Menu;
         m.currentVolObject = newObj;
         that.PlaneHolder3.Renderer.onShowtime = function() {
             if (that.firstVolObject) {
-                m.initVolumeOptions();
+                
                 that.initSliceSliders();
                 that.firstVolObject = false;
                 
@@ -200,16 +200,12 @@ ThreeDHolder.prototype.setOnShowtime3D = function (show2D, newObj) {
             }
             that.update2Drenderers();
             that.updateSlices();
-            
-            if (show2D && m.volRenderButton.checked) {
-                m.currentVolObject.volumeRendering = true;
-                m.currentVolObject.lowerThreshold = m.volThreshSlider.getValue();
-                m.currentVolObject.upperThreshold = m.volThreshSlider.getValue() + m.volThreshSlider.getExtent();
-            }
+            m.updateOpacitySlider();
+            m.updateThreshSlider();
             
         };
     } else { // nonvolume being added
-        that.PlaneHolder3.Renderer.onShowtime = function() { };
+        that.PlaneHolder3.Renderer.onShowtime = function() { m.updateOpacitySlider(); };
     }
 }
 
@@ -229,8 +225,6 @@ ThreeDHolder.prototype.update2Drenderers = function() {
     
     this.PlaneHolderZ.Renderer.add(this.Viewer.Menu.currentVolObject);
     this.PlaneHolderZ.Renderer.render();
-    
-    this.Viewer.Menu.currentVolObject.modified();
 }
 
 

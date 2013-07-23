@@ -4,7 +4,6 @@
 }
 
 .innerFileDiv {
-    position: absolute;
     top: 3px;
     height: 100%;
     width: 85%;
@@ -14,6 +13,14 @@
     display: inline-block;
 }
 
+.volumeFile .innerFileDiv {
+    width: 55%;
+}
+
+.Checkbox {
+    vertical-align: bottom;
+    margin: 3px 3px 0px 3px;
+}
 
 
 .sliceSlider .goog-slider-thumb {
@@ -41,7 +48,10 @@
 .Menu .goog-twothumbslider-rangehighlight {
     position: absolute;
     height: 3px;
-    background-color: #999;
+    background-color: #555;
 }
 
-
+.Menu .goog-slider-disabled,
+.Menu .goog-twothumbslider-disabled {
+    opacity: 0.5;
+}

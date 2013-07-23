@@ -15,10 +15,19 @@ Menu = function(Holder, args) {
     this.currentVolObject;
     this.currentObjects = [];
     
+    this.objOpacityPairs = [];
+    this.objThreshPairs = [];
+    this.objOpacity = {};
+    this.objThresh = {};
+    
     this.voluContent = this.makeSubmenu('volumes', '7%');
     this.meshContent = this.makeSubmenu('meshes', '38%');
     this.fibrContent = this.makeSubmenu('fibers', '69%');
-    utils.dom.makeElement('span', this.voluContent, 'Marker');
+    utils.dom.makeElement('div', this.voluContent, 'VolRendLabel', {
+        position: 'relative',
+        'text-align': 'right',
+        color: '#000',
+    }).innerHTML = '<b>| V | R | </b>';
     
     this.volOpacitySlider;
     this.volThresholdSlider;
@@ -57,5 +66,18 @@ Menu.prototype.makeSubmenu = function(title, leftcss) {
     h.innerHTML = title;
     return elt;
 }
+
+
+Menu.prototype.findAndSelectCheckbox = function(file, filetype) {
+    if (file.split('/3D/')[1])
+        file = file.split('/3D/')[1];
+        
+    var fileBoxes = goog.dom.getElementsByClass('Checkbox', this.widget);
+    utils.array.forEach(fileBoxes, function(box) {
+        if (box.id === filetype + 'ButtonFor' + file) {
+            box.checked = 'checked';
+        }
+    });
+};
 
 

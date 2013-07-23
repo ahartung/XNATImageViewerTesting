@@ -128,11 +128,12 @@ Menu.prototype.initVisibleButton = function() {
  * @return {undefined}
  */
 Menu.prototype.toggleVolumeVisibility = function(newObj) {
+    /*
     if (this.volVisibleButton.checked) { newObj.visible = true; }
     
-    this.currentVolObject.visible = false;
+    this.currentVolObject.visible = false;*/
     this.currentVolObject = newObj;
-    
+    /*
     // set threshold sliders to match object properties
     this.volThreshSlider.setMinimum(this.currentVolObject.min);
     this.volThreshSlider.setMaximum(this.currentVolObject.max);
@@ -144,23 +145,13 @@ Menu.prototype.toggleVolumeVisibility = function(newObj) {
     
     // set rendering option to match object property
     this.volRenderButton.checked = (this.currentVolObject.volumeRendering) ? 'checked' : '';
-    
+    */
     this.ThreeDHolder.update2Drenderers(newObj);  // updates 2D renderers so that correct images are displayed
     this.ThreeDHolder.updateSlices();
 //    this.ThreeDHolder.addScrollListeners();
 };
 
 
-Menu.prototype.findAndSelectCheckbox = function(file, filetype) {
-    if (file.split('/3D/')[1])
-        file = file.split('/3D/')[1];
-        
-    var fileBoxes = goog.dom.getElementsByClass('Checkbox', this.widget);
-    utils.array.forEach(fileBoxes, function(box) {
-        if (box.id === filetype + 'ButtonFor' + file) {
-            box.checked = 'checked';
-        }
-    });
-};
+
 
 
