@@ -64,6 +64,11 @@ ThreeDHolder.prototype.addObject = function(file, filetype, attributes, isSlicer
         for (var i = 0; i < colors.length; ++i) colors[i] = parseFloat(colors[i], 10);
         newObj.color = colors;
         
+        if (attributes['colorTable']) {
+            console.log(file + attributes['colorTable']);
+            newObj.labelmap.colortable.file = file + attributes['colorTable'];
+        }
+        
         // opacity
         newObj.opacity = parseFloat(attributes['opacity'], 10);
         
@@ -90,11 +95,11 @@ ThreeDHolder.prototype.openSlicerScene = function(file, droppable) {
     this.extractInfo(scene, file, 'Model', 'ModelStorage');
     
     // access each volume component (volumes!)
-//    this.extractInfo(scene, file, 'Volume', 'VolumeArchetypeStorage');
+    this.extractInfo(scene, file, 'Volume', 'VolumeArchetypeStorage');
 //    this.extractInfo(scene, file, 'DiffusionTensorVolume', 'VolumeArchetypeStorage');
     
     // access each fiber component (fibers!)
-    this.extractInfo(scene, file, 'FiberBundle', 'FiberBundleStorage');
+//    this.extractInfo(scene, file, 'FiberBundle', 'FiberBundleStorage');
     
     // access each annotation component
     this.addAnnotations(scene, file);
@@ -143,12 +148,33 @@ ThreeDHolder.prototype.extractInfo = function(scene, file, item, storageNodeType
             if (itemStorage.getAttribute('id') == storageNodeRef) storageNode = itemStorage;
         });
         
+        // find corresponding item color table (if exists)
+        var colorTableFile;
+        if (displayNode.getAttribute('colorNodeID')) {
+            utils.array.forEach(scene.getElementsByTagName('ColorTable'), function(ct) {
+                if (ct.getAttribute('id') == displayNode.getAttribute('colorNodeID')) {
+                    utils.array.forEach(scene.getElementsByTagName('ColorTableStorage'), function(cts) {
+                        if (cts.getAttribute('id') == ct.getAttribute('storageNodeRef')) {
+                            colorTableFile = cts.getAttribute('fileName');
+                            if (colorTableFile.split('/Data/')[1])
+                                colorTableFile = 'Data/' + colorTableFile.split('/Data/')[1];
+                        }
+                    });
+                }
+            });
+        }
+        
         var fileName = storageNode.getAttribute('fileName');
+        if (fileName.split('/Data/')[1])
+            fileName = 'Data/' + fileName.split('/Data/')[1];
+        
+        
         if (fileName.slice(-3,fileName.length) == 'vtk') fileName = fileName.slice(0,-3) + 'stl';
         
         that.addObject(file + fileName,
                        getFileObjectType(fileName),
                        { 'color': displayNode.getAttribute('color'),
+                         'colorTable': colorTableFile,
                          'opacity': displayNode.getAttribute('opacity'),
                          'visibility': displayNode.getAttribute('visibility')},
                        true);
