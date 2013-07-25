@@ -41,25 +41,25 @@ ThreeDHolder.prototype.initSliceSliders = function() {
     //----------------------------------
     // ADD SLIDER LISTENERS
     //----------------------------------
-    var m = this.Viewer.Menu;
     var that = this;
+    var cvo = this.currentVolObject;
 
     goog.events.listen(that.xSlider, goog.ui.Component.EventType.CHANGE, function() {
-        m.currentVolObject.indexX = that.xSlider.getValue();
-        that.xBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexX) + ' / ' + m.currentVolObject.dimensions[2];
-        m.currentVolObject.modified();
+        cvo.indexX = that.xSlider.getValue();
+        that.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+        cvo.modified();
     });
     
     goog.events.listen(that.ySlider, goog.ui.Component.EventType.CHANGE, function() {
-        m.currentVolObject.indexY = that.ySlider.getValue();
-        that.yBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexY) + ' / ' + m.currentVolObject.dimensions[1];
-        m.currentVolObject.modified();
+        cvo.indexY = that.ySlider.getValue();
+        that.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
+        cvo.modified();
     });
     
     goog.events.listen(that.zSlider, goog.ui.Component.EventType.CHANGE, function() {
-        m.currentVolObject.indexZ = that.zSlider.getValue();
-        that.zBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexZ) + ' / ' + m.currentVolObject.dimensions[0];
-        m.currentVolObject.modified();
+        cvo.indexZ = that.zSlider.getValue();
+        that.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
+        cvo.modified();
     });
     
     
@@ -84,14 +84,14 @@ ThreeDHolder.prototype.initSliceSliders = function() {
 
 
 ThreeDHolder.prototype.updateSlices = function() {
-    var cvo = this.Viewer.Menu.currentVolObject;
-    var m = this.Viewer.Menu.currentObjects;
+    var cvo = this.currentVolObject;
     
-//    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+//    console.log('x: ' + this.xSlider.getValue() + ' to ' + cvo.indexX);
     
-    for (var i = 0; i < m.length; ++i) {
-//        console.log('before ' + i + ' current indices: ' + m[i].indexX + ' ' + m[i].indexY + ' ' + m[i].indexZ);
-    }
+    utils.array.forEach(this.currentObjects, function(o) {
+        console.log(o._id + ': \t' + o.indexX + ' ' + o.indexY + ' ' + o.indexZ);
+    });
+    console.log(cvo._id);
     
     cvo.indexX = Math.round(cvo.indexX);
     cvo.indexY = Math.round(cvo.indexY);
@@ -109,53 +109,55 @@ ThreeDHolder.prototype.updateSlices = function() {
     this.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
     this.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
     
-    for (var i = 0; i < m.length; ++i) {
-//        console.log('after ' + i + ' current indices: ' + m[i].indexX + ' ' + m[i].indexY + ' ' + m[i].indexZ);
-    }
 };
 
 
 ThreeDHolder.prototype.addScrollListeners = function() {
-    var m = this.Viewer.Menu;
     var that = this;
     
     that.PlaneHolderX.Renderer.onScroll = function() {
-        that.xSlider.setValue(m.currentVolObject.indexX);
-        that.xBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexX) + ' / ' + m.currentVolObject.dimensions[2];
+        var cvo = that.currentVolObject;    // this MUST be inside the function!
+        that.xSlider.setValue(cvo.indexX);
+        that.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+        
     };
     that.PlaneHolderY.Renderer.onScroll = function() {
-        that.ySlider.setValue(m.currentVolObject.indexY);
-        that.yBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexY) + ' / ' + m.currentVolObject.dimensions[1];
+        var cvo = that.currentVolObject;
+        that.ySlider.setValue(cvo.indexY);
+        that.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
     };
     that.PlaneHolderZ.Renderer.onScroll = function() {
-        that.zSlider.setValue(m.currentVolObject.indexZ);
-        that.zBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexZ) + ' / ' + m.currentVolObject.dimensions[0];
+        var cvo = that.currentVolObject;
+        that.zSlider.setValue(cvo.indexZ);
+        that.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
     };
 };
 
 
 
 ThreeDHolder.prototype.addShiftMoveListeners = function() {
-    var m = this.Viewer.Menu;
     var that = this;
     
     that.PlaneHolderX.Renderer.xy2ijkOverwrite = function() {
-        that.ySlider.setValue(m.currentVolObject.indexY);
-        that.yBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexY) + ' / ' + m.currentVolObject.dimensions[1];
-        that.zSlider.setValue(m.currentVolObject.indexZ);
-        that.zBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexZ) + ' / ' + m.currentVolObject.dimensions[0];
+        var cvo = that.currentVolObject;    // this MUST be inside the function!
+        that.ySlider.setValue(cvo.indexY);
+        that.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
+        that.zSlider.setValue(cvo.indexZ);
+        that.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
     };
     that.PlaneHolderY.Renderer.xy2ijkOverwrite = function() {
-        that.xSlider.setValue(m.currentVolObject.indexX);
-        that.xBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexX) + ' / ' + m.currentVolObject.dimensions[2];
-        that.zSlider.setValue(m.currentVolObject.indexZ);
-        that.zBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexZ) + ' / ' + m.currentVolObject.dimensions[0];
+        var cvo = that.currentVolObject;
+        that.xSlider.setValue(cvo.indexX);
+        that.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+        that.zSlider.setValue(cvo.indexZ);
+        that.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
     };
     that.PlaneHolderZ.Renderer.xy2ijkOverwrite = function() {
-        that.xSlider.setValue(m.currentVolObject.indexX);
-        that.xBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexX) + ' / ' + m.currentVolObject.dimensions[2];
-        that.ySlider.setValue(m.currentVolObject.indexY);
-        that.yBox.innerHTML = 'Frame: ' + (m.currentVolObject.indexY) + ' / ' + m.currentVolObject.dimensions[1];
+        var cvo = that.currentVolObject;
+        that.xSlider.setValue(cvo.indexX);
+        that.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
+        that.ySlider.setValue(cvo.indexY);
+        that.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
     };
 };
 

@@ -11,9 +11,11 @@ goog.require('XVWidget');
  * @constructor
  * @extends {XVWidget}
  */
-PlaneHolder = function(id, args) {
+PlaneHolder = function(id, Holder, args) {
 	goog.base(this, utils.dom.mergeArgs(PlaneHolder.prototype.defaultArgs, args));
 	
+    this.ThreeDHolder = Holder;
+    
 	//----------------------------------
 	//	ONLOAD CALLBACKS
 	//----------------------------------
@@ -98,7 +100,9 @@ PlaneHolder.prototype.labelDefaultArgs = {
 }
 
 PlaneHolder.prototype.addSliderAndFrameNum = function(id) {
-    var color = (id === 'x') ? 'rgba(255,255,0,1)' : (id === 'y') ? 'rgba(0,255,0,1)' : 'rgba(255,0,0,1)';
+    var color = (id === 'x') ? 'rgba(255,255,0,1)' :
+                (id === 'y') ? 'rgba(0,  255,0,1)' : 
+                               'rgba(255,0,  0,1)';
     
     
     var s = utils.dom.makeElement('div', this.widget, 'sliceSlider',
@@ -107,6 +111,10 @@ PlaneHolder.prototype.addSliderAndFrameNum = function(id) {
     
     var b = utils.dom.makeElement('div', this.widget, 'box', this.frameNumDefaultArgs );
     goog.dom.classes.add(b, id + 'Box');
+    
+    // allow sliders and indexes to disappear on hover out
+    this.ThreeDHolder.fadeOnHoverOut.push(s);
+    this.ThreeDHolder.fadeOnHoverOut.push(b);
 }
 
 PlaneHolder.prototype.addLabels = function(id) {

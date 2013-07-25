@@ -11,11 +11,14 @@ goog.require('X.sphere');
  * @return {String} Extension of file in all lowercase
  */
 function getFileExt(file) {
+    if (file[0].length > 1) file = file[0];
+    
     // extract all letters following last period
     var ext = file.slice(file.lastIndexOf(".") + 1, file.length);
     // .nii.gz files will be wrongly stripped to .gz, check and correct for it
     if (ext == "gz") ext = "nii." + ext;
     return ext.toLowerCase();
+    
 }
 
 /**
@@ -28,30 +31,30 @@ function getXTKObjName(ext) {
     var obj;
     switch(ext) {
         // surface models / mesh files
-        case ("stl"):       // tested - link supported, UNKNOWN local
-        case ("vtk"):       // tested - link supported, not local supported
-        case ("obj"):       // tested - UNKNOWN link, local supported
-        case ("fsm"):       //    // freesurfer
-        case ("inflated"):  //    // freesurfer
-        case ("smoothwm"):  // tested - link supported // freesurfer
-        case ("pial"):      //    // freesurfer
-        case ("orig"):      //    // freesurfer
+        case ("stl"):
+        case ("vtk"):
+        case ("obj"):
+        case ("fsm"):
+        case ("inflated"):
+        case ("smoothwm"):
+        case ("pial"):
+        case ("orig"):
             obj = new X.mesh();
             break;
         
         // DICOM / volume files
-        case ("nrrd"):      // tested - file supported
-        case ("nii"):       // tested - file supported
-        case ("nii.gz"):    // tested - failed: Uncaught Error: Unsupported NII data type: 4096 (xtk.js:370)
-        case ("mgh"):       // tested - file supported
-        case ("mgz"):       // tested - file supported
-        case ("dicom"):     // 
-        case ("dcm"):       // tested - file supported
+        case ("nrrd"):
+        case ("nii"):
+        case ("nii.gz"):
+        case ("mgh"):
+        case ("mgz"):
+        case ("dicom"):
+        case ("dcm"):
             obj = new X.volume();
             break;
         
         // tractography files
-        case ("trk"):       // tested - file supported
+        case ("trk"):
             obj = new X.fibers();
             break;
         /*
@@ -62,7 +65,7 @@ function getXTKObjName(ext) {
             break;
         */
         default:
-            window.alert("haven't added support for ." + ext + " files yet");
+            console.log("haven't added support for ." + ext + " files yet");
             break;
     }
     return obj;

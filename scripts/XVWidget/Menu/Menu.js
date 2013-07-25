@@ -7,77 +7,90 @@ goog.require('XVWidget');
  * @constructor
  * @extends {XVWidget}
  */
-Menu = function(Holder, args) {
+Menu = function(args) {
     goog.base(this, utils.dom.mergeArgs(Menu.prototype.defaultArgs, args));
     
-    this.ThreeDHolder = Holder;
-    
-    this.currentVolObject;
-    this.currentObjects = [];
-    
-    this.objOpacityPairs = [];
-    this.objThreshPairs = [];
-    this.objOpacity = {};
-    this.objThresh = {};
-    
-    this.voluContent = this.makeSubmenu('volumes', '7%');
-    this.meshContent = this.makeSubmenu('meshes', '38%');
-    this.fibrContent = this.makeSubmenu('fibers', '69%');
-    utils.dom.makeElement('div', this.voluContent, 'VolRendLabel', {
-        position: 'relative',
-        'text-align': 'right',
-        color: '#000',
-    }).innerHTML = '<b>| V | R | </b>';
-    
-    this.volOpacitySlider;
-    this.volThresholdSlider;
-    this.volRenderButton;
-    this.volVisibleButton;
+    this.Content = new ScrollGallery({
+        parent: this.widget,
+        className: 'Menu_ScrollGallery',
+        orientation: 'vertical',
+        widgetCSS: {
+            left: 0,
+            height: '90%',
+            width: '100%',
+            top: GLOBALS.scanTabLabelHeight + 10,
+        }
+    });
+    this.Content.getScrollArea().style.position = 'absolute';
+    this.Content.getScrollArea().style.height = '100%';
+    this.Content.getScrollArea().style.right = '0';
+    this.Scrollarea = utils.dom.makeElement('div', this.Content.getScrollArea(), 'Menu_ScrollGallery_MetadataContents', {overflow: 'auto', height: '100%'});
     
 }
 goog.inherits(Menu, XVWidget);
 
+Menu.prototype.defaultArgs = {
+	className: GLOBALS.classNames.Menu,
+	parent: document.body,
+	CSS: {
+        position: 'absolute',
+		height: '100%',
+		width: '100%',
+        top: '0%',
+        left: '0%',
+        'display': 'inline',
+//        'margin': '20px',
+  	}
+}
 
-/**
- * Returns the already-created X object that matches the provided file.
- * @param {String} f Filename / filepath
- * @return {Object | undefined}
- */
-Menu.prototype.getObjFromList = function(f) {
-    var ext = getFileExt(f);
-    
-    if (ext === 'dcm' || ext === 'dicom') {
-        for (var i = 0; i < this.currentObjects.length; ++i) {
-            if (this.currentObjects[i].file[0].indexOf(f.slice(0,-9)) > -1)
-                return this.currentObjects[i];
-        }
-    } else {
-        for (var i = 0; i < this.currentObjects.length; ++i) {
-            if (this.currentObjects[i].file == f) return this.currentObjects[i];
-        }
-    }
+Menu.prototype.defaultSliderCSS = {
+    position: 'relative',
+//    width: '35%',
+    width: '40%',
+    height: '3px',
+    'border-radius': '4px',
+    background: '#444',
+    display: 'inline-block',
+    'margin-right': '20px',
+}
+
+Menu.prototype.folderHeaderCSS = {
+    'font-weight': 'bold',
+    'letter-spacing': '2px',
+    background: '#999',
+    color: '#000',
+    fontSize: GLOBALS.fontSizeMed,
+}
+
+Menu.prototype.folderCSS = {
+    color: '#222',
+    background: '#fff',
+    opacity: '0.3',
+    fontSize: GLOBALS.fontSizeSmall,
+    fontFamily: GLOBALS.fontFamily,
+    width: '100% - 42px',
+    border: '1px solid #999',
+    margin: '20px',
+}
+
+Menu.prototype.labelCSS = {
+    top: '3px',
+    width: '45%',
+    'overflow': 'hidden',
+    'text-overflow': 'ellipsis',
+    'white-space': 'nowrap',
+    display: 'inline-block',
+    'margin-right': '20px',
 }
 
 
-Menu.prototype.makeSubmenu = function(title, leftcss) {
-    elt = utils.dom.makeElement('div', this.widget, "Content",
-                                utils.dom.mergeArgs(this.folderContentCSS, {left: leftcss}));
-    var h = utils.dom.makeElement('div', elt, "FolderHeader", this.folderHeaderCSS);
-    h.innerHTML = title;
-    return elt;
+Menu.prototype.buttonCSS = {
+    'vertical-align': 'bottom',
+    margin: '3px 3px 0px 3px',
 }
 
-
-Menu.prototype.findAndSelectCheckbox = function(file, filetype) {
-    if (file.split('/3D/')[1])
-        file = file.split('/3D/')[1];
-        
-    var fileBoxes = goog.dom.getElementsByClass('Checkbox', this.widget);
-    utils.array.forEach(fileBoxes, function(box) {
-        if (box.id === filetype + 'ButtonFor' + file) {
-            box.checked = 'checked';
-        }
-    });
-};
-
-
+Menu.prototype.sliderLabelCSS = {
+    'margin-right': '3px',
+    display: 'inline-block',
+    width: '50px',
+}

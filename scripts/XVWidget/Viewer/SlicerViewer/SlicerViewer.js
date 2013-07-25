@@ -76,14 +76,6 @@ SlicerViewer = function (args) {
 	this.linkContentDividerToScanTabs();
 	
     
-    
-    //----------------------------------
-	// ADJUST / IMAGE PROCESSING SLIDERS
-	//----------------------------------
-//	this.addAdjustSliders();
-    
-    
-	
 	//----------------------------------
 	// METADATA, A.K.A. DISPLAYABLE DATA
 	//----------------------------------
@@ -110,10 +102,9 @@ SlicerViewer = function (args) {
     //----------------------------------
     // TOGGLE MENU
     //----------------------------------
-    this.Menu = new Menu(this.ThreeDHolder, {
-        parent: this.ScanTabs.getTab('Menu'),
+    this.Menu = new Menu({
+        parent: that.ScanTabs.getTab("Menu")
     });
-    
     
 
     this.setHoverEvents();

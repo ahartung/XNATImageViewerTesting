@@ -1,27 +1,4 @@
 
-.outerFileDiv {
-    position: relative;
-}
-
-.innerFileDiv {
-    top: 3px;
-    height: 100%;
-    width: 85%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-}
-
-.volumeFile .innerFileDiv {
-    width: 55%;
-}
-
-.Checkbox {
-    vertical-align: bottom;
-    margin: 3px 3px 0px 3px;
-}
-
 
 .sliceSlider .goog-slider-thumb {
 	position: absolute;
@@ -33,6 +10,7 @@
     border-radius: 4px;
 }
 
+
 .Menu .goog-slider-thumb,
 .Menu .goog-twothumbslider-value-thumb,
 .Menu .goog-twothumbslider-extent-thumb {
@@ -43,12 +21,6 @@
 	background: #eee;
     border: 1px solid #333;
     border-radius: 4px;
-}
-
-.Menu .goog-twothumbslider-rangehighlight {
-    position: absolute;
-    height: 3px;
-    background-color: #555;
 }
 
 .Menu .goog-slider-disabled,
