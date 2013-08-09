@@ -1,6 +1,7 @@
-ThreeDHolder.prototype.dontReloadObj = function(droppedObj, file, filetype) {
+ThreeDHolder.prototype.reloadObj = function(droppedObj, file, filetype) {
     // set to be visible
     if (filetype == 'volume' && this.currentVolObject != droppedObj) {
+        this.currentVolObject = newObj;
         this.update2Drenderers(droppedObj);
     } else {
         droppedObj.visible = true;

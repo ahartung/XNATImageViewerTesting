@@ -59,7 +59,10 @@ Menu.prototype.addInputButton = function(guiObject, folder, label, file, initial
     b.checked = toCheck;
     
     var l = utils.dom.makeElement('label', folder, 'Label', utils.dom.mergeArgs(this.labelCSS, {'width': width,}));
-    l.innerHTML = label;
+    if (label && label.split('/')[1])
+        l.innerHTML = label.slice(label.lastIndexOf('/') + 1, label.length);
+    else
+        l.innerHTML = label;
     l.setAttribute('for', guiObject + 'ButtonFor' + label + file + this.widget.id);
     
     return b;

@@ -1,9 +1,8 @@
 
 
-ThreeDHolder.prototype.addObject = function(file, filetype, attributes, isSlicer) {
-    
-    var isVol = filetype == 'volume';
+ThreeDHolder.prototype.addObject = function(file, attributes) {
     var newObj = createXObject(file);
+    filetype = getFileObjectType(file);
     
     if (attributes) {
         // color -- volumes: .maxColor, meshes: .color
@@ -11,8 +10,9 @@ ThreeDHolder.prototype.addObject = function(file, filetype, attributes, isSlicer
         for (var i = 0; i < colors.length; ++i) colors[i] = parseFloat(colors[i], 10);
         newObj.color = colors;
         
+        // color table (if exists)
         if (attributes['colorTable']) {
-            console.log(file + attributes['colorTable']);
+//            console.log(file + attributes['colorTable']);
 //            newObj.labelmap.colortable.file = file + attributes['colorTable'];
         }
         
@@ -23,6 +23,8 @@ ThreeDHolder.prototype.addObject = function(file, filetype, attributes, isSlicer
         newObj.visible = attributes['visibility'] == 'true';
     }
     
+    var isVol = filetype == 'volume';
+    if (isVol) this.currentVolObject = newObj;
     
     this.currentObjects.push(newObj);
     this.addToMenu(newObj);

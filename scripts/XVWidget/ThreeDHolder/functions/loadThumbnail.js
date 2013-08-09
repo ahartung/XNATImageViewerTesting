@@ -27,10 +27,12 @@ ThreeDHolder.prototype.loadThumbnail = function (droppable, viewPlane) {
     var droppedObj = this.getObjFromList(file);
     if (droppedObj) {
         // need to deal with enabling other parts
-//        this.dontReloadObj(droppedObj, file, filetype);
+//        this.reloadObj(droppedObj, file, filetype);
     } else {
         if (filetype == 'slicer') this.openSlicerScene(file, droppable);
-        else this.addObject(file, filetype);
+        else {
+            this.addObject(file);
+        }
     }
     
     // Run any callbacks once everything is loaded

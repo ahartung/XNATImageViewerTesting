@@ -1,10 +1,10 @@
-ThreeDHolder.prototype.extractFileInfo = function(scene, file, item, storageNodeType) {
-    var that = this;
+extractFileInfo = function(scene, tagName, storageNodeType) {
+    var objects = [];
     
-//    var selectedVolume = scene.getElementsByTagName('Selection')[0].getAttribute('activeVolumeID');
+    var selectedVolumeID = scene.getElementsByTagName('Selection')[0].getAttribute('activeVolumeID');
     
-    utils.array.forEach(scene.getElementsByTagName(item), function(i) {
-//        console.log(i.getAttribute('name'));
+    utils.array.forEach(scene.getElementsByTagName(tagName), function(i) {
+//        console.log(i.getAttribute('id'));
         
         var storageNodeRef = i.getAttribute('storageNodeRef');
         var displayNodeRef = i.getAttribute('displayNodeRef').split(' ')[0];
@@ -16,20 +16,23 @@ ThreeDHolder.prototype.extractFileInfo = function(scene, file, item, storageNode
         var displayNode;
         var storageNode;
         
-        // find corresponding item display component
+        // find corresponding tagName display component
         utils.array.forEach(scene.getElementsByTagName(displayNodeType), function(itemDisplay) {
             if (itemDisplay.getAttribute('id') == displayNodeRef) displayNode = itemDisplay;
         });
         
-        // find corresponding item storage component
+        // find corresponding tagName storage component
         utils.array.forEach(scene.getElementsByTagName(storageNodeType), function(itemStorage) {
             if (itemStorage.getAttribute('id') == storageNodeRef) storageNode = itemStorage;
         });
         
-        // find corresponding item color table (if exists)
+        
+        // find corresponding tagName color table (if exists)
         var colorTableFile;
         if (displayNode.getAttribute('colorNodeID')) {
+        
             utils.array.forEach(scene.getElementsByTagName('ColorTable'), function(ct) {
+            
                 if (ct.getAttribute('id') == displayNode.getAttribute('colorNodeID')) {
                     utils.array.forEach(scene.getElementsByTagName('ColorTableStorage'), function(cts) {
                         if (cts.getAttribute('id') == ct.getAttribute('storageNodeRef')) {
@@ -39,33 +42,47 @@ ThreeDHolder.prototype.extractFileInfo = function(scene, file, item, storageNode
                         }
                     });
                 }
+                
             });
+            
         }
         
+        
+        // want relative path (full paths are incorrect)
         var fileName = storageNode.getAttribute('fileName');
         if (fileName.split('/Data/')[1])
             fileName = 'Data/' + fileName.split('/Data/')[1];
         
         
-        if (fileName.slice(-3,fileName.length) == 'vtk') fileName = fileName.slice(0,-3) + 'stl';
+        // only selected volume should be visible
+        var visibility = displayNode.getAttribute('visibility');
+        var isSelectedVolume;
+        if (tagName == 'Volume') {
+            if (selectedVolumeID != i.getAttribute('id')) {
+//                visibility = false;
+                isSelectedVolume = false;
+            } else {
+                isSelectedVolume = true;
+            }
+        } else {
+            isSelectedVolume = false;
+        }
         
-        that.addObject(file + fileName,
-                       getFileObjectType(fileName),
-                       { 'color': displayNode.getAttribute('color'),
-                         'colorTable': colorTableFile,
-                         'opacity': displayNode.getAttribute('opacity'),
-                         'visibility': displayNode.getAttribute('visibility')},
-                       true);
         
-        /*
-        console.log('   display: ');
-        console.log('      color: ' + displayNode.getAttribute('color'));
-        console.log('      opacity: ' + displayNode.getAttribute('opacity'));
-        console.log('      visibility: ' + displayNode.getAttribute('visibility'));
+        // add info to be returned
+        objects.push({
+            'file':         fileName,
+            'isSelectedVolume': isSelectedVolume,
+            
+            'attributes':   {
+                'color':        displayNode.getAttribute('color'),
+                'colorTable':   colorTableFile,
+                'opacity':      displayNode.getAttribute('opacity'),
+                'visibility':   visibility,
+            }
+        });
         
-        console.log('   filepath: ' + file+fileName);
-        
-        console.log('');
-        */
     });
+    
+    return objects;
 }

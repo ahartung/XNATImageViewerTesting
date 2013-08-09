@@ -163,6 +163,7 @@ ThreeDHolder.prototype.setOnShowtime = function (isVol, newObj) {
     
     else if (isVol) {
         this.PlaneHolder3.Renderer.onShowtime = function() {
+            that.currentVolObject = newObj;
             that.update2Drenderers(newObj);
             that.updateMenuSliders();
         };
@@ -170,6 +171,10 @@ ThreeDHolder.prototype.setOnShowtime = function (isVol, newObj) {
     
     else {
         this.PlaneHolder3.Renderer.onShowtime = function() {
+            if (that.currentVolObject) {
+                that.initSliceSliders();
+                that.update2Drenderers(newObj);
+            }
             that.updateMenuSliders();
         };
     }
@@ -187,18 +192,6 @@ ThreeDHolder.prototype.setOnShowtime = function (isVol, newObj) {
 ThreeDHolder.prototype.update2Drenderers = function(newObj) {
     
     
-    
-    utils.array.forEach(this.currentObjects, function(o) {
-//        console.log(o.indexX + ' ' + o.indexY + ' ' + o.indexZ);
-    });
-    
-    this.currentVolObject = newObj;
-    
-    utils.array.forEach(this.currentObjects, function(o) {
-//        console.log(o.indexX + ' ' + o.indexY + ' ' + o.indexZ);
-    });
-    
-    
     this.PlaneHolderX.Renderer.add(this.currentVolObject);
     this.PlaneHolderX.Renderer.render();
     
@@ -211,8 +204,14 @@ ThreeDHolder.prototype.update2Drenderers = function(newObj) {
     this.currentVolObject.modified();
     this.updateSlices();
     
+//    console.log(this.PlaneHolderX.Renderer._topLevelObjects[0]);
+    
+    /*
     console.log(newObj._slicesX);
-    this.currentVolObject._slicesX._children[this.currentVolObject.indexX].visible = false;
+    utils.array.forEach(newObj._slicesX._children, function(s) {
+        s.visible = false;
+    });*/
+//    this.currentVolObject._slicesX._children[this.currentVolObject.indexX].visible = false;
 }
 
 

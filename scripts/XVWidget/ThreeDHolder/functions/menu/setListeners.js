@@ -3,6 +3,7 @@
 ThreeDHolder.prototype.setListenerRadio = function(newObj, radio) {
     var that = this;
     goog.events.listen(radio, goog.ui.Component.EventType.CHANGE, function(event) {
+        that.currentVolObject = newObj;
         that.update2Drenderers(newObj);
     });
 }

@@ -9,6 +9,11 @@ goog.require('goog.ui.Slider');
  * @return {undefined}
  */
 ThreeDHolder.prototype.initSliceSliders = function() {
+    // need to set parent element to have display: block in order to init properly
+    this.PlaneHolderX.widget.style.display = 'block';
+    this.PlaneHolderY.widget.style.display = 'block';
+    this.PlaneHolderZ.widget.style.display = 'block';
+    
     //----------------------------------
     // CREATE SLIDERS
     //----------------------------------
@@ -42,21 +47,23 @@ ThreeDHolder.prototype.initSliceSliders = function() {
     // ADD SLIDER LISTENERS
     //----------------------------------
     var that = this;
-    var cvo = this.currentVolObject;
 
     goog.events.listen(that.xSlider, goog.ui.Component.EventType.CHANGE, function() {
+        var cvo = that.currentVolObject;    // must be inside the function!!!
         cvo.indexX = that.xSlider.getValue();
         that.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
         cvo.modified();
     });
     
     goog.events.listen(that.ySlider, goog.ui.Component.EventType.CHANGE, function() {
+        var cvo = that.currentVolObject;
         cvo.indexY = that.ySlider.getValue();
         that.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
         cvo.modified();
     });
     
     goog.events.listen(that.zSlider, goog.ui.Component.EventType.CHANGE, function() {
+        var cvo = that.currentVolObject;
         cvo.indexZ = that.zSlider.getValue();
         that.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
         cvo.modified();
@@ -85,13 +92,16 @@ ThreeDHolder.prototype.initSliceSliders = function() {
 
 ThreeDHolder.prototype.updateSlices = function() {
     var cvo = this.currentVolObject;
+    var m = this.currentObjects;
     
-//    console.log('x: ' + this.xSlider.getValue() + ' to ' + cvo.indexX);
+//    console.log(cvo);
+//    console.log(m);
     
-    utils.array.forEach(this.currentObjects, function(o) {
-        console.log(o._id + ': \t' + o.indexX + ' ' + o.indexY + ' ' + o.indexZ);
-    });
-    console.log(cvo._id);
+//    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    
+    for (var i = 0; i < m.length; ++i) {
+//        console.log('before ' + i + ' current indices: ' + m[i].indexX + ' ' + m[i].indexY + ' ' + m[i].indexZ);
+    }
     
     cvo.indexX = Math.round(cvo.indexX);
     cvo.indexY = Math.round(cvo.indexY);
@@ -104,10 +114,14 @@ ThreeDHolder.prototype.updateSlices = function() {
     this.xSlider.setValue(cvo.indexX);
     this.ySlider.setValue(cvo.indexY);
     this.zSlider.setValue(cvo.indexZ);
+    for (var i = 0; i < m.length; ++i) {
+//        console.log('after ' + i + ' current indices: ' + m[i].indexX + ' ' + m[i].indexY + ' ' + m[i].indexZ);
+    }
     
     this.xBox.innerHTML = 'Frame: ' + (cvo.indexX) + ' / ' + cvo.dimensions[2];
     this.yBox.innerHTML = 'Frame: ' + (cvo.indexY) + ' / ' + cvo.dimensions[1];
     this.zBox.innerHTML = 'Frame: ' + (cvo.indexZ) + ' / ' + cvo.dimensions[0];
+    
     
 };
 
